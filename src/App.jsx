@@ -4,12 +4,15 @@ import { createBrowserRouter,
         Route, 
         RouterProvider} from "react-router-dom";
 import '../index.css'
-import { OrgDashboard } from "./OrgDashboard";
-import { ApplicantDashboard, loader as applicationDashLoader } from "./ApplicantDashboard";
+import { OrgDashboard } from "./Ankita/OrgDashboard";
+import { ApplicantDashboard, loader as applicantDashLoader } from "./Viraj/ApplicantDashboard";
 import { OrgLogin, action as orgLoginAction } from "./OrgLogin";
 import { OrgRegistration, loader as orgRegLoader } from "./OrgRegistration";
 import { NotFound } from "./NotFound";
 import { Error } from "./Error";
+import { ApplicantHome } from "./Viraj/ApplicantHome";
+import { ApplicantJobs, loader as applicantJobsLoader } from "./Viraj/ApplicantJobs";
+import { AboutUs } from "./AboutUs";
 
 const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" >
@@ -21,8 +24,13 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route path="orgDashboard" element = {<OrgDashboard />} />
         <Route path="applicantDashboard"  
             element = {<ApplicantDashboard />} 
-            loader={applicationDashLoader}
-        />
+            loader={applicantDashLoader}
+        >
+            <Route index element={<ApplicantHome />} />
+            <Route path="applicantJobs" element ={<ApplicantJobs />} loader={applicantJobsLoader} />
+            <Route path="aboutUs" element={<AboutUs />} />
+
+        </Route>
         <Route path="*" element = {<NotFound />} />
     </Route>
 ))
