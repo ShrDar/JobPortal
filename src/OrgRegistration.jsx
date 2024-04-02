@@ -140,6 +140,9 @@ function OrgRegistration() {
                         </div>
 
                         <button className='registerBtn' onClick={handleSignUp}>{signInStatus === "submitting"? "Signing Up" : "Sign Up"}</button>
+                        <div className="backToSignIn">
+                            <p style={{width: 'fit-content', textAlign: 'center', fontSize: '12px', fontWeight: 'bold'}} className='backToSignIn' onClick={() => navigate('/', {replace: true})}>Back to Sign In</p>
+                        </div>
                 </div>
                 <div className="orgReg2">
                     <p style={{fontSize: '20px', width: '150px'}}>Help People Get their Dream Job</p>

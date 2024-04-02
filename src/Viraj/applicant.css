@@ -5,6 +5,7 @@
     background-color: #ededed;
     color: #000000;
 }
+
 .applicant-navBar {
     position: relative;
     display: flex;
@@ -41,4 +42,205 @@
     font-family: "Nunito", sans-serif;
     font-weight: 700;
     color: #09924D;
+}
+
+.applicantJobs {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    height: 80svh;
+    margin: 20px;
+    width: 90%;
+}
+.jobSearchAndJobsWrapper {
+    align-self: flex-start;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.applicantJobs-searchBarContainer {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-self: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 10px;
+}
+.applicantJobs-searchBar {
+    width: 100%;
+}
+.jobSearchInputWrapper {
+    width: 100%;
+}
+.jobSearchInput1 {
+    border: 1px solid #6b6b6b;
+    border-radius: 5px 0px 0px 5px;
+    padding: 12px 8px;
+    font-size: 13px;
+    width: 40%;
+}
+.jobSearchInput2 {
+    border: 1px solid #6b6b6b;
+    border-radius: 0px 5px 5px 0px;
+    padding: 12px 8px;
+    font-size: 13px;
+    width: 40%;
+}
+.jobSearchInputBtn {
+    background-color: #119856;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 10px;
+    margin-left: 15px;
+    width: 10%;
+}
+
+.jobFilterBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: #fff;
+    height: 100%;
+    width: 280px;
+    padding: 20px;
+    border-radius: 10px;
+    gap: 30px;
+}
+.jobFilterBar-title {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.line {
+    width: 100%;
+    border: 1px solid #dddddd;
+    margin: -15px 0px;
+}
+.jobFilterBar-names {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin: 10px 0px;
+}
+.checkBox-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+input[type = checkbox] {
+    width: 14px;
+}
+input[type=checkbox]:hover {
+    cursor: pointer;
+}
+.checkBox {
+    display: flex;
+    gap: 5px;
+    font-size: 13px;
+}
+.jobFilterBar-heading {
+    font-size: 16px;
+    font-weight: 500;
+    color: #025d14;
+}
+.sortBy-checkBox {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.filter {
+    font-size: 20px;
+    color: #070707;
+    font-weight: 600;
+}
+.reset {
+    font-size: 12px;
+    color: #26A365;
+    font-weight: bold;
+}
+.reset:hover {
+    cursor: pointer;
+}
+
+
+.jobListings {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    
+}
+.job {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    
+}
+.job1 {
+    display: flex;
+    gap: 8px;
+}
+.job1-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+.job1-1 h2{
+    font-size: 15px;
+    font-weight: 600;
+    color: #000000;
+}
+.job1-1 p {
+    font-size: 11px;
+    font-weight: 500;
+    color: #8B8C8E;
+}
+.jobOrgLogo {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    filter: invert(0.5);
+}
+.job2 {
+    display: flex;
+    gap: 10px;
+}
+.job2 p {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+.jobDuration {
+    background-color: #D9EEFF;
+    color: #168BFD;
+}
+.jobWorkLocation {
+    background-color: #F2E3FF;
+    color: #9F52FB;
+}
+.jobExperience {
+    background-color: #FFF0D4;
+    color: #FE9822;
+}
+.job3 p{
+    font-size: 13px;
+}
+.job4 p {
+    font-size: 13px;
 }

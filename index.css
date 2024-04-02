@@ -211,6 +211,18 @@ form {
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
 }
+.backToSignIn {
+    color: #b1b1b1;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.backToSignIn:hover {
+    color: #fff;
+}
 
 .regIn {
     display: flex;
