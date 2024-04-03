@@ -30,7 +30,7 @@ export async function loader() {
 
 function ApplicantJobs() {
     const navigation = useNavigation();
-    console.log(navigation);
+    
     const navigate = useNavigate();
     const {jobListings, orgs} = useLoaderData();
 
