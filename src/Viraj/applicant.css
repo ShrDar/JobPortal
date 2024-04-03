@@ -1,4 +1,5 @@
 .applicantDashboard {
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100svh;
@@ -233,7 +234,7 @@ input[type=checkbox]:hover {
 .jobOrgLogo {
     height: 40px;
     border-radius: 10px;
-    
+    border: 1px solid #c1c1c1;
 }
 .job2 {
     display: flex;
@@ -333,10 +334,93 @@ input[type=checkbox]:hover {
 }
 .cross {
     width: 20px;
-    align-self: flex-start;
     transition: 0.2s;
     cursor: pointer;
 }
 .cross:hover {
     transform: scale(1.2);
 }
+
+.applyJobModalContainer {
+    position: fixed;
+    height: 100svh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100svw;
+    background-color: #0000007f;
+    z-index: 0;
+    font-family: 'Karla', sans-serif;
+}
+.applyJob {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 40px;
+    height: 600px;
+    min-width: 600px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow-y: scroll;
+    gap: 30px;
+    font-size: 15px;
+    z-index: 3;
+}
+.applyJob input {
+    border: 1px solid #707070;
+    border-radius: 5px;
+    padding: 5px;
+}
+.applyJob-name {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.applyJob-name input[type=file] {
+    border: none;
+    color: #000;
+    
+}
+.applyJob1 {
+    display: flex;
+    align-items: center;
+}
+
+.applyForm {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;   
+}
+.applySendBtn {
+    background-color: #09924D;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+
+
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        background-color: rgb(122, 122, 122);
+        border-radius: 20px;
+    }
+    ::-webkit-scrollbar-track {
+        background: rgb(78, 78, 78);
+        border-radius: 20px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: rgb(149, 149, 149);
+        border-radius: 20px;
+        scroll-behavior: smooth;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #b6b6b6;
+    }
