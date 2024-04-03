@@ -189,7 +189,12 @@ input[type=checkbox]:hover {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
-    
+    cursor: pointer;
+    transition: 0.2s;
+}
+.job:hover {
+
+    filter: drop-shadow(3px 3px 3px #a5a5a5);
 }
 .job1 {
     display: flex;

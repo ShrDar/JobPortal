@@ -162,7 +162,7 @@ function ApplicantJobs() {
                                 </div>
                                 <div className="job3 flex gap-3">
                                     <img src={teamImg} alt="" style={{width: '20px'}} />
-                                    <p>Vacancies: {job.NofVacancy}</p>
+                                    <p>Vacancies: <strong>{job.NofVacancy}</strong></p>
                                 </div>
                                 <div className="job4 flex gap-3">
                                     <img src={calenderImg} style={{width: '20px'}} />
