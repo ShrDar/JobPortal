@@ -71,7 +71,7 @@
     margin: 0px;
     background-color: #fff;
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px 10px;
     gap: 10px;
 }
 .applicantJobs-searchBar {
@@ -84,14 +84,14 @@
     border: 1px solid #6b6b6b;
     border-radius: 5px 0px 0px 5px;
     padding: 12px 8px;
-    font-size: 13px;
+    font-size: 14px;
     width: 40%;
 }
 .jobSearchInput2 {
     border: 1px solid #6b6b6b;
     border-radius: 0px 5px 5px 0px;
     padding: 12px 8px;
-    font-size: 13px;
+    font-size: 14px;
     width: 40%;
 }
 .jobSearchInputBtn {
@@ -101,6 +101,10 @@
     border-radius: 10px;
     margin-left: 15px;
     width: 10%;
+    transition: 0.2s;
+}
+.jobSearchInputBtn:hover {
+    filter: drop-shadow(1px 1px 5px #26A365);
 }
 
 .jobFilterBar {
@@ -154,6 +158,7 @@ input[type=checkbox]:hover {
     font-size: 16px;
     font-weight: 500;
     color: #025d14;
+    margin: 0px 0px 8px 0px;
 }
 .sortBy-checkBox {
     display: flex;
@@ -248,4 +253,17 @@ input[type=checkbox]:hover {
 }
 .job4 p {
     font-size: 13px;
+}
+
+.jobFilterBarApplyBtn {
+    width: 100%;
+    background-color: #26A365;
+    color: #fff;
+    padding: 6px;
+    border-radius: 10px;
+    margin: 20px 0px;
+    transition: 0.2s;
+}
+.jobFilterBarApplyBtn:hover {
+    filter: drop-shadow(1px 1px 5px #26A365);
 }

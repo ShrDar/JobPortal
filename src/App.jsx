@@ -13,6 +13,7 @@ import { Error } from "./Error";
 import { ApplicantHome } from "./Viraj/ApplicantHome";
 import { ApplicantJobs, loader as applicantJobsLoader } from "./Viraj/ApplicantJobs";
 import { AboutUs } from "./AboutUs";
+import { ApplicantJobDetails, loader as applicantJobDetailsLoader } from "./Viraj/ApplicantJobDetails";
 
 const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" >
@@ -29,7 +30,7 @@ const router = createBrowserRouter(createRoutesFromElements(
             <Route index element={<ApplicantHome />} />
             <Route path="applicantJobs" element ={<ApplicantJobs />} loader={applicantJobsLoader} />
             <Route path="aboutUs" element={<AboutUs />} />
-
+            <Route path="jobDetails/:jobId" element={<ApplicantJobDetails />} loader={applicantJobDetailsLoader} />
         </Route>
         <Route path="*" element = {<NotFound />} />
     </Route>

@@ -1,7 +1,7 @@
 import { collection, getDocs } from "firebase/firestore";
 import React, { Suspense, useState } from "react";
 import { db } from "../../config/firebase";
-import { Await, defer, useLoaderData } from "react-router-dom";
+import { Await, defer, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
 import calenderImg from '../../public/calendar.png'
 import teamImg from '../../public/team.png'
 
@@ -29,8 +29,11 @@ export async function loader() {
 }
 
 function ApplicantJobs() {
+    const navigation = useNavigation();
+    console.log(navigation);
+    const navigate = useNavigate();
     const {jobListings, orgs} = useLoaderData();
-    console.log(jobListings)
+
     const [jobTitle, setJobTitle] = useState('');
     const [jobOrg, setJobOrg] = useState(''); 
     return (
@@ -129,6 +132,8 @@ function ApplicantJobs() {
                         </div>
                     </div>
                 </div>
+                <div className="line"></div>
+                <button className="jobFilterBarApplyBtn">Apply</button>
             </div>
             <div className="jobSearchAndJobsWrapper">
                 <div className="applicantJobs-searchBarContainer">
@@ -145,9 +150,9 @@ function ApplicantJobs() {
                 <div className="jobListings">
                     {jobListings.map(job => {
                         const org = orgs.find(org => org.id === job.orgId);
-                        console.log(org)
+                        
                         return (
-                            <div className="job" key={job.id}>
+                            <div className="job" key={job.id} onClick={() => navigate(`/applicantDashboard/jobDetails/${job.id}`)}>
                                 <div className="job1">
                                     <img className="jobOrgLogo" src={org.imgUrl} alt="" />
                                     <div className="job1-1">

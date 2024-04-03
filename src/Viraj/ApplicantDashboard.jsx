@@ -10,7 +10,6 @@ export async function loader() { //name of loader function doesn't matter
 
 function ApplicantDashboard() {
     const data = useLoaderData();
-    console.log(data);
     return (
         <div className="applicantDashboard">
             <div className="applicant-navBar">
