@@ -1,43 +1,127 @@
-import React from "react";
+import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import crossImg from '../../public/cross.png'
+import { useNavigate } from "react-router-dom";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import { db, storage } from "../../config/firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 function ApplyJobModal({ isOpened, setIsOpened }) {
     if(!isOpened) {
         return null;
     }
+    const navigate = useNavigate();
+    const [applyStatus, setApplyStatus] = useState("idle");
+
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState('');
+    const [email, setEmail] = useState('');
+    const [cvRef, setCvRef] = useState(null);
+    
+    const handleApply = async() => {
+        setApplyStatus("submitting");
+        if(name == "" || phone == "" || address == "" || email == "" || cvRef == "") {
+            alert("Empty fields");
+            setApplyStatus("idle")
+            return;
+        }
+        if(phone.length !== 10) {
+            alert("Phone Number Length -> 10");
+            setSignInStatus("idle")
+            return;
+        }
+        const regex = /^([a-z]||[A-Z]||[0-9])+[@]([a-z]||[A-Z])+[.]([a-z]||[A-Z]||[0-9])+[.]*([a-z]||[A-Z]||[0-9])*$/gm;
+        if(!regex.test(email)) {
+            alert("Invalid Email");
+            return;
+        }
+        const applicants = await findApplicants();
+        
+        applicants.forEach((applicant) => {
+            if(applicant.email === email || applicant.phone === phone) {
+                alert('Email or Phone no already taken')
+                setApplyStatus("idle")
+                return;
+            }
+        })
+
+        let currentDate = new Date().toJSON().slice(0, 10);
+        
+        let formData = {name, email, address, phone, createdDate: currentDate}
+        let cv_ref = await handleCvUpload();
+        formData = {...formData, cv_ref}
+
+        try {
+            const applicantRef = collection(db, 'applicant');
+            await addDoc(applicantRef, formData);
+            setApplyStatus("idle");
+        } catch( err ) {
+            console.error(err);
+        }
+    }
+
+    const handleCvUpload = async() => {
+        if(!cvRef) return;
+        const filesFolderRef = ref(storage, `applicantCv/${cvRef.name}`);
+
+        try {
+            let file = await uploadBytes(filesFolderRef, cvRef)
+            let url = await getDownloadURL(file.ref);
+            return url;
+        } catch(err) {
+            console.error(err);
+        }
+    }
+
+    const findApplicants = async() => {
+        try {
+            const applicantRef = collection(db, "applicant");
+            const data = await getDocs(applicantRef);
+            const filteredData = data.docs.map(applicant => ({
+                ...applicant.data(),
+                id: applicant.id
+            }))
+            return filteredData;
+        } catch( err ) {
+            console.error(err);
+        }
+    }
+
     return createPortal(
         <>
         <div className="applyJobModalContainer" onClick={() => setIsOpened(false)}>
         </div>
+        <div className="applySuccess">
+            
+        </div>
         
         <div className="applyJob">
             <div className="applyJob1 flex gap-3">
-                <img className="cross" src={crossImg} alt="" onClick={() => setIsOpened(false)} />
                 <h2 style={{fontSize: '20px', width: '100%', textAlign: 'center'}}>Apply Form</h2>
             </div>
             <div className="applyForm">
                 <div className="applyJob-name">
                     <label>Name</label>
-                    <input type="text"/>
+                    <input type="text" onChange={(e) => setName(e.target.value)} value={name}/>
                 </div>
                 <div className="applyJob-name">
                     <label>Phone No</label>
-                    <input type="number" />
+                    <input type="number" onChange={(e) => setPhone(e.target.value)} value={phone} />
                 </div>
                 <div className="applyJob-name">
                     <label>Address </label>
-                    <input type="text"></input>
+                    <input type="text" onChange={(e) => setAddress(e.target.value)} value={address}></input>
                 </div>
                 <div className="applyJob-name">
                     <label>E-mail </label>
-                    <input type="email" />
+                    <input type="email" onChange={(e) => setEmail(e.target.value)} value={email} />
                 </div>
                 <div className="applyJob-name">
                     <label>Attach CV</label>
-                    <input type="file" />
+                    <input type="file" onChange={(e) => setCvRef(e.target.files[0])} />
                 </div>
-                <button className="applySendBtn">Send</button>
+                <button className="applySendBtn" onClick={handleApply}>{applyStatus == "submitting" ? "Sending..." : "Send"}</button>
 
             </div>
         </div>

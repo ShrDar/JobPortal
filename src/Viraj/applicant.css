@@ -352,18 +352,18 @@ input[type=checkbox]:hover {
     width: 100svw;
     background-color: #0000007f;
     z-index: 0;
-    font-family: 'Karla', sans-serif;
 }
 .applyJob {
     position: fixed;
     top: 50%;
     left: 50%;
+    font-family: 'Karla', sans-serif;
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     padding: 40px 40px;
     height: 600px;
-    min-width: 600px;
+    min-width: 500px;
     background-color: #fff;
     border-radius: 10px;
     overflow-y: scroll;
@@ -402,6 +402,14 @@ input[type=checkbox]:hover {
     color: #fff;
     padding: 10px;
     border-radius: 10px;
+    transition: 0.2s;
+}
+.applySendBtn:hover {
+    background-color: #119856;
+    filter: drop-shadow(1px 1px 4px #119856);
+}
+.applySuccess {
+    
 }
 
 
