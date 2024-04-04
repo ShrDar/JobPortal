@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { db, storage } from "../../config/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import checkImg from "../../public/check.png"
 
 function ApplyJobModal({ isOpened, setIsOpened }) {
     if(!isOpened) {
@@ -12,6 +13,7 @@ function ApplyJobModal({ isOpened, setIsOpened }) {
     }
     const navigate = useNavigate();
     const [applyStatus, setApplyStatus] = useState("idle");
+    const [applyCompleteStatus, setApplyCompleteStatus] = useState(false);
 
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -55,6 +57,7 @@ function ApplyJobModal({ isOpened, setIsOpened }) {
         try {
             const applicantRef = collection(db, 'applicant');
             await addDoc(applicantRef, formData);
+            setApplyCompleteStatus(true);
             setApplyStatus("idle");
         } catch( err ) {
             console.error(err);
@@ -71,6 +74,7 @@ function ApplyJobModal({ isOpened, setIsOpened }) {
             return url;
         } catch(err) {
             console.error(err);
+            alert("Failed to Send Data")
         }
     }
 
@@ -92,9 +96,16 @@ function ApplyJobModal({ isOpened, setIsOpened }) {
         <>
         <div className="applyJobModalContainer" onClick={() => setIsOpened(false)}>
         </div>
-        <div className="applySuccess">
-            
-        </div>
+        {applyCompleteStatus && (
+            <div className="applySuccess">
+                <div className="applyTopDesign">
+                    <img src={checkImg} alt=""  />
+                </div>
+                <h2>Upload Complete</h2>
+                <p>Your Details Have been successfully delivered to the hiring organization</p>
+                <button className="applyOkayBtn" onClick={() => setApplyCompleteStatus(false)}>Okay</button>
+            </div>
+        )}
         
         <div className="applyJob">
             <div className="applyJob1 flex gap-3">

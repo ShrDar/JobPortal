@@ -409,7 +409,63 @@ input[type=checkbox]:hover {
     filter: drop-shadow(1px 1px 4px #119856);
 }
 .applySuccess {
+    position: absolute;
+    font-family: 'Karla', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background-color: #fbfbfb;
+    height: 500px;
+    width: 400px;
+    border-radius: 15px;
+    filter: drop-shadow(10px 50px 100px #000000); 
+    overflow: hidden;  
+}
+.applySuccess h2{
+    font-size: 25px;
+    font-weight: 500;
+    margin-top: 50px;
+}
+.applySuccess p {
+    font-size: 13px;
+    text-align: center;
+    color: #575757;
+}
+.applyTopDesign {
+    position: absolute;
+    background-color: #17b96b;
+    height: 100px;
+    top: 0;
+    border-radius: 25% 25% 47% 47% / 0% 0% 71% 65%;
+    width: 100%;
+    filter: drop-shadow(1px 1px 1px #46c397);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.applyTopDesign img {
+    width: 35px;
+    filter: invert(1);
+}
+.applyOkayBtn {
+    background-color: #17b96b;
+    color: #fff;
     
+    padding: 10px 40px;
+    border-radius: 15px;
+    font-size: 14px;
+    margin-top: 20px;
+    transition: 0.2s;
+}
+.applyOkayBtn:hover {
+    background-color: #139d5a;
+    color: #fff;
 }
 
 

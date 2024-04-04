@@ -28,7 +28,6 @@ function ApplicantJobDetails() {
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { job, org } = useLoaderData(); 
-    console.log(job, org)
     return (
         <div className="applicantJobDetails">
             <div className="jobDetails">
