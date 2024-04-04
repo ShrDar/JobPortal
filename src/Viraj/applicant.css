@@ -185,9 +185,11 @@ input[type=checkbox]:hover {
     font-size: 12px;
     color: #26A365;
     font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
 }
 .reset:hover {
-    cursor: pointer;
+    letter-spacing: 1px;
 }
 
 

@@ -21,7 +21,7 @@ export async function loader() {
             id: doc.id
         }))
 
-        return {jobListings: filteredData, orgs: filteredData1};
+        return {jobList: filteredData, orgList: filteredData1};
     } catch(err) {
         console.error(err);
     }
@@ -32,16 +32,84 @@ function ApplicantJobs() {
     const navigation = useNavigation();
     
     const navigate = useNavigate();
-    const {jobListings, orgs} = useLoaderData();
+    let {jobList, orgList} = useLoaderData();
+    const [jobListings, setJobListings] = useState(jobList)
+    const [orgs, setOrgs] = useState(orgList)
+
+    const [fullTime, setFullTime] = useState(false);
+    const [partTime, setPartTime] = useState(false);
+    const [onSite, setOnSite] = useState(false);
+    const [remote, setRemote] = useState(false);
+    const [hybrid, setHybrid] = useState(false);
+    const [fresher, setFresher] = useState(false);
+    const [beginner, setBeginner] = useState(false);
+    const [intermediate, setIntermediate] = useState(false);
+    const [expert, setExpert] = useState(false);
 
     const [jobTitle, setJobTitle] = useState('');
     const [jobOrg, setJobOrg] = useState(''); 
+
+    const handleFilterApply = () => {
+        if(!(fullTime || partTime || onSite || remote || hybrid || fresher || beginner || intermediate || expert)) {
+            alert("Nothing Selected");
+            return;
+        }
+        const jobs = jobList.filter((job) => {
+            if(fullTime) {
+                if(job.jobDurationType == "Full-Time") {
+                    return true;
+                }
+            }
+            if(partTime) {
+                if(job.jobDurationType == "Part-Time")
+                return true;
+            }
+            if(onSite) {
+                if(job.workLocation == "On-Site")
+                return true;
+            }
+            if(remote) {
+                if(job.workLocation == "Remote")
+                return true;
+            }
+            if(hybrid) {
+                if(job.workLocation == "Hybrid")
+                return true;
+            }
+            if(fresher) {
+                if(job.experience == "Fresher")
+                return true;
+            }
+            if(beginner) {
+                if(job.experience == "Beginner")
+                return true;
+            }
+            if(intermediate) {
+                if(job.intermediate == "Intermediate")
+                return true;
+            }
+            if(expert) {
+                if(job.expert == 'Expert')
+                return true
+            }
+        })
+        setJobListings(jobs)
+        
+
+    }
+    const handleFilterReset = () => {
+        document.querySelectorAll("input[type='checkbox']:checked").forEach((element) => {
+            element.click();
+        });
+    }
+
+        
     return (
         <div className="applicantJobs">
             <div className="jobFilterBar">
                 <div className="jobFilterBar-title ">
                     <p className="filter">Filter</p>
-                    <p className="reset">Reset</p>
+                    <p className="reset" onClick={handleFilterReset}>Reset</p>
                 </div>
                 <div className="line"></div>
                 {/* <div className="jobFilterBar-names">
@@ -74,11 +142,11 @@ function ApplicantJobs() {
                     <div className="sortBy-checkBox">
                         <div className="checkBox-wrapper">
                             <div className="checkBox">
-                                <input type="checkbox" />
+                                <input type="checkbox" onChange={(e) => setFullTime(e.target.checked)} className="jobDurationType" />
                                 <label>Full-Time</label>
                             </div>
                             <div className="checkBox">
-                                <input type="checkbox" />
+                                <input type="checkbox" onChange={(e) => setPartTime(e.target.checked)} className="jobDurationType" />
                                 <label>Part-Time</label>
                             </div>
                         </div>
@@ -90,17 +158,17 @@ function ApplicantJobs() {
                     <div className="sortBy-checkBox">
                         <div className="checkBox-wrapper">
                             <div className="checkBox">
-                                <input type="checkbox" />
+                                <input type="checkbox" onChange={(e) => setOnSite(e.target.checked)} />
                                 <label>On-Site</label>
                             </div>
                             <div className="checkBox">
-                                <input type="checkbox" />
+                                <input type="checkbox" onChange={(e) => setRemote(e.target.checked)} />
                                 <label>Remote</label>
                             </div>
                         </div>
                         <div className="checkBox-wrapper">
                             <div className="checkBox">
-                                <input type="checkbox" />
+                                <input type="checkbox" onChange={(e) => setHybrid(e.target.checked)} />
                                 <label>Hybrid</label>
                             </div>
                         </div>
@@ -112,28 +180,28 @@ function ApplicantJobs() {
                     <div className="sortBy-checkBox">
                         <div className="checkBox-wrapper">
                             <div className="checkBox">
-                                <input type="checkbox" />
+                                <input type="checkbox" onChange={(e) => setFresher(e.target.checked)} />
                                 <label>Fresher</label>
                             </div>
                             <div className="checkBox">
-                                <input type="checkbox" />
+                                <input type="checkbox" onChange={(e) => setBeginner(e.target.checked)} />
                                 <label>Beginner</label>
                             </div>
                         </div>
                         <div className="checkBox-wrapper">
                             <div className="checkBox">
-                                <input type="checkbox" />
+                                <input type="checkbox" onChange={(e) => setIntermediate(e.target.checked)} />
                                 <label>Intermediate</label>
                             </div>
                             <div className="checkBox">
-                                <input type="checkbox" />
+                                <input type="checkbox" onChange={(e) => setExpert(e.target.checked)} />
                                 <label>Expert</label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="line"></div>
-                <button className="jobFilterBarApplyBtn">Apply</button>
+                <button className="jobFilterBarApplyBtn" onClick={handleFilterApply}>Apply</button>
             </div>
             <div className="jobSearchAndJobsWrapper">
                 <div className="applicantJobs-searchBarContainer">
@@ -143,12 +211,21 @@ function ApplicantJobs() {
                         <div className="jobSearchInputWrapper">
                             <input className="jobSearchInput1" placeholder="Search Job Title here" onChange={(e) => setJobTitle(e.target.value)} value={jobTitle} />
                             <input className="jobSearchInput2" placeholder="Search Organization here" onChange={(e) => setJobOrg(e.target.value)} value={jobOrg} />
-                            <button className="jobSearchInputBtn">Search</button>
+                            <button className="jobSearchInputBtn" >Search</button>
                         </div>
                     </div>
                 </div>
                 <div className="jobListings">
-                    {jobListings.map(job => {
+                    {jobListings.filter((item) => {
+                        //return jobTitle.toLowerCase() === '' ? item : item.jobTitle.includes(jobTitle)
+                        if(jobTitle.toLowerCase() === "" && jobOrg.toLowerCase === "") {
+                            return item;
+                        }
+                        else{
+                            const org = orgs.find(org => org.id === item.orgId);
+                            return item.jobTitle.toLowerCase().includes(jobTitle) && org.name.toLowerCase().includes(jobOrg);
+                        }
+                    }).map(job => {
                         const org = orgs.find(org => org.id === job.orgId);
                         
                         return (
