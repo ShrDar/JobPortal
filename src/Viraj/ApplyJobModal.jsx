@@ -7,7 +7,7 @@ import { db, storage } from "../../config/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import checkImg from "../../public/check.png"
 
-function ApplyJobModal({ isOpened, setIsOpened }) {
+function ApplyJobModal({ isOpened, setIsOpened, job }) {
     if(!isOpened) {
         return null;
     }
@@ -50,7 +50,7 @@ function ApplyJobModal({ isOpened, setIsOpened }) {
 
         let currentDate = new Date().toJSON().slice(0, 10);
         
-        let formData = {name, email, address, phone, createdDate: currentDate}
+        let formData = {name, email, address, phone, createdDate: currentDate, jobListingId: job.id}
         let cv_ref = await handleCvUpload();
         formData = {...formData, cv_ref}
 
@@ -59,6 +59,11 @@ function ApplyJobModal({ isOpened, setIsOpened }) {
             await addDoc(applicantRef, formData);
             setApplyCompleteStatus(true);
             setApplyStatus("idle");
+            setName('')
+            setEmail('')
+            setAddress('')
+            setPhone('')
+            setCvRef(null)
         } catch( err ) {
             console.error(err);
         }
