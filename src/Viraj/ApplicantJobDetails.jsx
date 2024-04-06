@@ -13,10 +13,11 @@ export async function loader({ params }) {
     const jobRef = doc(db, "jobListings", jobId);
     try {
         const data = await getDoc(jobRef);
-        const job = data.data();
+        const job = {...data.data(), id: jobId};
         const orgRef = doc(db, "organization", job.orgId);
         const data1 = await getDoc(orgRef);
         const org = data1.data();
+        console.log(job)
         return {job, org}
     } catch( err ) {
         console.error(err)
@@ -33,7 +34,7 @@ function ApplicantJobDetails() {
             <div className="jobDetails">
                 <div className="jobTitle flex justify-between">
                     <div className="jobTitleWapper flex gap-2">
-                        <img src={org.imgUrl} style={{width: '40px', borderRadius: '10px'}} />
+                        <img src={org.imgUrl} style={{width: '50px', borderRadius: '10px'}} />
                         <div className="jobTitle-1">    
                             <h1 style={{fontSize: '20px', fontWeight: '500'}}>{job.jobTitle}</h1>
                             <p>{org.name}</p>
@@ -63,7 +64,7 @@ function ApplicantJobDetails() {
                     <p>Location: 📍 {org.address}</p>
                 </div>
                 <button className="applicantApplyBtn" onClick={() => setIsModalOpen(true)}>Apply</button>
-                <ApplyJobModal isOpened={isModalOpen} setIsOpened={setIsModalOpen}></ApplyJobModal>
+                <ApplyJobModal isOpened={isModalOpen} setIsOpened={setIsModalOpen} job={job}></ApplyJobModal>
             </div>
         </div>
     )
