@@ -2,8 +2,8 @@ import { collection, getDocs } from "firebase/firestore";
 import React, { Suspense, useState } from "react";
 import { db } from "../../config/firebase";
 import { Await, defer, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
-import calenderImg from '../../public/calendar.png'
-import teamImg from '../../public/team.png'
+import calenderImg from '/calendar.png'
+import teamImg from '/team.png'
 
 export async function loader() {
     const applicantJobCollectionRef = collection(db, 'jobListings')
@@ -85,11 +85,11 @@ function ApplicantJobs() {
                 return true;
             }
             if(intermediate) {
-                if(job.intermediate == "Intermediate")
+                if(job.experience == "Intermediate")
                 return true;
             }
             if(expert) {
-                if(job.expert == 'Expert')
+                if(job.experience == 'Expert')
                 return true
             }
         })
@@ -223,7 +223,7 @@ function ApplicantJobs() {
                         }
                         else{
                             const org = orgs.find(org => org.id === item.orgId);
-                            return item.jobTitle.toLowerCase().includes(jobTitle) && org.name.toLowerCase().includes(jobOrg);
+                            return item.jobTitle.toLowerCase().includes(jobTitle.toLowerCase()) && org.name.toLowerCase().includes(jobOrg.toLowerCase());
                         }
                     }).map(job => {
                         const org = orgs.find(org => org.id === job.orgId);
