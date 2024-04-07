@@ -4,8 +4,8 @@ import { Form, redirect, useActionData, useLoaderData, useNavigate, useNavigatio
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { db, storage } from '../config/firebase';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
-import earthImg from '../public/earth.png'
-import passEyeImg from '../public/eyes.png'
+import earthImg from '/earth.png'
+import passEyeImg from '/eyes.png'
 
 export async function loader() {
     const orgs = await getOrgs()

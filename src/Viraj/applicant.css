@@ -1,8 +1,12 @@
+html {
+    scroll-behavior: smooth;
+}
 .applicantDashboard {
     position: relative;
     display: flex;
     flex-direction: column;
     height: 100svh;
+    min-height: 100svh;
     background-color: #ededed;
     color: #000000;
     font-family: 'Karla', sans-serif;
@@ -197,7 +201,7 @@ input[type=checkbox]:hover {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     width: 100%;
-    
+    gap: 20px;
 }
 .job {
     display: flex;
@@ -211,7 +215,6 @@ input[type=checkbox]:hover {
     transition: 0.2s;
 }
 .job:hover {
-
     filter: drop-shadow(3px 3px 3px #a5a5a5);
 }
 .job1 {
@@ -470,6 +473,246 @@ input[type=checkbox]:hover {
     color: #fff;
 }
 
+.applicantHome {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+}
+.applicantHome1 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    color: #000;
+    background-color: #fdfdfd;
+    filter: drop-shadow(1px 1px 2px #a9a9a9);
+    margin: 30px;
+    padding: 90px 50px;
+    border-radius: 40px;
+    overflow: hidden;
+}
+.applicantHomeDesign1 {
+    position: absolute;
+    top: -30px;
+    left: -100px;
+    width: 400px;
+    height: 700px;
+    border-radius: 50%;
+    background-color: #22a9685f;
+}
+.applicantHomeDesign2 {
+    position: absolute;
+    bottom: -80px;
+    right: -80px;
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    background-color: #9edbffad;
+}
+.applicantHomeMainText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 450px;
+    gap: 30px;
+    margin-top: 70px;
+    font-family: 'Karla', sans-serif;
+}
+.applicantHomeMainText h1 {
+    font-size: 30px;
+    letter-spacing: 4px;
+    font-weight: bold;
+}
+.applicantHomeMainText p {
+    letter-spacing: 2px;
+}
+
+.applicantHomeManImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 350px;
+    background-color: #fff;
+    border-radius: 65% 35% 53% 45% / 51% 50% 50% 49%;
+    overflow: hidden;
+    filter: drop-shadow(1px 1px 5px #a9a9a9);
+}
+.applicantHome1 img {
+    width: 400px;
+}
+.applicantExit {
+    background-color: rgb(248, 101, 101);
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.applicantExit:hover {
+    filter: brightness(1.2);
+}
+.findYourJobBtn {
+    background-color: #17b96b;
+    color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    transition: 0.2s;
+    transform: translateY(20px);
+}
+.findYourJobBtn:hover {
+    filter: drop-shadow(1px 1px 5px #26A365);
+    letter-spacing: 5px;
+}
+.aboutUs {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 100px;
+    background-color: #f3f3f3;
+}
+.aboutUs1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-top: 40px;
+}
+.aboutUs-text {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 50px;
+}
+.aboutUs-text img {
+    transition: 0.2s;
+    width: 30px;
+}
+.aboutUs-text img:hover {
+    filter: invert(0.5);
+    transform: scale(1.5);
+    margin: 20px 0px;
+}
+.aboutUs-text h2{
+    font-size: 50px;
+}
+.aboutUs-text h3 {
+    font-size: 20px;
+    color: #505050;
+    margin-bottom: 20px;
+}
+.aboutUsTeamImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ACDEC6;
+    padding: 10px;
+    border-radius: 47% 53% 60% 39% / 49% 55% 45% 51%;    height: 400px;
+    width: 470px;
+    height: 470px;
+    overflow: hidden;
+    filter: drop-shadow(1px 1px 2px #969696);
+}
+.aboutUsTeamImg img {
+    width: 600px;
+    filter: drop-shadow(10px 1px 1px #5d5d5d);
+}
+
+.aboutUs2 {
+    display: flex;
+    justify-content: center;
+    gap: 150px;
+    padding: 100px 0px;
+}
+.aboutUs-text1 {
+    margin-top: 200px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    gap: 10px;
+    
+    border-radius: 50%;
+}
+.aboutUs-text1 h3 {
+    font-size: 25px;
+}
+.aboutUs-text1 p {
+    font-size: 13px;
+    line-height: 25px;
+    letter-spacing: 2px;
+}
+.happyImg {
+    display: flex;
+    align-items: center;
+    background-color: #b3d9ff;
+    border-radius: 62% 38% 46% 54% / 42% 46% 54% 56%;
+    height: 400px;
+    width: 400px;
+}
+.happyImg img{
+    width: 400px;
+    filter: drop-shadow(5px 1px 1px #5d5d5d);
+    
+}
+
+.aboutUs3 {
+    display: flex;
+    justify-content: center;
+    gap: 150px;
+    margin-bottom: 100px;
+}
+.connectionImg {
+    display: flex;
+    align-items: center;
+    height: 400px;
+    width: 400px;
+    margin-top: 180px;
+    overflow: hidden;
+    border-radius: 39% 61% 41% 59% / 65% 50% 50% 35%;
+    background-color: rgb(251, 192, 192);
+}
+.connectionImg img{
+    width: 600px;
+    filter: drop-shadow(-4px 5px 1px #4b4b4b);
+}
+.aboutUs-text2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    text-align: center;
+    font-size: 35px;
+}
+.aboutUs-text2 p{
+    font-size: 12px;
+    line-height: 25px;
+    width: 400px;
+    text-align: justify;
+    letter-spacing: 2px;
+}
+.getStartedBtn {
+    background-color: #0bac5b;
+    font-size: 15px;
+    color: #fff;
+    padding: 14px;
+    border-radius: 10px;
+    transition: 0.2s;
+    width: fit-content;
+}
+.getStartedBtn:hover {
+    letter-spacing: 2px;
+}
 
 
 

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import jobImg from '../public/job.png'
-import rocketImg from '../public/rocket.png'
-import passEyeImg from '../public/eyes.png'
-import marsImg from '../public/mars.png'
+import jobImg from '/job.png'
+import rocketImg from '/rocket.png'
+import passEyeImg from '/eyes.png'
+import marsImg from '/mars.png'
 import { Link, 
     useNavigate, 
     Form, 
@@ -18,10 +18,9 @@ export async function action({ request }) {
     const email = loginData.get("email");
     const password = loginData.get("password");
     try {
-
         const logStatus = await getInfo(email, password);
-        // console.log(logStatus);
-        return redirect('/orgDashboard');
+        console.log(logStatus);
+        return redirect(`/orgDashboard/${logStatus.id}`);
 
     }catch(err) {
         return err.message;

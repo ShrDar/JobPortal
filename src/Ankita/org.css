@@ -1,0 +1,229 @@
+.orgDashboard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100svh;
+    min-height: 100svh;
+    background-color: #ededed;
+    color: #000000;
+    font-family: 'Karla', sans-serif;
+}
+.org-navBar {
+    position: relative;
+    display: flex;
+    height: fit-content;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 15px;
+    /* border-bottom: 1px solid #8f8f8f; */
+    filter: drop-shadow(1px 1px 1px #d1d1d1);
+    transition: 0.2s;
+}
+.stealthLogo {
+    width: 50px;
+    height: 50px;
+    background-color: #09924D;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.orgNavLogo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 700;
+    color: #09924D;
+}
+
+.orgLinks {
+    position: absolute;
+    right: 0;
+    left: 0;
+    display: flex;
+    gap: 50px;
+    align-self: center;
+    justify-self: center;
+    transition: 0.2s;
+}
+.orgLinks a {
+    transition: 0.2s;
+}
+.orgLinks a:hover{
+    font-weight: bold;
+}
+.orgProfile {
+    
+}
+.orgProfile img {
+    width: 40px;
+    border: 2px solid #000;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.orgJobListingsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+    padding: 40px 50px;
+}
+.orgJobListingsTitle {
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: #06753e;
+}
+.orgJobListings {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 100%;
+}
+.orgJobListing {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    transition: 0.2s;
+    filter: drop-shadow(1px 1px 1px #d1d1d1);
+}
+
+.job2 {
+    display: flex;
+    gap: 10px;
+}
+.job2 p {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+.jobDuration {
+    background-color: #D9EEFF;
+    color: #168BFD;
+}
+.jobWorkLocation {
+    background-color: #F2E3FF;
+    color: #9F52FB;
+}
+.jobExperience {
+    background-color: #FFF0D4;
+    color: #FE9822;
+}
+.editBtn {
+    background-color: #0ec469;
+    padding: 5px 20px;
+    color: #fff;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+    letter-spacing: 2px;
+    transition: 0.3s;
+}
+.editBtn:hover {
+    background-color: #0eb360;
+}
+.editBtn img{
+    width: 18px;
+    height: 18px;
+    filter: invert(1);
+}
+.orgJobListingsSearch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff00;
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+}
+.jobSearchInput {
+    border: 1px solid #909090;
+    text-align: center;
+    border-radius: 5px;
+    padding: 12px 8px;
+    font-size: 14px;
+    width: 40%;
+    filter: drop-shadow(1px 1px 1px #7a7a7a);
+}
+
+.orgHome {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+.orgHomeWrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    background-color: #fff;
+    padding: 30px 130px;
+    border-radius: 40px;
+    margin-top: 30px;
+    overflow: hidden;
+    z-index: 3;
+}
+.orgHomeTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    z-index: 3;
+}
+.orgHomeBtn {
+    background-color: #17B96B;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 20px;
+    transition: 0.2s;
+    filter: drop-shadow(1px 1px 1px #929292);
+}
+.orgHomeBtn:hover {
+    letter-spacing: 2px;
+}
+.orgHome h1 {
+    font-size: 30px;
+    font-weight: 500;
+    width: 250px;
+    letter-spacing: 2px;
+    text-align: center;
+}
+.happyEmployeeImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    width: 500px;
+    background-color: #acdec683;
+    border-radius: 60% 40% 52% 48% / 64% 40% 60% 36%;
+    box-shadow: 1px 1px 1px #d5d5d5;
+    transform: translateX(40px);
+}
+.happyEmployeeImg img {
+    width: 600px;
+    filter: drop-shadow(5px 1px 1px #585858);
+}
+.orgHomeDesign {
+    position: absolute;
+    top: -30px;
+    left: -130px;
+    width: 400px;
+    height: 700px;
+    border-radius: 50%;
+    background-color: #BCE6FE;
+    z-index: 0;
+}
