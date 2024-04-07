@@ -1,7 +1,8 @@
 import React from "react";
 import { useLoaderData, defer, Outlet, NavLink, Link } from "react-router-dom";
-import stealthLogo from "../../public/stealthLogo.svg"
+import stealthLogo from "/stealthLogo.svg"
 import "./applicant.css"
+import { useNavigate } from 'react-router-dom'
 
 export async function loader() { //name of loader function doesn't matter
 
@@ -9,6 +10,7 @@ export async function loader() { //name of loader function doesn't matter
 }
 
 function ApplicantDashboard() {
+    const navigate = useNavigate();
     const data = useLoaderData();
     return (
         <div className="applicantDashboard">
@@ -24,6 +26,7 @@ function ApplicantDashboard() {
                     <NavLink to={'applicantJobs'} style={({isActive}) => isActive ? {color: "#07914C", textDecoration: 'underline', textUnderlineOffset: '5px'} : {color: "#000"}}>Jobs</NavLink>
                     <NavLink to={'aboutUs'} style={({isActive}) => isActive ? {color: "#07914C", textDecoration: 'underline', textUnderlineOffset: '5px'} : {color: "#000"}}>About Us</NavLink>
                 </div>
+                <button className="applicantExit" onClick={() => navigate('/')}>Exit</button>
             </div>
             <Outlet />
         </div>
