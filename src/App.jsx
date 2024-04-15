@@ -17,6 +17,8 @@ import { ApplicantJobDetails, loader as applicantJobDetailsLoader } from "./Vira
 import { OrgHome } from "./Ankita/OrgHome";
 import { OrgJobListings, loader as orgJobListingsLoader } from "./Ankita/OrgJobListings";
 
+//creating a router variable to use the createBrowserRouter and createRoutesFromElements function
+//createBrowserRouter creates Browser routes for client side routing and createRoutesFromElements creates routes from Route Components
 const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" >
         <Route index element = {<OrgLogin />} action={orgLoginAction} />
@@ -43,11 +45,16 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route path="*" element = {<NotFound />} />
     </Route>
 ))
+//Here the main route is '/' whose index path is OrgLogin (the landing page of the website)
+//The organizationDashboard/:orgId route is a parent route which consists of child routes which is used to create a shared web layout
+//Similarly applicantDashboard route is a parent route consisting of child routes the ApplicatDashboard component is the parent component and other route components are rendered in the parent component
 
 function App() {
+    //This is the App component or a function that returns JSX element. JSX is an object which is transformed in to HTML DOM elements by React library
     return (
         <RouterProvider router = {router} />
     )
+    //RouteProvider is a in-built react-router-dom component use for rendering the App
 }
 
 export { App }
