@@ -51,16 +51,16 @@ function OrgRegistration() {
         const regex = /^([a-z]||[A-Z]||[0-9])+[@]([a-z]||[A-Z])+[.]([a-z]||[A-Z]||[0-9])+[.]*([a-z]||[A-Z]||[0-9])*$/gm;
         if(!regex.test(email)) {
             alert("Invalid Email");
+            setSignInStatus("idle")
             return;
         }
 
-        
-        orgs.forEach((org) => {
-            if(org.email === email || org.phone === phone) {
-                alert('Email or Phone no already taken')
+        const isOrg = orgs.find((org) => org.email === email || org.phone === phone)
+        if(isOrg) {
+            alert('Email or Phone no already taken')
+                setSignInStatus("idle")
                 return;
-            }
-        })
+        }
 
         let currentDate = new Date().toJSON().slice(0, 10);
         console.log(currentDate);
