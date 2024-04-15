@@ -8,75 +8,78 @@ import earthImg from '/earth.png'
 import passEyeImg from '/eyes.png'
 
 export async function loader() {
-    const orgs = await getOrgs()
-    const orgTypes = await getOrgTypes();
-    return {orgs, orgTypes};
+    //loader function is a in-built react-router-dom function which is initiated before a component gets rendered in the DOM
+    const orgs = await getOrgs() //fetching the organization collection
+    const orgTypes = await getOrgTypes(); //fetching the organization type collection
+    return {orgs, orgTypes}; //returning orgs and orgTypes
 }
 
 
 function OrgRegistration() {
-    const {orgs, orgTypes} = useLoaderData();
+    const {orgs, orgTypes} = useLoaderData(); //de-structuring the data returned from the loader function and storing them in orgs and orgTypes variable
     
-    const navigate = useNavigate();
-    const [signInStatus, setSignInStatus] = useState("idle");
-    const [checkPass, setCheckPass] = useState(false);
+    const navigate = useNavigate(); //used for routing user to another route
+    const [signInStatus, setSignInStatus] = useState("idle"); //useState hook used for setting the text in the sign in button according to the status of the registration
+    const [checkPass, setCheckPass] = useState(false); //used for changing the input field from password to text if the use clicks in the eye icon
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
-    const [phone, setPhone] = useState('');
-    const [address, setAddress] = useState('');
-    const [type, setType] = useState(orgTypes[0].typeId);
-    const [imgUpload, setImgUpload] = useState(null);
+    const [name, setName] = useState(''); //used to store the value of name input field
+    const [email, setEmail] = useState(''); //used to store the value of the email input field
+    const [pass, setPass] = useState(''); //used to store the value of the password input field
+    const [phone, setPhone] = useState(''); //used to store the value of phone input field
+    const [address, setAddress] = useState(''); //used to store the value of address input field
+    const [type, setType] = useState(orgTypes[0].typeId); //used to store the value of type input field
+    const [imgUpload, setImgUpload] = useState(null); //used to get the image file
     let formData;
 
     const handleSignUp = async() => {
-        setSignInStatus("submitting");
+        //function is used to perform actions after the user hits the sign up button
+        setSignInStatus("submitting"); //setting the states value to 'submitting'
         if(name === "" || email === "" || pass === "" || phone === "" || address === "" || type === ""  || imgUpload === null) {
-            alert("Missing Fields");
-            setSignInStatus("idle")
-            return;
+            //checking if any input field is missing
+            alert("Missing Fields"); //showing an alert message
+            setSignInStatus("idle") //setting the status to 'idle'
+            return; //terminating the function
         } 
-        if(phone.length !== 10) {
+        if(phone.length !== 10) { //checking if the phone number length is equals to 10 or not
             alert("Phone Number Length -> 10");
             setSignInStatus("idle")
             return;
         }
-        if(pass.length < 6) {
+        if(pass.length < 6) { //checking if the length of the password is less than six or not
             alert("Password consist atleast 6 letter");
             setSignInStatus("idle");
             return;
         }
         
-        const regex = /^([a-z]||[A-Z]||[0-9])+[@]([a-z]||[A-Z])+[.]([a-z]||[A-Z]||[0-9])+[.]*([a-z]||[A-Z]||[0-9])*$/gm;
-        if(!regex.test(email)) {
+        const regex = /^([a-z]||[A-Z]||[0-9])+[@]([a-z]||[A-Z])+[.]([a-z]||[A-Z]||[0-9])+[.]*([a-z]||[A-Z]||[0-9])*$/gm; //regex pattern for email validation
+        if(!regex.test(email)) { //checking if the entered email matches the given regex pattern
             alert("Invalid Email");
             setSignInStatus("idle")
             return;
         }
 
-        const isOrg = orgs.find((org) => org.email === email || org.phone === phone)
-        if(isOrg) {
+        const isOrg = orgs.find((org) => org.email === email || org.phone === phone) //checking if the email or phone number is already used in the database
+        if(isOrg) { //if it is taken the function gets terminated
             alert('Email or Phone no already taken')
                 setSignInStatus("idle")
                 return;
         }
 
-        let currentDate = new Date().toJSON().slice(0, 10);
+        let currentDate = new Date().toJSON().slice(0, 10); //getting the current date and slicing it to get essential information
         console.log(currentDate);
 
-        formData = {name, email, pass, phone, address, type, createdDate: currentDate, updatedDate: currentDate, isVisible: true};
-        const url = await handleUpload();
-        formData = {...formData, imgUrl: url}
+        formData = {name, email, pass, phone, address, type, createdDate: currentDate, updatedDate: currentDate, isVisible: true}; //storing the values of the input fields in an object
+        const url = await handleUpload(); //handleUpload function used to store the organization logo in the firestore storage
+        formData = {...formData, imgUrl: url} //adding an attribute in the object
         console.log(formData);
 
         //adding organization info in the database
 
         try {
-            const orgCollectionRef = collection(db, "organization");
-            await addDoc(orgCollectionRef, formData)
-            setSignInStatus("idle");
-            return navigate('/', {replace: true});
+            const orgCollectionRef = collection(db, "organization"); //reference of the organization collection
+            await addDoc(orgCollectionRef, formData) //adding the object to the organization collection in firestore
+            setSignInStatus("idle"); 
+            return navigate('/', {replace: true}); //navigating the user the login page
         } catch(err) {
             console.error(err);
         }
@@ -84,13 +87,14 @@ function OrgRegistration() {
     }
 
     const handleUpload = async() => {
-        if(!imgUpload) return;
-        const filesFolderRef = ref(storage, `organizationImg/${imgUpload.name}`);
+        //handleUpload function is used to upload the organization logo in the firebase storage and to gain the url where the img is stored
+        if(!imgUpload) return; //is there is no image selected the function gets terminated
+        const filesFolderRef = ref(storage, `organizationImg/${imgUpload.name}`); //reference of the firebase storage
         try {
-            let file = await uploadBytes(filesFolderRef, imgUpload);
-            let url = await getDownloadURL(file.ref);
-            return url;
-        } catch(err) {
+            let file = await uploadBytes(filesFolderRef, imgUpload); //uploading the image to the storage
+            let url = await getDownloadURL(file.ref); //getting the url where the image is stored
+            return url; //returning the url
+        } catch(err) { //catching errs
             console.error(err);
         }
     }
