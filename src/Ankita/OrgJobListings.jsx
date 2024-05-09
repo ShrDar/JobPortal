@@ -1,7 +1,7 @@
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import React, { useState } from 'react'
 import { db } from '../../config/firebase'
-import { useLoaderData } from 'react-router-dom'
+import { useLoaderData, useParams } from 'react-router-dom'
 import teamImg from '/team.png'
 import calenderImg from '/calendar.png'
 import editBtnImg from '/edit.png'
@@ -35,8 +35,12 @@ function OrgJobListings() {
     const [cJobLevel, setcJobLevel] = useState('');
     const [cVacancies, setcVacancies] = useState('');
     const [cJobExpiryDate, setcJobExpiryDate] = useState('');
+    const [cJobDescription, setcJobDescription] = useState('');
 
     const [jobTitle, setJobTitle] = useState('');
+
+    const orgId = useParams('orgId');
+
     return (
         <div className="orgJobListingsContainer">
             <h1 style={{fontSize: '25px', alignSelf: 'center'}} className='orgJobListingsTitle'>Your Job Listings:</h1>
@@ -77,6 +81,7 @@ function OrgJobListings() {
                                 setcJobLevel(job.experience);
                                 setcVacancies(job.NofVacancy);
                                 setcJobExpiryDate(job.endDate);
+                                setcJobDescription(job.description);
                                 }}>
                                 <p>Edit</p>
                                 <img src={editBtnImg} alt="" />
@@ -85,9 +90,9 @@ function OrgJobListings() {
                     )
                 })}
             </div>
-            <AddJobModal isAddModalOpen={isAddModalOpen} setIsAddModalOpened={setIsAddModalOpened} />
+            <AddJobModal isAddModalOpen={isAddModalOpen} setIsAddModalOpened={setIsAddModalOpened} orgId={orgId.orgId} />
             <EditJobModal isEditModalOpen={isEditModalOpen} setIsEditModalOpened={setIsEditModalOpened}
-                name={cJobName} time={cJobTime} site={cJobSite} level={cJobLevel} vacancy={cVacancies} expiryDate={cJobExpiryDate}
+                name={cJobName} time={cJobTime} site={cJobSite} level={cJobLevel} vacancy={cVacancies} expiryDate={cJobExpiryDate} description={cJobDescription}
             />
         </div>
     )

@@ -1,19 +1,50 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import './org.css'
+import { addDoc, collection, updateDoc } from "firebase/firestore";
+import { db } from "../../config/firebase";
 
-function AddJobModal({ isAddModalOpen, setIsAddModalOpened}) {
+function AddJobModal({ isAddModalOpen, setIsAddModalOpened, orgId }) {
     if(!isAddModalOpen) {
         return;
     }
 
+    const date = new Date().toLocaleDateString('en-CA');
+
     const [jobName, setJobName] = useState('');
-    const [jobTime, setJobTime] = useState('');
-    const [jobSite, setJobSite] = useState('');
-    const [jobLevel, setJobLevel] = useState('')
+    const [jobTime, setJobTime] = useState('Full-Time');
+    const [jobSite, setJobSite] = useState('On-Site');
+    const [jobLevel, setJobLevel] = useState('Fresher')
     const [jobVacancies, setJobVacancies] = useState('');
     const [jobAddDate, setJobAddDate] = useState('');
-    const [jobExpiryDate, setJobExpiryDate] = useState('')
+    const [jobEffectiveDate, setJobEffectiveDate] = useState('');
+    const [jobExpiryDate, setJobExpiryDate] = useState('');
+    const [jobDescription, setJobDescription] = useState('');
+
+    const handleAddJob = async() => {
+        if(jobName == "" || jobDescription == "" || jobVacancies == "" || jobExpiryDate == "") {
+            alert("Missing Fields: Title or Desc or Vacancies or Available Till");
+            return;
+        }
+        const letters = /[a-zA-Z]/g;
+        if(jobName.match(letters) && jobDescription.match(letters)) {
+            console.log('contains')
+        } else {
+            alert('Title and Description should contain letters (Dont try to break my sh*t)')
+            return;
+        }
+        try {
+            const jobListRef = collection(db, 'jobListings');
+            const newJob = {jobTitle: jobName, jobDurationType: jobTime, workLocation: jobSite, experience: jobLevel, NofVacancy: jobVacancies, description: jobDescription, effectiveDate: date, endDate: jobExpiryDate, createdDate: date, updatedDate: date, orgId: orgId}
+            //console.log(newJob);
+            await addDoc(jobListRef, newJob);
+            setIsAddModalOpened(false)
+        }
+        catch(err) {
+            console.error(err)
+        }
+
+    }
 
     return createPortal(
         <>
@@ -25,6 +56,10 @@ function AddJobModal({ isAddModalOpen, setIsAddModalOpened}) {
                 <div className="jobDetail">
                 <p>Title</p>
                         <input className="detailText" type="text" onChange={(e) => {setJobName(e.target.value)}} value={jobName} />
+                </div>
+                <div className="jobDetail">
+                <p>Description</p>
+                <textarea onChange={(e) => setJobDescription(e.target.value)} className="form-control detailTextArea" id="exampleFormControlTextarea1" rows="3" maxLength={'500'} value={jobDescription}></textarea>
                 </div>
                 <div className="jobDetail">
                     <p>Job Time</p>
@@ -56,10 +91,10 @@ function AddJobModal({ isAddModalOpen, setIsAddModalOpened}) {
                 </div>
                 <div className="jobDetail">
                     <p>Available Till</p>
-                    <input type="date" onChange={(e) => setJobExpiryDate(e.target.value)} />
+                    <input type="date" min={date} max={'2025-01-01'} onChange={(e) => setJobExpiryDate(e.target.value)} />
                 </div>
             </div>
-            <button className="addJobModalBtn">Add</button>
+            <button className="addJobModalBtn" onClick={() => handleAddJob()}>Add</button>
         </div>
         </>
         , document.getElementById('modal')

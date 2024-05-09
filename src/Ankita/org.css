@@ -82,6 +82,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     width: 100%;
+    gap: 40px;
 }
 .orgJobListing {
     display: flex;
@@ -263,7 +264,7 @@
     transform: translate(-50%, -50%);
     background-color: #fff;
     height: 600px;
-    min-width: 500px;
+    min-width: 560px;
     border-radius: 20px;
     padding: 10px;
     overflow-y: scroll;
@@ -294,6 +295,7 @@
     border-radius: 10px;
     padding: 0px 10px;
     font-size: 14px;
+    cursor: pointer;
 }
 .jobDetail option {
     border-radius: 10px;
@@ -315,7 +317,7 @@
     color: #fff;
     padding: 8px;
     border-radius: 10px;
-    margin: 10px;
+    margin: 20px;
 }
 .addJobTitle {
     font-size: 20px;
@@ -329,3 +331,12 @@
     height: 32px;
     width: 100%;
 }
+.detailTextArea {
+    border: 1px solid #707070;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: justify;
+}
+
+
+

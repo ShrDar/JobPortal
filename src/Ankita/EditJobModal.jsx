@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
 
-function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site, level, vacancy, expiryDate }) {
+function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site, level, vacancy, expiryDate, description }) {
     
     if(!isEditModalOpen) {
         return;
@@ -14,16 +14,21 @@ function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site,
     const [jobVacancies, setJobVacancies] = useState(vacancy);
     const [jobAddDate, setJobAddDate] = useState('');
     const [jobExpiryDate, setJobExpiryDate] = useState(expiryDate)
+    const [jobDescription, setJobDescription] = useState(description);
     return createPortal(
         <>
         <div className="overlay" onClick={() => setIsEditModalOpened(false)}></div>
         <div className="addJobModal">
-            <p className="addJobTitle">Add Job</p>
+            <p className="addJobTitle">Edit Job</p>
             <div className="jobDetails1">
 
                 <div className="jobDetail">
                 <p>Title</p>
                         <input className="detailText" type="text" onChange={(e) => {setJobName(e.target.value)}} value={jobName} />
+                </div>
+                <div className="jobDetail">
+                <p>Description</p>
+                <textarea onChange={(e) => setJobDescription(e.target.value)} style={{height: '120px'}} className="form-control detailTextArea" id="exampleFormControlTextarea1" rows="3" maxLength={'500'} value={jobDescription}></textarea>
                 </div>
                 <div className="jobDetail">
                     <p>Job Time</p>
@@ -58,7 +63,7 @@ function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site,
                     <input type="date" onChange={(e) => setJobExpiryDate(e.target.value)} value={jobExpiryDate} />
                 </div>
             </div>
-            <button className="addJobModalBtn">Add</button>
+            <button className="addJobModalBtn">Apply</button>
         </div>
         </>
         , document.getElementById('modal')
