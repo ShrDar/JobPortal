@@ -1,4 +1,4 @@
-import { collection, getDocs, onSnapshot, query, where } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDocs, onSnapshot, query, where } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { db } from '../../config/firebase'
 import { useLoaderData, useParams } from 'react-router-dom'
@@ -6,8 +6,10 @@ import teamImg from '/team.png'
 import calenderImg from '/calendar.png'
 import editBtnImg from '/edit.png'
 import addBtn from '/addJob.png'
+import deleteBtn from '/delete.png'
 import { AddJobModal } from './AddJobModal'
 import { EditJobModal } from './EditJobModal'
+import { DeleteJobModal } from './DeleteJobModal'
 
 export async function loader({ params }) {
     const orgId = params.orgId;
@@ -53,6 +55,10 @@ function OrgJobListings() {
     const [jobTitle, setJobTitle] = useState('');
 
     const orgId = useParams('orgId');
+
+
+    const [isDeleteJobModalOpen, setIsDeleteJobModalOpened] = useState(false);
+    
 
     return (
         <div className="orgJobListingsContainer">
@@ -100,6 +106,13 @@ function OrgJobListings() {
                                 <p>Edit</p>
                                 <img src={editBtnImg} alt="" />
                             </div>
+                            <div className="deleteBtnContainer" onClick={() => {
+                                    setIsDeleteJobModalOpened(true);
+                                    setcJobId(job.id)
+                                }}>
+                                <p>Delete Job</p>
+                                <img className='jobDeleteBtn' src={deleteBtn} alt="" />
+                            </div>
                         </div>
                     )
                 })}
@@ -108,6 +121,7 @@ function OrgJobListings() {
             <EditJobModal isEditModalOpen={isEditModalOpen} setIsEditModalOpened={setIsEditModalOpened}
                 name={cJobName} time={cJobTime} site={cJobSite} level={cJobLevel} vacancy={cVacancies} expiryDate={cJobExpiryDate} description={cJobDescription} id={cJobId}
             />
+            <DeleteJobModal isDeleteJobModalOpen={isDeleteJobModalOpen} setIsDeleteJobModalOpened={setIsDeleteJobModalOpened} id={cJobId} />
         </div>
     )
 }

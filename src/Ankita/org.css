@@ -86,6 +86,7 @@
     gap: 40px;
 }
 .orgJobListing {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -140,6 +141,81 @@
     height: 18px;
     filter: invert(1);
 }
+.deleteBtnContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-15px, 20px);
+    background-color: rgb(237, 78, 78);
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+    color: transparent;
+    transition: 0.2s;
+}
+.deleteBtnContainer p {
+    position: absolute;
+    font-size: 12px;
+    width: 90px;
+    transform: translate(-70px, -2px);
+    font-weight: bold;
+}
+.deleteBtnContainer img {
+    width: 15px;
+    filter: invert(1);
+}
+.deleteBtnContainer:hover {
+    color: rgb(237, 78, 78);
+}
+.deleteJobModal {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 300px;
+    width: 400px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+}
+.deleteJobModal p {
+    font-size: 20px;
+}
+.deleteJobModal .yesBtn {
+    background-color: rgb(237, 78, 78);
+    color: #fff;
+    padding: 10px 50px;
+    border-radius: 15px;
+    
+}
+.yesNoBtnContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.yesNoBtnContainer .noBtn {
+    background-color: rgb(92, 92, 92);
+    color: #fff;
+    padding: 5px 50px;
+    border-radius: 15px;
+}
+.dustbinContainer {
+    background-color: rgb(237, 78, 78);
+    padding: 10px;
+    border-radius: 50%;
+}
+.dustBin {
+    width: 50px;
+    filter: invert(1);
+}
+
+
 .orgJobListingsSearch {
     display: flex;
     justify-content: center;
