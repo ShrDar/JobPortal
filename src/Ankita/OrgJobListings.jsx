@@ -28,14 +28,21 @@ function OrgJobListings() {
     const [isAddModalOpen, setIsAddModalOpened] = useState(false);
     const [isEditModalOpen, setIsEditModalOpened] = useState(false);
     const jobListings = useLoaderData();
-    console.log(jobListings);
+    
+    const [cJobName, setcJobName] = useState('');
+    const [cJobTime, setcJobTime] = useState('');
+    const [cJobSite, setcJobSite] = useState('');
+    const [cJobLevel, setcJobLevel] = useState('');
+    const [cVacancies, setcVacancies] = useState('');
+    const [cJobExpiryDate, setcJobExpiryDate] = useState('');
+
     const [jobTitle, setJobTitle] = useState('');
     return (
         <div className="orgJobListingsContainer">
             <h1 style={{fontSize: '25px', alignSelf: 'center'}} className='orgJobListingsTitle'>Your Job Listings:</h1>
             <div className="orgJobListingsSearch">
                 <input type='text' className='jobSearchInput' placeholder='Search Your Job Title' onChange={(e) => setJobTitle(e.target.value)} value={jobTitle}/>
-                <button className='orgAddJobBtn'><img style={{width: '20px'}} src={addBtn} ></img>Add Job</button>
+                <button className='orgAddJobBtn' onClick={() => setIsAddModalOpened(true)}><img style={{width: '20px'}} src={addBtn} ></img>Add Job</button>
             </div>
             <div className="orgJobListings">
                 {jobListings.filter(job => {
@@ -62,7 +69,15 @@ function OrgJobListings() {
                                 <img src={calenderImg} style={{width: '20px'}} />
                                 <p>Apply Before <strong>{job.endDate}</strong> </p>                            
                             </div>
-                            <div className="editBtn flex">
+                            <div className="editBtn flex" onClick={() => {
+                                setIsEditModalOpened(true);
+                                setcJobName(job.jobTitle);
+                                setcJobTime(job.jobDurationType);
+                                setcJobSite(job.workLocation);
+                                setcJobLevel(job.experience);
+                                setcVacancies(job.NofVacancy);
+                                setcJobExpiryDate(job.endDate);
+                                }}>
                                 <p>Edit</p>
                                 <img src={editBtnImg} alt="" />
                             </div>
@@ -71,7 +86,9 @@ function OrgJobListings() {
                 })}
             </div>
             <AddJobModal isAddModalOpen={isAddModalOpen} setIsAddModalOpened={setIsAddModalOpened} />
-            <EditJobModal isEditModalOpen={isEditModalOpen} setIsEditModalOpened={setIsEditModalOpened} />
+            <EditJobModal isEditModalOpen={isEditModalOpen} setIsEditModalOpened={setIsEditModalOpened}
+                name={cJobName} time={cJobTime} site={cJobSite} level={cJobLevel} vacancy={cVacancies} expiryDate={cJobExpiryDate}
+            />
         </div>
     )
 }

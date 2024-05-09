@@ -249,7 +249,7 @@ form {
 }
 
 
-select {
+.regIn select {
     border: 1px solid #bfbfbf;
     border-radius: 5px;
     height: 35px;
@@ -259,7 +259,7 @@ select {
     cursor: pointer;
     transition: 0.2s;
 }
-select:hover {
+.regIn select:hover {
     filter: drop-shadow(0px 0px 10px #43B27F);
 }
 
