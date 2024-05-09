@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { getOrgTypes, getOrgs } from '../fetchCred'
+import { getOrgTypes, getOrgs } from '../fetchCred.jsx'
 import { Form, redirect, useActionData, useLoaderData, useNavigate, useNavigation } from 'react-router-dom';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { db, storage } from '../config/firebase';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import earthImg from '/earth.png'
 import passEyeImg from '/eyes.png'
+import { motion } from 'framer-motion';
 
 export async function loader() {
     //loader function is a in-built react-router-dom function which is initiated before a component gets rendered in the DOM
@@ -79,6 +80,7 @@ function OrgRegistration() {
             const orgCollectionRef = collection(db, "organization"); //reference of the organization collection
             await addDoc(orgCollectionRef, formData) //adding the object to the organization collection in firestore
             setSignInStatus("idle"); 
+            alert('Sign in Successful') //create a pop up in the next sprint*****************************************
             return navigate('/', {replace: true}); //navigating the user the login page
         } catch(err) {
             console.error(err);
@@ -102,7 +104,7 @@ function OrgRegistration() {
 
     return (
         <div className='orgRegContainer loginContainer'>
-            <div className="orgReg">
+            <motion.div className="orgReg" initial={{opacity: 0, x: -1000, filter: 'blur(2)'}} animate={{opacity: 1, x: 0, filter: 'blur(0)'}}>
                 <div className="orgReg1">
 
                     <h2 style={{textAlign:"center", width: '100%', fontSize: "24px", fontWeight: "bold", margin: '20px 0px'}}>Register Your Organization</h2>
@@ -154,7 +156,7 @@ function OrgRegistration() {
                     
                     <p style={{width: '200px', lineHeight: '35px'}}><span style={{fontSize: "20px", fontWeight: '500'}}>Globally,</span><br/>Millions of People are Actively Searching for Job Right Now !</p>
                 </div>
-            </div>
+            </motion.div>
         </div>
     )
 }

@@ -2,10 +2,10 @@ import { doc, getDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { db } from "../../config/firebase";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import calenderImg from '../../public/calendar.png'
-import teamImg from '../../public/team.png'
-import earthImg from '../../public/earth.png'
-import backImg from '../../public/cross.png'
+import calenderImg from '/calendar.png'
+import teamImg from '/team.png'
+import earthImg from '/earth.png'
+import backImg from '/cross.png'
 import { ApplyJobModal } from "./ApplyJobModal";
 
 export async function loader({ params }) {

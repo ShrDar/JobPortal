@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { db, storage } from "../../config/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import checkImg from "../../public/check.png"
+import checkImg from "/check.png"
 
 function ApplyJobModal({ isOpened, setIsOpened, job }) {
     if(!isOpened) {
@@ -143,7 +143,7 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
         </div>
         
         </>,
-        document.getElementById("applyJobModal")
+        document.getElementById("modal")
     )
 }
 

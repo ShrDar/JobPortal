@@ -5,6 +5,9 @@ import { useLoaderData } from 'react-router-dom'
 import teamImg from '/team.png'
 import calenderImg from '/calendar.png'
 import editBtnImg from '/edit.png'
+import addBtn from '/addJob.png'
+import { AddJobModal } from './AddJobModal'
+import { EditJobModal } from './EditJobModal'
 
 export async function loader({ params }) {
     const orgId = params.orgId;
@@ -22,6 +25,8 @@ export async function loader({ params }) {
 }
 
 function OrgJobListings() {
+    const [isAddModalOpen, setIsAddModalOpened] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpened] = useState(false);
     const jobListings = useLoaderData();
     console.log(jobListings);
     const [jobTitle, setJobTitle] = useState('');
@@ -30,6 +35,7 @@ function OrgJobListings() {
             <h1 style={{fontSize: '25px', alignSelf: 'center'}} className='orgJobListingsTitle'>Your Job Listings:</h1>
             <div className="orgJobListingsSearch">
                 <input type='text' className='jobSearchInput' placeholder='Search Your Job Title' onChange={(e) => setJobTitle(e.target.value)} value={jobTitle}/>
+                <button className='orgAddJobBtn'><img style={{width: '20px'}} src={addBtn} ></img>Add Job</button>
             </div>
             <div className="orgJobListings">
                 {jobListings.filter(job => {
@@ -64,6 +70,8 @@ function OrgJobListings() {
                     )
                 })}
             </div>
+            <AddJobModal isAddModalOpen={isAddModalOpen} setIsAddModalOpened={setIsAddModalOpened} />
+            <EditJobModal isEditModalOpen={isEditModalOpen} setIsEditModalOpened={setIsEditModalOpened} />
         </div>
     )
 }

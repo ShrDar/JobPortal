@@ -93,6 +93,9 @@ html {
     width: 100%;
 }
 .jobSearchInputWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
 }
 .jobSearchInput1 {
@@ -110,6 +113,9 @@ html {
     width: 40%;
 }
 .jobSearchInputBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #119856;
     color: #fff;
     padding: 8px 20px;
@@ -732,4 +738,12 @@ input[type=checkbox]:hover {
     }
     ::-webkit-scrollbar-thumb:hover {
         background-color: #b6b6b6;
+    }
+
+    @media (max-width: 1200px) {
+        .jobSearchInputBtn {
+
+            text-align: center;
+            width: 80px;
+        }
     }

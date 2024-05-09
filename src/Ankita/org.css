@@ -118,7 +118,7 @@
     color: #FE9822;
 }
 .editBtn {
-    background-color: #0ec469;
+    background-color: #168BFD;
     padding: 5px 20px;
     color: #fff;
     border-radius: 20px;
@@ -131,7 +131,7 @@
     transition: 0.3s;
 }
 .editBtn:hover {
-    background-color: #0eb360;
+    background-color: #45a2ff;
 }
 .editBtn img{
     width: 18px;
@@ -146,6 +146,7 @@
     width: 100%;
     padding: 20px;
     border-radius: 10px;
+    gap: 30px;
 }
 .jobSearchInput {
     border: 1px solid #909090;
@@ -155,6 +156,21 @@
     font-size: 14px;
     width: 40%;
     filter: drop-shadow(1px 1px 1px #7a7a7a);
+}
+.orgAddJobBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: #09924D;
+    padding: 10px;
+    border-radius: 10px;
+    color: #eee;
+    transition: 0.2s;
+    font-size: 14px;
+}
+.orgAddJobBtn:hover {
+    background: #0ca85a;
 }
 
 .orgHome {

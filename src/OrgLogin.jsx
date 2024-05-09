@@ -13,7 +13,7 @@ import { Link,
     useActionData,
     useNavigation } from "react-router-dom";
 import { db } from "../config/firebase";
-import { getInfo } from "../fetchCred";
+import { getInfo } from "../fetchCred.jsx";
 
 export async function action({ request }) {
     //action function is an inbuilt react-router function which gets initiated immediately after a form is submitted
@@ -24,7 +24,7 @@ export async function action({ request }) {
     try {
         const logStatus = await getInfo(email, password);  //using getInfo function from another js file to check if any matching user/organization is found in the database
         console.log(logStatus);
-        return redirect(`/orgDashboard/${logStatus.id}`); //routing the user to another url using the id of the organization
+        return redirect(`/orgDashboard/${logStatus.id}/orgJobListings`); //routing the user to another url using the id of the organization
 
     }catch(err) { //if there are no matching organizations found error is catched
         return err.message; 
@@ -82,7 +82,7 @@ function OrgLogin() {
                                 <motion.img style={{width: '90px', marginRight: '0px', transition: '0.2s'}} src={rocketImg} alt="" initial={{y: 1000, scale: 2}} animate={{y: 0, scale: 1}} transition={{duration: 2, ease: 'backInOut'}} />
                             </div>
                         </div>
-                        <div className="login1-getJob cursor-pointer" onClick={() => navigate('/applicantDashboard')} >
+                        <div className="login1-getJob cursor-pointer" onClick={() => navigate('/applicantDashboard/applicantJobs')} >
                             <div className="getJob0">
                                 <p className="getJob1">Get the right job for you and apply ASAP!</p>
                                 <p className="getJob2">Be among the top 80 million people who can conquer the AI World</p>
