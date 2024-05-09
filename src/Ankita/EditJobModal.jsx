@@ -1,11 +1,14 @@
+import { collection, doc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
+import { db } from "../../config/firebase";
 
-function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site, level, vacancy, expiryDate, description }) {
-    
+function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site, level, vacancy, expiryDate, description, id }) {
     if(!isEditModalOpen) {
         return;
     }
+
+    const date = new Date().toLocaleDateString('en-CA');
 
     const [jobName, setJobName] = useState(name);
     const [jobTime, setJobTime] = useState(time);
@@ -15,6 +18,31 @@ function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site,
     const [jobAddDate, setJobAddDate] = useState('');
     const [jobExpiryDate, setJobExpiryDate] = useState(expiryDate)
     const [jobDescription, setJobDescription] = useState(description);
+
+    const handleEdit = async() => {
+        if(jobName == "" || jobDescription == "" || jobVacancies == "" || jobExpiryDate == "") {
+            alert("Missing Fields: Title or Desc or Vacancies or Available Till");
+            return;
+        }
+        const letters = /[a-zA-Z]/g;
+        if(jobName.match(letters) && jobDescription.match(letters)) {
+            console.log('contains')
+        } else {
+            alert('Title and Description should contain letters (Dont try to break my sh*t)')
+            return;
+        }
+
+        try {
+            const jobRef = doc(db, 'jobListings', id)
+            const updatedJob = {NofVacancy: jobVacancies, description: jobDescription, endDate: jobExpiryDate, experience: jobLevel, jobDurationType: jobTime, jobTitle: jobName, updatedDate: date, workLocation: jobSite }
+            console.log(updatedJob)
+            await updateDoc(jobRef, updatedJob)
+            setIsEditModalOpened(false);
+        } catch(err) {
+            console.error(err)
+        }
+    }
+
     return createPortal(
         <>
         <div className="overlay" onClick={() => setIsEditModalOpened(false)}></div>
@@ -63,7 +91,7 @@ function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site,
                     <input type="date" onChange={(e) => setJobExpiryDate(e.target.value)} value={jobExpiryDate} />
                 </div>
             </div>
-            <button className="addJobModalBtn">Apply</button>
+            <button className="addJobModalBtn" onClick={() => handleEdit()}>Apply</button>
         </div>
         </>
         , document.getElementById('modal')

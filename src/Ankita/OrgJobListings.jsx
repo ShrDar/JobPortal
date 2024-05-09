@@ -1,5 +1,5 @@
-import { collection, getDocs, query, where } from 'firebase/firestore'
-import React, { useState } from 'react'
+import { collection, getDocs, onSnapshot, query, where } from 'firebase/firestore'
+import React, { useEffect, useState } from 'react'
 import { db } from '../../config/firebase'
 import { useLoaderData, useParams } from 'react-router-dom'
 import teamImg from '/team.png'
@@ -17,6 +17,7 @@ export async function loader({ params }) {
         const jobs = data.docs.map((job) => ({
             ...job.data(), id: job.id
         }))
+        
         return jobs
     } catch(err) {
         console.error(err);
@@ -25,9 +26,20 @@ export async function loader({ params }) {
 }
 
 function OrgJobListings() {
+    const orgId1 = useParams().orgId;
+    const q = query(collection(db, "jobListings"), where("orgId", "==", orgId1));
+    const [jobListings, setJobListings] = useState();
+    useEffect(() => {
+        const unsub = onSnapshot(q, (data) => {
+            setJobListings(data.docs.map((doc) => ({
+                ...doc.data(), 
+                id: doc.id
+            })))
+        })
+        return unsub;
+    }, [])
     const [isAddModalOpen, setIsAddModalOpened] = useState(false);
     const [isEditModalOpen, setIsEditModalOpened] = useState(false);
-    const jobListings = useLoaderData();
     
     const [cJobName, setcJobName] = useState('');
     const [cJobTime, setcJobTime] = useState('');
@@ -36,6 +48,7 @@ function OrgJobListings() {
     const [cVacancies, setcVacancies] = useState('');
     const [cJobExpiryDate, setcJobExpiryDate] = useState('');
     const [cJobDescription, setcJobDescription] = useState('');
+    const [cJobId, setcJobId] = useState('');
 
     const [jobTitle, setJobTitle] = useState('');
 
@@ -49,7 +62,7 @@ function OrgJobListings() {
                 <button className='orgAddJobBtn' onClick={() => setIsAddModalOpened(true)}><img style={{width: '20px'}} src={addBtn} ></img>Add Job</button>
             </div>
             <div className="orgJobListings">
-                {jobListings.filter(job => {
+                {jobListings?.filter(job => {
                     if(jobTitle.toLowerCase() === "") {
                         return job;
                     }
@@ -69,8 +82,8 @@ function OrgJobListings() {
                                 <img src={teamImg} alt="" style={{width: '20px'}} />
                                 <p>Vacancies: <strong>{job.NofVacancy}</strong></p>
                             </div>
-                            <div className="job3 flex gap-3">
-                                <img src={calenderImg} style={{width: '20px'}} />
+                            <div className="job3 flex gap-3 items-center">
+                                <img src={calenderImg} style={{width: '20px', height: '20px'}} />
                                 <p>Apply Before <strong>{job.endDate}</strong> </p>                            
                             </div>
                             <div className="editBtn flex" onClick={() => {
@@ -82,6 +95,7 @@ function OrgJobListings() {
                                 setcVacancies(job.NofVacancy);
                                 setcJobExpiryDate(job.endDate);
                                 setcJobDescription(job.description);
+                                setcJobId(job.id);
                                 }}>
                                 <p>Edit</p>
                                 <img src={editBtnImg} alt="" />
@@ -92,7 +106,7 @@ function OrgJobListings() {
             </div>
             <AddJobModal isAddModalOpen={isAddModalOpen} setIsAddModalOpened={setIsAddModalOpened} orgId={orgId.orgId} />
             <EditJobModal isEditModalOpen={isEditModalOpen} setIsEditModalOpened={setIsEditModalOpened}
-                name={cJobName} time={cJobTime} site={cJobSite} level={cJobLevel} vacancy={cVacancies} expiryDate={cJobExpiryDate} description={cJobDescription}
+                name={cJobName} time={cJobTime} site={cJobSite} level={cJobLevel} vacancy={cVacancies} expiryDate={cJobExpiryDate} description={cJobDescription} id={cJobId}
             />
         </div>
     )
