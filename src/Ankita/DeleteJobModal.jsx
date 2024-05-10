@@ -3,6 +3,7 @@ import React from "react";
 import { createPortal } from "react-dom";
 import { db } from "../../config/firebase";
 import dustbin from '/delete.png'
+import { motion } from "framer-motion";
 
 function DeleteJobModal( {isDeleteJobModalOpen, setIsDeleteJobModalOpened, id} ) {
     if(!isDeleteJobModalOpen) {
@@ -17,11 +18,25 @@ function DeleteJobModal( {isDeleteJobModalOpen, setIsDeleteJobModalOpened, id} )
             console.log(err);
         }
     }
+    const dropIn = {
+        hidden: {
+            y: '-100vh',
+            opacity: 1,
+        }, visible: {
+            y: '-50%',
+            x: '-50%',
+            opacity: 1,
+            transition: { duration: 0.1, type: 'spring', damping: 25, stiffness: 500}
+        }, exit: {
+            y: '100vh',
+            opacity: 0
+        }
+    }
 
     return createPortal(
         <>
             <div className="overlay" onClick={() => setIsDeleteJobModalOpened(false)}></div>
-            <div className="deleteJobModal">
+            <motion.div initial='hidden' animate='visible' exit='exit' variants={dropIn} className="deleteJobModal">
                 <div className="dustbinContainer">
                     <img className="dustBin" src={dustbin} alt="" />
                 </div>
@@ -30,8 +45,7 @@ function DeleteJobModal( {isDeleteJobModalOpen, setIsDeleteJobModalOpened, id} )
                     <button className="noBtn" onClick={() => setIsDeleteJobModalOpened(false)}>No</button>
                     <button className="yesBtn" onClick={() => handleDeleteJob(id)}>Yes</button>
                 </div>
-
-            </div>
+            </motion.div>
         </>,
         document.getElementById('modal')
     )

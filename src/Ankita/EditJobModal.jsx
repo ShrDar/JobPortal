@@ -2,6 +2,7 @@ import { collection, doc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import { db } from "../../config/firebase";
+import { motion } from "framer-motion";
 
 function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site, level, vacancy, expiryDate, description, id }) {
     if(!isEditModalOpen) {
@@ -43,10 +44,25 @@ function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site,
         }
     }
 
+    const dropIn = {
+        hidden: {
+            opacity: 0,
+            y: '-100%',
+            x: '-50%'
+        }, visible: {
+            y: '-50%',
+            x: '-50%',
+            opacity: 1,
+            transition: { duration: 0.2, type: 'spring', damping: 25, stiffness: 500}
+        }, exit: {
+            opacity: 0
+        }
+    }
+
     return createPortal(
         <>
         <div className="overlay" onClick={() => setIsEditModalOpened(false)}></div>
-        <div className="addJobModal">
+        <motion.div initial='hidden' animate='visible' exit='exit' variants={dropIn} className="addJobModal">
             <p className="addJobTitle">Edit Job</p>
             <div className="jobDetails1">
 
@@ -92,7 +108,7 @@ function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site,
                 </div>
             </div>
             <button className="addJobModalBtn" onClick={() => handleEdit()}>Apply</button>
-        </div>
+        </motion.div>
         </>
         , document.getElementById('modal')
     )

@@ -10,6 +10,7 @@ import deleteBtn from '/delete.png'
 import { AddJobModal } from './AddJobModal'
 import { EditJobModal } from './EditJobModal'
 import { DeleteJobModal } from './DeleteJobModal'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export async function loader({ params }) {
     const orgId = params.orgId;
@@ -58,14 +59,13 @@ function OrgJobListings() {
 
 
     const [isDeleteJobModalOpen, setIsDeleteJobModalOpened] = useState(false);
-    
 
     return (
         <div className="orgJobListingsContainer">
             <h1 style={{fontSize: '25px', alignSelf: 'center'}} className='orgJobListingsTitle'>Your Job Listings:</h1>
             <div className="orgJobListingsSearch">
                 <input type='text' className='jobSearchInput' placeholder='Search Your Job Title' onChange={(e) => setJobTitle(e.target.value)} value={jobTitle}/>
-                <button className='orgAddJobBtn' onClick={() => setIsAddModalOpened(true)}><img style={{width: '20px'}} src={addBtn} ></img>Add Job</button>
+                <motion.button whileTap={{scale: 0.9}} className='orgAddJobBtn' onClick={() => setIsAddModalOpened(true)}><img style={{width: '20px'}} src={addBtn} ></img>Add Job</motion.button>
             </div>
             <div className="orgJobListings">
                 {jobListings?.filter(job => {

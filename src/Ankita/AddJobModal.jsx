@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import './org.css'
 import { addDoc, collection, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
+import { motion } from "framer-motion";
 
 function AddJobModal({ isAddModalOpen, setIsAddModalOpened, orgId }) {
     if(!isAddModalOpen) {
@@ -45,11 +46,25 @@ function AddJobModal({ isAddModalOpen, setIsAddModalOpened, orgId }) {
         }
 
     }
+    const dropIn = {
+        hidden: {
+            opacity: 0,
+            y: '100%',
+            x: '-50%'
+        }, visible: {
+            y: '-50%',
+            x: '-50%',
+            opacity: 1,
+            transition: { duration: 0.1, type: 'spring', damping: 25, stiffness: 500}
+        }, exit: {
+            opacity: 0
+        }
+    }
 
     return createPortal(
         <>
         <div className="overlay" onClick={() => setIsAddModalOpened(false)}></div>
-        <div className="addJobModal">
+        <motion.div initial='hidden' animate='visible' exit='exit' variants={dropIn} className="addJobModal">
             <p className="addJobTitle">Add Job</p>
             <div className="jobDetails1">
 
@@ -95,7 +110,7 @@ function AddJobModal({ isAddModalOpen, setIsAddModalOpened, orgId }) {
                 </div>
             </div>
             <button className="addJobModalBtn" onClick={() => handleAddJob()}>Add</button>
-        </div>
+        </motion.div>
         </>
         , document.getElementById('modal')
     )
