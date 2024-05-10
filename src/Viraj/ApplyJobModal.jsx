@@ -25,17 +25,23 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
         setApplyStatus("submitting");
         if(name == "" || phone == "" || address == "" || email == "" || cvRef == "") {
             alert("Empty fields");
-            setApplyStatus("idle")
+            setApplyStatus("idle");
             return;
         }
         if(phone.length !== 10) {
             alert("Phone Number Length -> 10");
-            setSignInStatus("idle")
+            setSignInStatus("idle");
             return;
+        }
+        if(email.includes(" ")) {
+            alert('Email do not contain spaces');
+            return;
+            setSignInStatus('idle');
         }
         const regex = /^([a-z]||[A-Z]||[0-9])+[@]([a-z]||[A-Z])+[.]([a-z]||[A-Z]||[0-9])+[.]*([a-z]||[A-Z]||[0-9])*$/gm;
         if(!regex.test(email)) {
             alert("Invalid Email");
+            setSignInStatus('idle');
             return;
         }
         const applicants = await findApplicants();
