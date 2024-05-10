@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { db } from "../../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { NavLink, useLoaderData } from 'react-router-dom'
+import { NavLink, useLoaderData, useNavigate } from 'react-router-dom'
 import stealthLogo from '/stealthLogo.svg'
 import { Link, Outlet } from "react-router-dom";
+import logOutBtn from '/logout.png'
 import './org.css'
+import { useScroll } from "framer-motion";
 
 export async function loader( {params} ) {
     const orgId = params.orgId;
@@ -21,6 +23,9 @@ export async function loader( {params} ) {
 
 function OrgDashboard() {
     const org = useLoaderData();
+    const navigate = useNavigate();
+    const [isDropDownOpen, setIsDropDownOpened] = useState(false);
+    console.log(isDropDownOpen)
     return (
         <div className="orgDashboard">
             <div className="org-navBar">
@@ -31,10 +36,24 @@ function OrgDashboard() {
                     </div>
                 </Link>
                 <div className="orgLinks">
-                    <NavLink to={'orgJobListings'} style={({isActive}) => isActive ? {color: "#07914C", textDecoration: 'underline', textUnderlineOffset: '5px'} : {color: "#000"}}>Job-Listings</NavLink>
+                    <NavLink to={'orgJobListings'} replace={true} style={({isActive}) => isActive ? {color: "#07914C", textDecoration: 'underline', textUnderlineOffset: '5px'} : {color: "#000"}}>Job-Listings</NavLink>
+                    <NavLink to={'orgApplicants'} replace={true} style={({isActive}) => isActive ? {color: "#07914C", textDecoration: 'underline', textUnderlineOffset: '5px'} : {color: "#000"}}>Applicants</NavLink>
                 </div>
-                <div className="orgProfile">
-                    <img src={org.imgUrl} alt="" />
+                <div className="orgProfile" >
+                    <img src={org.imgUrl} alt=""onClick={() => setIsDropDownOpened(prevState => !prevState)} />
+                    <div className="dropDown" style={isDropDownOpen ? {opacity: 1} : {opacity: 0}}>
+                        <div className="dropDownItem" onClick={() => {
+                                navigate('orgProfile', {replace: true});
+                                setIsDropDownOpened(false)
+                        }}>
+                            <img style={{filter: 'brightness(10)'}} src={org.imgUrl} alt="" />
+                            <p>My Profile</p>
+                        </div>
+                        <div className="dropDownItem" onClick={() => navigate('/', {replace: true})}>
+                            <img src={logOutBtn} alt="" />
+                            <p>Log-Out</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <Outlet />

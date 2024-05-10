@@ -13,18 +13,18 @@ import { DeleteJobModal } from './DeleteJobModal'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export async function loader({ params }) {
-    const orgId = params.orgId;
-    const q = query(collection(db, "jobListings"), where("orgId", "==", orgId));
-    try {
-        const data = await getDocs(q);
-        const jobs = data.docs.map((job) => ({
-            ...job.data(), id: job.id
-        }))
+    // const orgId = params.orgId;
+    // const q = query(collection(db, "jobListings"), where("orgId", "==", orgId));
+    // try {
+    //     const data = await getDocs(q);
+    //     const jobs = data.docs.map((job) => ({
+    //         ...job.data(), id: job.id
+    //     }))
         
-        return jobs
-    } catch(err) {
-        console.error(err);
-    }
+    //     return jobs
+    // } catch(err) {
+    //     console.error(err);
+    // }
     return 'No Data Fetched'
 }
 

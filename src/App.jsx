@@ -16,6 +16,8 @@ import { AboutUs } from "./Viraj/AboutUs";
 import { ApplicantJobDetails, loader as applicantJobDetailsLoader } from "./Viraj/ApplicantJobDetails";
 import { OrgHome } from "./Ankita/OrgHome";
 import { OrgJobListings, loader as orgJobListingsLoader } from "./Ankita/OrgJobListings";
+import { OrgApplicants } from "./Ankita/OrgApplicants";
+import { OrgProfile } from "./Ankita/OrgProfile";
 
 //creating a router variable to use the createBrowserRouter and createRoutesFromElements function
 //createBrowserRouter creates Browser routes for client side routing and createRoutesFromElements creates routes from Route Components
@@ -32,6 +34,8 @@ const router = createBrowserRouter(createRoutesFromElements(
         >
             <Route index element={<OrgHome />} />
             <Route path="orgJobListings" element={<OrgJobListings />} loader={ orgJobListingsLoader } />
+            <Route path="orgApplicants" element={<OrgApplicants />} />
+            <Route path="orgProfile" element={<OrgProfile />} />
         </Route>
         <Route path="applicantDashboard"  
             element = {<ApplicantDashboard />} 
