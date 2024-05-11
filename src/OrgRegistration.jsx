@@ -109,10 +109,17 @@ function OrgRegistration() {
         }
     }
     
+    const checkFileType = (e) => {
+        const fileName = e.target.value;
+        if(!(fileName.includes('.png') || fileName.includes('.jpg') || fileName.includes('.jpeg'))) {
+            e.target.value = '';
+            alert('Only .png, .jpg, .jpeg formats allowed')
+        }
+    }
 
     return (
         <div className='orgRegContainer loginContainer'>
-            <motion.div className="orgReg" initial={{opacity: 0, x: -1000, filter: 'blur(2)'}} animate={{opacity: 1, x: 0, filter: 'blur(0)'}}>
+            <motion.div className="orgReg" initial={{opacity: 0, x: -1000}} animate={{opacity: 1, x: 0}}>
                 <div className="orgReg1">
 
                     <h2 style={{textAlign:"center", width: '100%', fontSize: "24px", fontWeight: "bold", margin: '20px 0px'}}>Register Your Organization</h2>
@@ -149,7 +156,10 @@ function OrgRegistration() {
                             </div>
                             <div className="reg-orgImg regIn">
                                 <label>Logo</label>
-                                <input type='file' accept='image/*' name='orgImg' className='orgImg' id='inputFile' onChange={(e) => setImgUpload(e.target.files[0])} />
+                                <input type='file' accept='.png, .jpg, .jpeg' name='orgImg' className='orgImg' id='inputFile' onChange={(e) => {
+                                    setImgUpload(e.target.files[0])
+                                    checkFileType(e);
+                                    }} />
                             </div>
                         </div>
 
