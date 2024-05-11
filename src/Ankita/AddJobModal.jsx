@@ -70,7 +70,7 @@ function AddJobModal({ isAddModalOpen, setIsAddModalOpened, orgId }) {
 
                 <div className="jobDetail">
                 <p>Title</p>
-                        <input className="detailText" type="text" onChange={(e) => {setJobName(e.target.value)}} value={jobName} />
+                        <input className="detailText" type="text" onChange={(e) => {setJobName(e.target.value)}} value={jobName} maxLength={50} />
                 </div>
                 <div className="jobDetail">
                 <p>Description</p>

@@ -32,6 +32,8 @@ function OrgRegistration() {
     const [imgUpload, setImgUpload] = useState(null); //used to get the image file
     let formData;
 
+    const letters = /[a-zA-Z]/g; //used for regex to validate if the there are any input fields with only whitespaces
+
     const handleSignUp = async() => {
         //function is used to perform actions after the user hits the sign up button
         setSignInStatus("submitting"); //setting the states value to 'submitting'
@@ -41,6 +43,12 @@ function OrgRegistration() {
             setSignInStatus("idle") //setting the status to 'idle'
             return; //terminating the function
         } 
+        if(name.match(letters) || pass.match(letters) || address.match(letters)) {
+            
+        } else {
+            alert('Name, Password and Address should contain letters (Dont try to break my sh*t)')
+            return;
+        }
         if(phone.length !== 10) { //checking if the phone number length is equals to 10 or not
             alert("Phone Number Length -> 10");
             setSignInStatus("idle")
@@ -112,7 +120,7 @@ function OrgRegistration() {
 
                             <div className="reg-orgName regIn">
                                 <label>Name</label>
-                                <input autoComplete='hidden' type="text" name='orgName' onChange={(e) => setName(e.target.value)} value={name}/>
+                                <input autoComplete='hidden' type="text" name='orgName' onChange={(e) => setName(e.target.value)} value={name} maxLength={50}/>
                             </div>
                             <div className="reg-orgEmail regIn">
                                 <label>Email </label>
@@ -131,7 +139,7 @@ function OrgRegistration() {
                             </div>
                             <div className="reg-orgAddress regIn" >
                                 <label>Address</label>
-                                <input autoComplete='hidden' type='text' name='orgAddress' onChange={(e) => setAddress(e.target.value)} value={address} />
+                                <input autoComplete='hidden' type='text' name='orgAddress' onChange={(e) => setAddress(e.target.value)} value={address} maxLength={50} />
                             </div>
                             <div className="reg-orgType regIn">
                                 <label>Type</label>
@@ -141,7 +149,7 @@ function OrgRegistration() {
                             </div>
                             <div className="reg-orgImg regIn">
                                 <label>Logo</label>
-                                <input type='file' name='orgImg' className='orgImg' id='inputFile' onChange={(e) => setImgUpload(e.target.files[0])} />
+                                <input type='file' accept='image/*' name='orgImg' className='orgImg' id='inputFile' onChange={(e) => setImgUpload(e.target.files[0])} />
                             </div>
                         </div>
 

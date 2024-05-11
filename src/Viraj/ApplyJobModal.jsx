@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import crossImg from '../../public/cross.png'
 import { useNavigate } from "react-router-dom";
@@ -19,11 +19,11 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
     const [email, setEmail] = useState('');
-    const [cvRef, setCvRef] = useState(null);
+    const [cvRef, setCvRef] = useState('');
     
     const handleApply = async() => {
         setApplyStatus("submitting");
-        if(name == "" || phone == "" || address == "" || email == "" || cvRef == null) {
+        if(name == "" || phone == "" || address == "" || email == "" || cvRef == '') {
             alert("Empty fields");
             setApplyStatus("idle");
             return;
@@ -118,6 +118,14 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
         }
     }
 
+    const checkFileType = (e) => {
+        if(e.target.value.includes('.pdf')) {
+        } else {
+            e.target.value = '';
+            alert("Only .pdf format allowed");
+        }
+    }
+
     return createPortal(
         <>
         <div className="applyJobModalContainer" onClick={() => setIsOpened(false)}>
@@ -140,7 +148,7 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
             <div className="applyForm">
                 <div className="applyJob-name">
                     <label>Name</label>
-                    <input type="text" onChange={(e) => setName(e.target.value)} value={name}/>
+                    <input type="text" onChange={(e) => setName(e.target.value)} value={name} maxLength={50}/>
                 </div>
                 <div className="applyJob-name">
                     <label>Phone No</label>
@@ -148,7 +156,7 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
                 </div>
                 <div className="applyJob-name">
                     <label>Address </label>
-                    <input type="text" onChange={(e) => setAddress(e.target.value)} value={address}></input>
+                    <input type="text" onChange={(e) => setAddress(e.target.value)} value={address} maxLength={50}></input>
                 </div>
                 <div className="applyJob-name">
                     <label>E-mail </label>
@@ -156,7 +164,10 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
                 </div>
                 <div className="applyJob-name">
                     <label>Attach CV</label>
-                    <input type="file" onChange={(e) => setCvRef(e.target.files[0])} />
+                    <input type="file" accept=".pdf" onChange={(e) => {
+                        setCvRef(e.target.files[0]);
+                        checkFileType(e);
+                        }} id="cv"/>
                 </div>
                 <button className="applySendBtn" onClick={handleApply}>{applyStatus == "submitting" ? "Sending..." : "Send"}</button>
 
