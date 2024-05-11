@@ -62,7 +62,7 @@
 }
 .orgProfile img {
     width: 40px;
-    filter: drop-shadow(1px 1px 1px #000);
+    filter: drop-shadow(1px 1px 1px #777777);
     cursor: pointer;
 }
 .dropDown {
@@ -540,6 +540,9 @@
 .orgApplicantDelete img {
     width: 15px;
     filter: invert(1);
+}
+.organizationProfile {
+    
 }
 
 @media (max-width: 1100px) {
