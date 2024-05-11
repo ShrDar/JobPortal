@@ -39,9 +39,9 @@ function OrgDashboard() {
                     <NavLink to={'orgJobListings'} replace={true} style={({isActive}) => isActive ? {color: "#07914C", textDecoration: 'underline', textUnderlineOffset: '5px'} : {color: "#000"}}>Job-Listings</NavLink>
                     <NavLink to={'orgApplicants'} replace={true} style={({isActive}) => isActive ? {color: "#07914C", textDecoration: 'underline', textUnderlineOffset: '5px'} : {color: "#000"}}>Applicants</NavLink>
                 </div>
-                <div className="orgProfile" >
-                    <img src={org.imgUrl} alt=""onClick={() => setIsDropDownOpened(prevState => !prevState)} />
-                    <div className="dropDown" style={isDropDownOpen ? {opacity: 1} : {opacity: 0}}>
+                <div className="orgProfile" onMouseEnter={() => setIsDropDownOpened(true)} onClick={() => setIsDropDownOpened(prevState => !prevState)}  >
+                    <img src={org.imgUrl} alt="" />
+                    <div className="dropDown" style={isDropDownOpen ? {opacity: 1} : {opacity: 0, transform:'translateX(500px)'}} onMouseLeave={() => setIsDropDownOpened(false)}>
                         <div className="dropDownItem" onClick={() => {
                                 navigate('orgProfile', {replace: true});
                                 setIsDropDownOpened(false)

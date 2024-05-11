@@ -1,13 +1,16 @@
 html {
     scroll-behavior: smooth;
 }
+body {
+    background-color: #EDEDED;
+}
 .applicantDashboard {
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 100svh;
+    height: fit-content;
     min-height: 100svh;
-    background-color: #ededed;
+    background-color: #EDEDED;
     color: #000000;
     font-family: 'Karla', sans-serif;
 }
@@ -59,11 +62,12 @@ html {
 }
 
 .applicantJobs {
+    position: relative;
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    align-items: top;
     gap: 20px;
-    height: 80svh;
+    height: fit-content;
     margin: 20px;
     width: 90%;
     font-family: 'Karla', sans-serif;
@@ -76,7 +80,7 @@ html {
     gap: 20px;
 }
 .applicantJobs-searchBarContainer {
-    width: 100%;
+    width: fit-content;
     height: fit-content;
     display: flex;
     align-self: flex-start;
@@ -103,14 +107,14 @@ html {
     border-radius: 5px 0px 0px 5px;
     padding: 12px 8px;
     font-size: 14px;
-    width: 40%;
+    width: 500px;
 }
 .jobSearchInput2 {
     border: 1px solid #6b6b6b;
     border-radius: 0px 5px 5px 0px;
     padding: 12px 8px;
     font-size: 14px;
-    width: 40%;
+    width: 500px;
 }
 .jobSearchInputBtn {
     display: flex;
@@ -129,6 +133,8 @@ html {
 }
 
 .jobFilterBar {
+    position: sticky;
+    top: 60px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -740,10 +746,33 @@ input[type=checkbox]:hover {
         background-color: #b6b6b6;
     }
 
-    @media (max-width: 1200px) {
+    @media (max-width: 1100px) {
+        .jobSearchAndJobsWrapper {
+            width: 90%;
+        }
         .jobSearchInputBtn {
-
             text-align: center;
             width: 80px;
         }
+        .applicantJobs-searchBarContainer {
+            width: 100%;
+        }
+        .jobSearchInput1 {
+            width: 40%;
+        }
+        .jobSearchInput2 {
+            width: 40%;
+        }
+
+        .jobListings {
+            grid-template-columns: repeat(3, 1fr);
+        }
     }
+    @media (max-width: 800px) {
+        .jobFilterBar {
+            position: sticky;
+        }
+        .jobListings {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    } 

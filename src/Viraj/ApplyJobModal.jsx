@@ -23,40 +23,55 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
     
     const handleApply = async() => {
         setApplyStatus("submitting");
-        if(name == "" || phone == "" || address == "" || email == "" || cvRef == "") {
+        if(name == "" || phone == "" || address == "" || email == "" || cvRef == null) {
             alert("Empty fields");
             setApplyStatus("idle");
             return;
         }
+        const letters = /[a-zA-Z]/g;
+        if(name.match(letters) && address.match(letters)) {
+            // console.log('contains')
+        } else {
+            alert('Name and Address need to contain letters (Only spaces entered)')
+            setApplyStatus('idle')
+            return;
+        }
         if(phone.length !== 10) {
             alert("Phone Number Length -> 10");
-            setSignInStatus("idle");
+            setApplyStatus("idle");
             return;
         }
         if(email.includes(" ")) {
             alert('Email do not contain spaces');
+            setApplyStatus('idle');
             return;
-            setSignInStatus('idle');
         }
         const regex = /^([a-z]||[A-Z]||[0-9])+[@]([a-z]||[A-Z])+[.]([a-z]||[A-Z]||[0-9])+[.]*([a-z]||[A-Z]||[0-9])*$/gm;
         if(!regex.test(email)) {
             alert("Invalid Email");
-            setSignInStatus('idle');
+            setApplyStatus('idle');
             return;
         }
         const applicants = await findApplicants();
         
-        applicants.forEach((applicant) => {
-            if(applicant.email === email || applicant.phone === phone) {
-                alert('Email or Phone no already taken')
+        const isApp = applicants.find((applicant) => applicant.email === email || applicant.phone === phone) //checking if the email or phone number is already used in the database
+        if(isApp) { //if it is taken the function gets terminated
+            alert('Email or Phone no already taken')
                 setApplyStatus("idle")
                 return;
-            }
-        })
+        }
+
+        // applicants.forEach((applicant) => {
+        //     if(applicant.email === email || applicant.phone === phone) {
+        //         alert('Email or Phone no already taken')
+        //         setApplyStatus("idle")
+        //         return;
+        //     }
+        // })
 
         let currentDate = new Date().toJSON().slice(0, 10);
         
-        let formData = {name, email, address, phone, createdDate: currentDate, jobListingId: job.id}
+        let formData = {name, email, address, phone, appliedDate: currentDate, jobListingId: job.id}
         let cv_ref = await handleCvUpload();
         formData = {...formData, cv_ref}
 

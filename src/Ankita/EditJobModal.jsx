@@ -27,7 +27,7 @@ function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site,
         }
         const letters = /[a-zA-Z]/g;
         if(jobName.match(letters) && jobDescription.match(letters)) {
-            console.log('contains')
+            //console.log('contains')
         } else {
             alert('Title and Description should contain letters (Dont try to break my sh*t)')
             return;
