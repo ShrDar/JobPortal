@@ -64,6 +64,7 @@
     width: 40px;
     filter: drop-shadow(1px 1px 1px #000);
     cursor: pointer;
+    border-radius: 50%;
 }
 .dropDown {
     display: flex;
@@ -370,6 +371,10 @@
     background-color: #0000007d;
     height: 100svh;
     width: 100%;
+    z-index: 101;
+}
+.modal {
+    z-index: 102;
 }
 .addJobModal {
     display: flex;

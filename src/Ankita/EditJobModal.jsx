@@ -62,7 +62,7 @@ function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site,
     return createPortal(
         <>
         <div className="overlay" onClick={() => setIsEditModalOpened(false)}></div>
-        <motion.div initial='hidden' animate='visible' exit='exit' variants={dropIn} className="addJobModal">
+        <motion.div initial='hidden' animate='visible' exit='exit' variants={dropIn} className="addJobModal modal">
             <p className="addJobTitle">Edit Job</p>
             <div className="jobDetails1">
 

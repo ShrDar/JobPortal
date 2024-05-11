@@ -36,7 +36,7 @@ function DeleteJobModal( {isDeleteJobModalOpen, setIsDeleteJobModalOpened, id} )
     return createPortal(
         <>
             <div className="overlay" onClick={() => setIsDeleteJobModalOpened(false)}></div>
-            <motion.div initial='hidden' animate='visible' exit='exit' variants={dropIn} className="deleteJobModal">
+            <motion.div initial='hidden' animate='visible' exit='exit' variants={dropIn} className="deleteJobModal modal">
                 <div className="dustbinContainer">
                     <img className="dustBin" src={dustbin} alt="" />
                 </div>
