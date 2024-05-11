@@ -564,8 +564,9 @@
     justify-content: flex-start;
     align-items: center;
     gap: 30px;
+    max-width: 500px;
     width: 500px;
-    padding: 20px 0px;
+    padding: 20px 0px 50px 0px;
     align-items: center;
     background-color: #fff;
     border-radius: 20px;
@@ -635,6 +636,9 @@
     }
     .orgApplicants {
         grid-template-columns: repeat(2, 1fr);
+    }
+    .organizationDetailsContainer {
+        width: 60%;
     }
 }
 
