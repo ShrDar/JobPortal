@@ -64,7 +64,6 @@
     width: 40px;
     filter: drop-shadow(1px 1px 1px #000);
     cursor: pointer;
-    border-radius: 50%;
 }
 .dropDown {
     display: flex;
@@ -526,6 +525,21 @@
     text-decoration: underline;
     text-underline-offset: 5px;
     text-decoration-color: #838383;
+}
+.orgApplicantDelete {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    border-radius: 50%;
+    top: 35px;
+    right: 20px;
+    background-color: #ED4E4E;
+}
+.orgApplicantDelete img {
+    width: 15px;
+    filter: invert(1);
 }
 
 @media (max-width: 1100px) {
