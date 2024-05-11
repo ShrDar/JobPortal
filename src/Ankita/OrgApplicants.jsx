@@ -46,7 +46,7 @@ function OrgApplicants() {
             }
         })
     })
-    console.log(tempApplicants);
+    // console.log(tempApplicants);
 
     const [isDeleteApplicantModalOpen, setIsDeleteApplicantModalOpened] = useState(false);
     const [cApplicantId, setcApplicantId] = useState('')

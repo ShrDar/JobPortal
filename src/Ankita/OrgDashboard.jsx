@@ -25,7 +25,6 @@ function OrgDashboard() {
     const org = useLoaderData();
     const navigate = useNavigate();
     const [isDropDownOpen, setIsDropDownOpened] = useState(false);
-    console.log(isDropDownOpen)
     return (
         <div className="orgDashboard">
             <div className="org-navBar">
