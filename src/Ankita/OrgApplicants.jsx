@@ -84,6 +84,7 @@ function OrgApplicants() {
                     )
                 })}
             </div>
+            {myApplicants.length === 0 && <h1 className="noData">No One has applied for your Jobs</h1>}
             <DeleteApplicantModal isDeleteApplicantModalOpen={isDeleteApplicantModalOpen} setIsDeleteApplicantModalOpened={setIsDeleteApplicantModalOpened} id={cApplicantId} />
         </>
     )

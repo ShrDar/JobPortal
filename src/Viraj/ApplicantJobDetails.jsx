@@ -7,6 +7,7 @@ import teamImg from '/team.png'
 import earthImg from '/earth.png'
 import backImg from '/cross.png'
 import { ApplyJobModal } from "./ApplyJobModal";
+import { motion } from "framer-motion";
 
 export async function loader({ params }) {
     const jobId = params.jobId;
@@ -17,7 +18,6 @@ export async function loader({ params }) {
         const orgRef = doc(db, "organization", job.orgId);
         const data1 = await getDoc(orgRef);
         const org = data1.data();
-        console.log(job)
         return {job, org}
     } catch( err ) {
         console.error(err)
@@ -30,7 +30,7 @@ function ApplicantJobDetails() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { job, org } = useLoaderData(); 
     return (
-        <div className="applicantJobDetails">
+        <motion.div initial={{y: -500}} animate={{y: 0}} className="applicantJobDetails">
             <div className="jobDetails">
                 <div className="jobTitle flex justify-between">
                     <div className="jobTitleWapper flex gap-2">
@@ -40,7 +40,7 @@ function ApplicantJobDetails() {
                             <p>{org.name}</p>
                         </div>
                     </div>
-                    <img className="cross" style={{alignSelf: 'flex-start'}} src={backImg} onClick={() => navigate('/applicantDashboard/applicantJobs')} />
+                    <motion.img whileTap={{scale: [2, 0]}} className="cross" style={{alignSelf: 'flex-start'}} src={backImg} onClick={() => navigate('/applicantDashboard/applicantJobs')} />
                 </div>
                 <div className="jobTypes job2">
                     <p className="jobDuration">{job.jobDurationType}</p>
@@ -66,7 +66,7 @@ function ApplicantJobDetails() {
                 <button className="applicantApplyBtn" onClick={() => setIsModalOpen(true)}>Apply</button>
                 <ApplyJobModal isOpened={isModalOpen} setIsOpened={setIsModalOpen} job={job}></ApplyJobModal>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

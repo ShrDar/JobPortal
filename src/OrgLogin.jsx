@@ -4,7 +4,7 @@ import jobImg from '/job.png'
 import rocketImg from '/rocket.png'
 import passEyeImg from '/eyes.png'
 import marsImg from '/mars.png'
-import { motion } from 'framer-motion'
+import { motion, transform } from 'framer-motion'
 import { AnimatePresence } from 'framer-motion'
 import { Link, 
     useNavigate, 
@@ -23,7 +23,6 @@ export async function action({ request }) {
     const password = loginData.get("password"); //password variable storing the value of the password input field
     try {
         const logStatus = await getInfo(email, password);  //using getInfo function from another js file to check if any matching user/organization is found in the database
-        console.log(logStatus);
         return redirect(`/orgDashboard/${logStatus.id}/orgJobListings`); //routing the user to another url using the id of the organization
 
     }catch(err) { //if there are no matching organizations found error is catched
@@ -70,7 +69,7 @@ function OrgLogin() {
                                     {navigation.state === "submitting"? "Signing In": "Sign In"}
                             </button>
                         </Form>
-                        <p style={{margin: '10px', fontSize: '14px'}}>Don't have an account? <Link style={{color: "#FCB44D", fontWeight: '500'}} to={'registration'} className="login-createOne">Create one</Link></p>
+                        <motion.p whileTap={{scale: 1.1}} style={{margin: '10px', fontSize: '14px'}}>Don't have an account? <Link style={{color: "#FCB44D", fontWeight: '500'}} to={'registration'} className="login-createOne">Create one</Link></motion.p>
                         
                     </motion.div>
                     <div className="login1">
@@ -82,13 +81,12 @@ function OrgLogin() {
                                 <motion.img style={{width: '90px', marginRight: '0px', transition: '0.2s'}} src={rocketImg} alt="" initial={{y: 1000, scale: 2}} animate={{y: 0, scale: 1}} transition={{duration: 2, ease: 'backInOut'}} />
                             </div>
                         </div>
-                        <div className="login1-getJob cursor-pointer" onClick={() => navigate('/applicantDashboard/applicantJobs')} >
+                        <motion.div className="login1-getJob cursor-pointer" onClick={() => navigate('/applicantDashboard/applicantJobs')} whileTap={{scale: 0.8}} >
                             <div className="getJob0">
-                                <p className="getJob1">Get the right job for you and apply ASAP!</p>
-                                <p className="getJob2">Be among the top 80 million people who can conquer the AI World</p>
+                                <p>Click Here To Find the Best Jobs</p>
                             </div>
                             <img src={jobImg} alt="" className="getJobImg" />
-                        </div>
+                        </motion.div>
                     </div>
                 </motion.div>
             </AnimatePresence>

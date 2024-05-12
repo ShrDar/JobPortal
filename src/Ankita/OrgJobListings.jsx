@@ -31,7 +31,7 @@ export async function loader({ params }) {
 function OrgJobListings() {
     const orgId1 = useParams().orgId;
     const q = query(collection(db, "jobListings"), where("orgId", "==", orgId1));
-    const [jobListings, setJobListings] = useState();
+    const [jobListings, setJobListings] = useState([]);
     useEffect(() => {
         const unsub = onSnapshot(q, (data) => {
             setJobListings(data.docs.map((doc) => ({
@@ -57,9 +57,9 @@ function OrgJobListings() {
 
     const orgId = useParams('orgId');
 
+    console.log(jobListings)
 
     const [isDeleteJobModalOpen, setIsDeleteJobModalOpened] = useState(false);
-
     return (
         <div className="orgJobListingsContainer">
             <h1 style={{fontSize: '25px', alignSelf: 'center'}} className='orgJobListingsTitle'>Your Job Listings:</h1>
@@ -117,6 +117,7 @@ function OrgJobListings() {
                     )
                 })}
             </div>
+            {jobListings.length === 0 && <h1 className='noData'>No Jobs Added Yet...</h1>}
             <AddJobModal isAddModalOpen={isAddModalOpen} setIsAddModalOpened={setIsAddModalOpened} orgId={orgId.orgId} />
             <EditJobModal isEditModalOpen={isEditModalOpen} setIsEditModalOpened={setIsEditModalOpened}
                 name={cJobName} time={cJobTime} site={cJobSite} level={cJobLevel} vacancy={cVacancies} expiryDate={cJobExpiryDate} description={cJobDescription} id={cJobId}

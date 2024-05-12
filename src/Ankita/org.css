@@ -629,6 +629,18 @@
     border-radius: 10px;
     margin-top: 15px;
 }
+.noData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 200px;
+    width: 100%;
+    font-size: 20px;
+    color: #09924e;
+    letter-spacing: 2px;
+    word-spacing: 10px;
+}
 
 @media (max-width: 1100px) {
     .orgJobListings {

@@ -6,6 +6,7 @@ import { addDoc, collection, getDocs } from "firebase/firestore";
 import { db, storage } from "../../config/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import checkImg from "/check.png"
+import { motion } from "framer-motion";
 
 function ApplyJobModal({ isOpened, setIsOpened, job }) {
     if(!isOpened) {
@@ -20,6 +21,21 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
     const [address, setAddress] = useState('');
     const [email, setEmail] = useState('');
     const [cvRef, setCvRef] = useState('');
+
+    const dropIn = {
+        hidden: {
+            opacity: 0,
+            y: '100%',
+            x: '-50%'
+        }, visible: {
+            y: '-50%',
+            x: '-50%',
+            opacity: 1,
+            transition: { duration: 0.1, type: 'spring', damping: 25, stiffness: 500}
+        }, exit: {
+            opacity: 0
+        }
+    }
     
     const handleApply = async() => {
         setApplyStatus("submitting");
@@ -125,7 +141,7 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
             alert("Only .pdf format allowed");
         }
     }
-
+    
     return createPortal(
         <>
         <div className="applyJobModalContainer" onClick={() => setIsOpened(false)}>
@@ -141,7 +157,7 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
             </div>
         )}
         
-        <div className="applyJob">
+        <motion.div initial='hidden' animate='visible' exit='exit' variants={dropIn} className="applyJob">
             <div className="applyJob1 flex gap-3">
                 <h2 style={{fontSize: '20px', width: '100%', textAlign: 'center'}}>Apply Form</h2>
             </div>
@@ -172,7 +188,7 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
                 <button className="applySendBtn" onClick={handleApply}>{applyStatus == "submitting" ? "Sending..." : "Send"}</button>
 
             </div>
-        </div>
+        </motion.div>
         
         </>,
         document.getElementById("modal")

@@ -4,6 +4,7 @@ import { db } from "../../config/firebase";
 import { Await, defer, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
 import calenderImg from '/calendar.png'
 import teamImg from '/team.png'
+import { motion } from "framer-motion";
 
 export async function loader() {
     const applicantJobCollectionRef = collection(db, 'jobListings')
@@ -52,6 +53,7 @@ function ApplicantJobs() {
     const handleFilterApply = () => {
         if(!(fullTime || partTime || onSite || remote || hybrid || fresher || beginner || intermediate || expert)) {
             alert("Nothing Selected");
+            setJobListings(jobList);
             return;
         }
         const jobs = jobList.filter((job) => {
@@ -102,10 +104,9 @@ function ApplicantJobs() {
             element.click();
         });
     }
-
         
     return (
-        <div className="applicantJobs">
+        <motion.div initial={{y: 600}} animate={{y: 0}} className="applicantJobs">
             <div className="jobFilterBar">
                 <div className="jobFilterBar-title ">
                     <p className="filter">Filter</p>
@@ -229,7 +230,7 @@ function ApplicantJobs() {
                         const org = orgs.find(org => org.id === job.orgId);
                         
                         return (
-                            <div className="job" key={job.id} onClick={() => navigate(`/applicantDashboard/jobDetails/${job.id}`)}>
+                            <motion.div whileTap={{scale: 0.8}} className="job" key={job.id} onClick={() => navigate(`/applicantDashboard/jobDetails/${job.id}`)}>
                                 <div className="job1">
                                     <img className="jobOrgLogo" src={org.imgUrl} alt="" />
                                     <div className="job1-1">
@@ -246,17 +247,17 @@ function ApplicantJobs() {
                                     <img src={teamImg} alt="" style={{width: '20px'}} />
                                     <p>Vacancies: <strong>{job.NofVacancy}</strong></p>
                                 </div>
-                                <div className="job4 flex gap-3">
-                                    <img src={calenderImg} style={{width: '20px'}} />
+                                <div className="job4 flex gap-3 items-center">
+                                    <img src={calenderImg} style={{width: '20px', height: '20px'}} />
                                     <p>Apply Before <strong>{job.endDate}</strong> </p>
 
                                 </div>
-                            </div>
+                            </motion.div>
                         )
                     })}
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 
