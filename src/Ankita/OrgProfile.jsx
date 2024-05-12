@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../config/firebase";
 import changeBtn from '/change.png'
+import { motion } from "framer-motion";
 
 function OrgProfile() {
     const orgId = useParams('orgId').orgId;
@@ -158,7 +159,7 @@ function OrgProfile() {
     return (
         <>
         {orgInfo ? (
-            <div className="organizationProfile">
+            <motion.div className="organizationProfile" initial={{x: 500}} animate={{x: 0}}>
                 <div className="organizationDetailsContainer">
                     <h1 style={{fontSize: '20px', fontWeight: '800', letterSpacing: '2px'}}>{orgInfo.name}</h1>
                     <div className="organizationLogoContainer">
@@ -210,8 +211,8 @@ function OrgProfile() {
                     <button className="changeAllBtn" onClick={() => handleChangeAll()}>Change All</button>
                     
                 </div>
-            </div>
-        ):''}
+            </motion.div>
+        ):'Loading...'}
             
         </>
     )

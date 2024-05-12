@@ -10,6 +10,7 @@ import namePic from '/name.png'
 import calendarPic from '/calendar.png'
 import deleteBtn from '/delete.png'
 import { DeleteApplicantModal } from "./DeleteApplicantModal";
+import { motion } from "framer-motion";
 
 
 function OrgApplicants() {
@@ -51,13 +52,25 @@ function OrgApplicants() {
     const [isDeleteApplicantModalOpen, setIsDeleteApplicantModalOpened] = useState(false);
     const [cApplicantId, setcApplicantId] = useState('')
 
+    const dateValidation = (jobDate) => {
+        const todaysDate = new Date().toLocaleDateString('en-CA');
+
+        const date = new Date(todaysDate);
+        const jobEndDate = new Date(jobDate);
+        if(date >= jobEndDate) {
+            return true;
+        } else if(date < jobEndDate) {
+            return false;
+        }
+    }
+
     return (
         <>
-            <h1 style={{fontSize: '25px', alignSelf: 'center', margin: '50px 0px 10px 0px'}} className='orgJobListingsTitle'>Job Applicants:</h1>
-            <div className="orgApplicants">
+            <motion.h1 style={{fontSize: '25px', alignSelf: 'center', margin: '50px 0px 10px 0px'}} initial={{x: -500}} animate={{x: 0}} className='orgJobListingsTitle'>Job Applicants:</motion.h1>
+            <motion.div className="orgApplicants" initial={{x: -500}} animate={{x: 0}}>
                 {tempApplicants.map(applicant => {
                     return (
-                        <div className="orgApplicantContainer" key={applicant.applicantId}>
+                        <div className="orgApplicantContainer" key={applicant.applicantId} style={!dateValidation(applicant.endDate) ? {border: '2px solid #6ce0a6'} : {border: '2px solid #faacb4'}} >
                             <div className="orgApplicantContainer1">
                                 <div className="orgApplicant">
                                     <p className="applicantJobTitle" style={{fontSize: '20px', justifySelf: '', alignSelf: ''}}># {applicant.jobTitle}</p>
@@ -67,24 +80,24 @@ function OrgApplicants() {
                                     <p className="flex items-center gap-2"><img src={locationPic} style={{width: '20px'}} alt="" />{applicant.address}</p>
                                     <p className="flex items-center gap-2"><img src={calendarPic} style={{width: '20px'}} alt="" />Applied On - {applicant.appliedDate}</p>
                                 </div>
-                                <div className="viewCv">
+                                <motion.div className="viewCv" whileHover={{scale: 1.1}} whileTap={{scale: 0.9}}>
                                     <a href={applicant.cv_ref} target="_blank">
                                         <button>View C.V <img src={viewCv} alt="" /></button>
                                     </a>
-                                </div>
+                                </motion.div>
                             </div>
-                            <div className="orgApplicantDelete">
+                            <motion.div whileHover={{scale: 1.2}} className="orgApplicantDelete">
                                 <button><img src={deleteBtn} alt="" onClick={() => {
                                     setIsDeleteApplicantModalOpened(true)
                                     setcApplicantId(applicant.applicantId)
                                 }
                                 } /></button>
-                            </div>
+                            </motion.div>
                         </div>
                     )
                 })}
-            </div>
-            {myApplicants.length === 0 && <h1 className="noData">No One has applied for your Jobs</h1>}
+            </motion.div>
+            {tempApplicants.length === 0 && <h1 className="noData">No One has applied for your Jobs</h1>}
             <DeleteApplicantModal isDeleteApplicantModalOpen={isDeleteApplicantModalOpen} setIsDeleteApplicantModalOpened={setIsDeleteApplicantModalOpened} id={cApplicantId} />
         </>
     )

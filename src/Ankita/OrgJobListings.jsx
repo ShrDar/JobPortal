@@ -57,11 +57,22 @@ function OrgJobListings() {
 
     const orgId = useParams('orgId');
 
-    console.log(jobListings)
-
     const [isDeleteJobModalOpen, setIsDeleteJobModalOpened] = useState(false);
+
+    const dateValidation = (jobDate) => {
+        const todaysDate = new Date().toLocaleDateString('en-CA');
+
+        const date = new Date(todaysDate);
+        const jobEndDate = new Date(jobDate);
+        if(date >= jobEndDate) {
+            return true;
+        } else if(date < jobEndDate) {
+            return false;
+        }
+    }
+
     return (
-        <div className="orgJobListingsContainer">
+        <motion.div className="orgJobListingsContainer" initial={{y: -500}} animate={{y: 0}}>
             <h1 style={{fontSize: '25px', alignSelf: 'center'}} className='orgJobListingsTitle'>Your Job Listings:</h1>
             <div className="orgJobListingsSearch">
                 <input type='text' className='jobSearchInput' placeholder='Search Your Job Title' onChange={(e) => setJobTitle(e.target.value)} value={jobTitle}/>
@@ -77,7 +88,7 @@ function OrgJobListings() {
                     }
                 }).map((job, index) => {
                     return (
-                        <div key={job.id} className="orgJobListing">
+                        <div style={!dateValidation(job.endDate) ? {border: '2px solid #6ce0a6'} : {border: '2px solid #faacb4'}} key={job.id} className="orgJobListing">
                             <h2 style={{fontWeight: 'bold'}}>{index+1}. {")"} {job.jobTitle}</h2>
                             <div className="job2">
                                 <p className='jobDuration'>{job.jobDurationType}</p>
@@ -91,6 +102,9 @@ function OrgJobListings() {
                             <div className="job3 flex gap-3 items-center">
                                 <img src={calenderImg} style={{width: '20px', height: '20px'}} />
                                 <p>Apply Before <strong>{job.endDate}</strong> </p>                            
+                            </div>
+                            <div className="job3 flex gap-3 items-center">
+                                <p>Status: <strong style={dateValidation(job.endDate) ? {color: '#ED4E4E'} : {color: '#06753E'}}>{dateValidation(job.endDate) ? "Closed" : "Active"}</strong> </p>                            
                             </div>
                             <div className="editBtn flex" onClick={() => {
                                 setIsEditModalOpened(true);
@@ -123,7 +137,7 @@ function OrgJobListings() {
                 name={cJobName} time={cJobTime} site={cJobSite} level={cJobLevel} vacancy={cVacancies} expiryDate={cJobExpiryDate} description={cJobDescription} id={cJobId}
             />
             <DeleteJobModal isDeleteJobModalOpen={isDeleteJobModalOpen} setIsDeleteJobModalOpened={setIsDeleteJobModalOpened} id={cJobId} />
-        </div>
+        </motion.div>
     )
 }
 
