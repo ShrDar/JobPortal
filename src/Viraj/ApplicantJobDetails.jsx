@@ -5,6 +5,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import calenderImg from '/calendar.png'
 import teamImg from '/team.png'
 import earthImg from '/earth.png'
+import mailImg from '/email.png'
 import backImg from '/cross.png'
 import { ApplyJobModal } from "./ApplyJobModal";
 import { motion } from "framer-motion";
@@ -73,6 +74,10 @@ function ApplicantJobDetails() {
                 <div className="jobEnd flex gap-3">
                     <img src={calenderImg} style={{width: '20px'}} />
                     <p style={dateCheck ? {textDecoration: 'line-through', fontSize: '14px'} : {fontSize: '14px'}}>Apply Before: {job.endDate} </p>
+                </div>
+                <div className="jobMail flex gap-3">
+                    <img src={mailImg} style={{width: '20px', filter: 'drop-shadow(1px 1px 1px #878787)'}} />
+                    <p style={{fontSize: '14px', letterSpacing: '1px'}}>Mail: {org.email} </p>
                 </div>
                 <div className="jobOfficeLocation flex gap-3">
                     <img src={earthImg} style={{width: '20px'}} />
