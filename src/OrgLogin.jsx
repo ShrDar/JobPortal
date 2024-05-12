@@ -44,7 +44,7 @@ function OrgLogin() {
             <AnimatePresence> 
                 {/* AnimatePresence allows components to animate out when they're removed from the React tree. */}
                 {/* motion is a feature provided by the framer motion library which helps us in adding animations to our website */}
-                <motion.div className="loginContainer1" initial={{opacity: 0, x: -1000, filter: 'blur(2)'}} animate={{opacity: 1, x: 0, filter: 'blur(0)'}}>
+                <motion.div className="loginContainer1" initial={{opacity: 0, x: -1000}} animate={{opacity: 1, x: 0}}>
                     <motion.div className="login" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                         <div className="loginHeading">
                             <h2 style={{fontWeight: "bold", fontSize: "24px"}}>Welcome Back Org</h2>

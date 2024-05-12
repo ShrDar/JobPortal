@@ -29,9 +29,24 @@ function ApplicantJobDetails() {
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { job, org } = useLoaderData(); 
+
+    const dateValidation = (jobDate) => {
+        const todaysDate = new Date().toLocaleDateString('en-CA');
+
+        const date = new Date(todaysDate);
+        const jobEndDate = new Date(jobDate);
+        if(date >= jobEndDate) {
+            return true;
+        } else if(date < jobEndDate) {
+            return false;
+        }
+    }
+
+    const dateCheck = dateValidation(job.endDate);
+
     return (
-        <motion.div initial={{y: -500}} animate={{y: 0}} className="applicantJobDetails">
-            <div className="jobDetails">
+        <motion.div initial={{y: -500}} animate={{y: 0}} className="applicantJobDetails" >
+            <div className="jobDetails" style={!dateCheck ? {border: '2px solid #6ce0a6'} : {border: '2px solid #faacb4'}}>
                 <div className="jobTitle flex justify-between">
                     <div className="jobTitleWapper flex gap-2">
                         <img src={org.imgUrl} style={{width: '50px', borderRadius: '10px'}} />
@@ -40,7 +55,7 @@ function ApplicantJobDetails() {
                             <p>{org.name}</p>
                         </div>
                     </div>
-                    <motion.img whileTap={{scale: [2, 0]}} className="cross" style={{alignSelf: 'flex-start'}} src={backImg} onClick={() => navigate('/applicantDashboard/applicantJobs')} />
+                    <motion.img whileTap={{scale: [2, 1]}} className="cross" style={{alignSelf: 'flex-start'}} src={backImg} onClick={() => navigate('/applicantDashboard/applicantJobs')} />
                 </div>
                 <div className="jobTypes job2">
                     <p className="jobDuration">{job.jobDurationType}</p>
@@ -57,13 +72,13 @@ function ApplicantJobDetails() {
                 </div>
                 <div className="jobEnd flex gap-3">
                     <img src={calenderImg} style={{width: '20px'}} />
-                    <p style={{fontSize: '14px'}}>Apply Before: {job.endDate} </p>
+                    <p style={dateCheck ? {textDecoration: 'line-through', fontSize: '14px'} : {fontSize: '14px'}}>Apply Before: {job.endDate} </p>
                 </div>
                 <div className="jobOfficeLocation flex gap-3">
                     <img src={earthImg} style={{width: '20px'}} />
                     <p>Location: 📍 {org.address}</p>
                 </div>
-                <button className="applicantApplyBtn" onClick={() => setIsModalOpen(true)}>Apply</button>
+                <button style={dateCheck ? {background: '#FF7979', pointerEvents: 'none', cursor: 'not-allowed'} : {}} className="applicantApplyBtn" onClick={() => setIsModalOpen(true)}>{dateCheck ? "Closed" : "Apply"}</button>
                 <ApplyJobModal isOpened={isModalOpen} setIsOpened={setIsModalOpen} job={job}></ApplyJobModal>
             </div>
         </motion.div>

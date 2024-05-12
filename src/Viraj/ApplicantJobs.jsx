@@ -104,6 +104,19 @@ function ApplicantJobs() {
             element.click();
         });
     }
+
+    const dateValidation = (jobDate) => {
+        const todaysDate = new Date().toLocaleDateString('en-CA');
+
+        const date = new Date(todaysDate);
+        const jobEndDate = new Date(jobDate);
+        if(date >= jobEndDate) {
+            return true;
+        } else if(date < jobEndDate) {
+            return false;
+        }
+    }
+
         
     return (
         <motion.div initial={{y: 600}} animate={{y: 0}} className="applicantJobs">
@@ -230,7 +243,7 @@ function ApplicantJobs() {
                         const org = orgs.find(org => org.id === job.orgId);
                         
                         return (
-                            <motion.div whileTap={{scale: 0.8}} className="job" key={job.id} onClick={() => navigate(`/applicantDashboard/jobDetails/${job.id}`)}>
+                            <motion.div whileTap={{scale: 0.8}} style={!dateValidation(job.endDate) ? {border: '2px solid #6ce0a6'} : {border: '2px solid #faacb4'}} className="job" key={job.id} onClick={() => navigate(`/applicantDashboard/jobDetails/${job.id}`)}>
                                 <div className="job1">
                                     <img className="jobOrgLogo" src={org.imgUrl} alt="" />
                                     <div className="job1-1">
@@ -250,8 +263,12 @@ function ApplicantJobs() {
                                 <div className="job4 flex gap-3 items-center">
                                     <img src={calenderImg} style={{width: '20px', height: '20px'}} />
                                     <p>Apply Before <strong>{job.endDate}</strong> </p>
+                                    {/* <p style={dateValidation(job.endDate) ? {textDecoration: 'line-through'} : {}}>Apply Before <strong>{job.endDate}</strong> </p> */}
 
                                 </div>
+                                <motion.div style={dateValidation(job.endDate) ? {border: "2px solid #FAACB4"} : {border: "2px solid #6ce0a6"}} className="jobStatus" >
+                                    {dateValidation(job.endDate) ? 'Closed' : 'Open'}
+                                </motion.div>
                             </motion.div>
                         )
                     })}
