@@ -1,4 +1,4 @@
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { collection, doc, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../../config/firebase";
 import { useParams } from "react-router-dom";
@@ -9,6 +9,9 @@ import emailPic from '/email.png'
 import namePic from '/name.png'
 import calendarPic from '/calendar.png'
 import deleteBtn from '/delete.png'
+import selectedPic from '/selected.png'
+import pendingPic from '/pending.png'
+import crossPic from '/cross.png'
 import { DeleteApplicantModal } from "./DeleteApplicantModal";
 import { motion } from "framer-motion";
 
@@ -32,6 +35,10 @@ function OrgApplicants() {
     useEffect(() => {
         const unsub2 = onSnapshot(collection(db, 'applicant'), data => {
             setAllApplicants(data.docs.map(doc => ({
+                ...doc.data(),
+                applicantId: doc.id
+            })))
+            setMyApplicants(data.docs.map(doc => ({
                 ...doc.data(),
                 applicantId: doc.id
             })))
@@ -64,16 +71,66 @@ function OrgApplicants() {
         }
     }
 
+    const handleApplicantState = (e, id) => {
+        const applicantRef = doc(db, "applicant", id);
+        const state = e.target.value;
+        updateDoc(applicantRef, {applicantState: state})
+    }
+    const handleApplicantView = (e) => {
+        const status = e.target.value;
+        console.log(status)
+        if(status === 'All') {
+            console.log(true)
+            setAllApplicants(myApplicants);
+            return;
+        }
+        const filteredApplicants = myApplicants.filter((applicant => {
+            return applicant.applicantState === status;
+        }))
+        
+        setAllApplicants(filteredApplicants)
+    }
+
     return (
         <>
-            <motion.h1 style={{fontSize: '25px', alignSelf: 'center', margin: '50px 0px 10px 0px'}} initial={{x: -500}} animate={{x: 0}} className='orgJobListingsTitle'>Job Applicants:</motion.h1>
+            <div className="orgApplicantTitle">
+                <motion.h1 style={{fontSize: '25px', alignSelf: 'center'}} initial={{x: -500}} animate={{x: 0}} className='orgJobListingsTitle'>Job Applicants:</motion.h1>
+                <select name="" id="" onChange={(e) => handleApplicantView(e)}>
+                    <option>All</option>
+                    <option>Selected</option>
+                    <option>Pending</option>
+                    <option>Rejected</option>
+                </select>
+            </div>
             <motion.div className="orgApplicants" initial={{x: -500}} animate={{x: 0}}>
                 {tempApplicants.map(applicant => {
+                    let statusColor = {color: "#FFAE42"};
+                    let statusImg = pendingPic;
+                    if(applicant.applicantStatus === "Pending") {
+                        statusColor = {color: "#FFAE42"};
+                        statusImg = pendingPic;
+                    } else if(applicant.applicantState === "Selected") {
+                        statusColor = {color: "#09924D"};
+                        statusImg = selectedPic;
+                    } else if(applicant.applicantState === "Rejected") {
+                        statusColor = {color: "#F16F6F"};
+                        statusImg = crossPic;
+                    }
+
                     return (
                         <div className="orgApplicantContainer" key={applicant.applicantId} style={!dateValidation(applicant.endDate) ? {border: '2px solid #6ce0a6'} : {border: '2px solid #faacb4'}} >
                             <div className="orgApplicantContainer1">
                                 <div className="orgApplicant">
                                     <p className="applicantJobTitle" style={{fontSize: '20px', justifySelf: '', alignSelf: ''}}># {applicant.jobTitle}</p>
+                                    <div className="setApplicantState">
+                                        <img style={{width: '20px'}} src={statusImg} alt="" />
+                                        <p style={{fontWeight: 600}}><b>Status:</b> <span style={statusColor}>{applicant.applicantState}</span></p>
+                                        <select style={{fontSize: '10px'}} name="" id="" onChange={(e) => handleApplicantState(e, applicant.applicantId)}>
+                                            <option>Pending</option>
+                                            <option>Selected</option>
+                                            <option>Rejected</option>
+                                        </select>
+                                    </div>
                                     <p className="flex items-center gap-2"><img src={namePic} style={{width: '20px'}}></img>Name - {applicant.name}</p>
                                     <p className="flex items-center gap-2"><img src={emailPic} style={{width: '20px', filter: 'drop-shadow(1px 1px 1px #8b8b8b)'}} alt="" />{applicant.email}</p>
                                     <p className="flex items-center gap-2"><img src={phonePic} style={{width: '20px', filter: 'brightness(0.6)'}} alt="" />{applicant.phone}</p>

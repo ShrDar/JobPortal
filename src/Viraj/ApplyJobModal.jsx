@@ -87,7 +87,7 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
 
         let currentDate = new Date().toJSON().slice(0, 10);
         
-        let formData = {name, email, address, phone, appliedDate: currentDate, jobListingId: job.id}
+        let formData = {name, email, address, phone, appliedDate: currentDate, jobListingId: job.id, applicantState: 'Pending'}
         let cv_ref = await handleCvUpload();
         formData = {...formData, cv_ref}
 
