@@ -74,6 +74,7 @@ function OrgApplicants() {
     const handleApplicantState = (e, id) => {
         const applicantRef = doc(db, "applicant", id);
         const state = e.target.value;
+        if(state === "--Select--") return;
         updateDoc(applicantRef, {applicantState: state})
     }
     const handleApplicantView = (e) => {
@@ -126,6 +127,7 @@ function OrgApplicants() {
                                         <img style={{width: '20px'}} src={statusImg} alt="" />
                                         <p style={{fontWeight: 600}}><b>Status:</b> <span style={statusColor}>{applicant.applicantState}</span></p>
                                         <select style={{fontSize: '10px'}} name="" id="" onChange={(e) => handleApplicantState(e, applicant.applicantId)}>
+                                            <option>--Select--</option>
                                             <option>Pending</option>
                                             <option>Selected</option>
                                             <option>Rejected</option>

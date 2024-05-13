@@ -570,9 +570,10 @@ input[type=checkbox]:hover {
     width: 400px;
 }
 .applicantExit {
-    background-color: rgb(248, 101, 101);
+    background-color: #09924D;
     color: #fff;
     padding: 5px 20px;
+    border: 2px solid #0b7b43;
     border-radius: 20px;
     letter-spacing: 1px;
     cursor: pointer;

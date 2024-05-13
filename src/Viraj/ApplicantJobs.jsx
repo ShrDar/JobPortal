@@ -277,8 +277,8 @@ function ApplicantJobs() {
                                 </div>
                                 <div className="job4 flex gap-3 items-center">
                                     <img src={calenderImg} style={{width: '20px', height: '20px'}} />
-                                    <p>Apply Before <strong>{job.endDate}</strong> </p>
-                                    {/* <p style={dateValidation(job.endDate) ? {textDecoration: 'line-through'} : {}}>Apply Before <strong>{job.endDate}</strong> </p> */}
+                                    {/* <p>Apply Before <strong>{job.endDate}</strong> </p> */}
+                                    <p style={dateValidation(job.endDate) ? {textDecoration: 'line-through'} : {}}>Apply Before <strong>{job.endDate}</strong> </p>
 
                                 </div>
                                 <motion.div style={dateValidation(job.endDate) ? {border: "2px solid #FAACB4"} : {border: "2px solid #6ce0a6"}} className="jobStatus" >

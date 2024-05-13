@@ -75,7 +75,7 @@ function ApplicantJobDetails() {
                     <img src={calenderImg} style={{width: '20px'}} />
                     <p style={dateCheck ? {textDecoration: 'line-through', fontSize: '14px'} : {fontSize: '14px'}}>Apply Before: {job.endDate} </p>
                 </div>
-                <div className="jobMail flex gap-3">
+                <div className="jobMail flex gap-3" style={dateCheck?{display: 'none'}:{}}>
                     <img src={mailImg} style={{width: '20px', filter: 'drop-shadow(1px 1px 1px #878787)'}} />
                     <p style={{fontSize: '14px', letterSpacing: '1px'}}>Mail: {org.email} </p>
                 </div>
