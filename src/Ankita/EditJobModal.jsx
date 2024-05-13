@@ -100,7 +100,7 @@ function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site,
                 </div>
                 <div className="jobDetail">
                     <p>Vacancies</p>
-                    <input type="number" className="detailText" onChange={(e) => setJobVacancies(e.target.value)} value={jobVacancies}/>
+                    <input type="number" min={1} className="detailText" onChange={(e) => setJobVacancies(e.target.value)} value={jobVacancies}/>
                 </div>
                 <div className="jobDetail">
                     <p>Available Till</p>

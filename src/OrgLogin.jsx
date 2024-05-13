@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import jobImg from '/job.png'
 import rocketImg from '/rocket.png'
@@ -38,6 +38,14 @@ function OrgLogin() {
     const navigate = useNavigate(); //navigate variable is used for utilizing the useNavigate() function which is used to route users to another route
 
     const [checkPass, setCheckPass] = useState(false); // useState hook is used to change the password field to text field if the user hits the eye icon
+
+    useEffect(() => {
+        const fromApplicant = localStorage.getItem('fromApplicant')
+        console.log(fromApplicant)
+        if(fromApplicant === "false") {
+            navigate('/applicantDashboard/applicantJobs')
+        }
+    }, [])
 
     return (
         <div className="loginContainer">

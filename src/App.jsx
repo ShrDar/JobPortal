@@ -21,6 +21,7 @@ import { OrgProfile } from "./Ankita/OrgProfile";
 
 //creating a router variable to use the createBrowserRouter and createRoutesFromElements function
 //createBrowserRouter creates Browser routes for client side routing and createRoutesFromElements creates routes from Route Components
+localStorage.setItem("fromApplicant", false);
 const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" >
         <Route index element = {<OrgLogin />} action={orgLoginAction} />

@@ -13,6 +13,7 @@ export async function loader() { //name of loader function doesn't matter
 function ApplicantDashboard() {
     const navigate = useNavigate();
     const data = useLoaderData();
+    localStorage.setItem('fromApplicant', true);
     return (
         <div className="applicantDashboard">
             <div className="applicant-navBar">
@@ -27,7 +28,7 @@ function ApplicantDashboard() {
                     <NavLink to={'applicantJobs'} style={({isActive}) => isActive ? {color: "#07914C", textDecoration: 'underline', textUnderlineOffset: '5px'} : {color: "#000"}}>Jobs</NavLink>
                     <NavLink to={'aboutUs'} style={({isActive}) => isActive ? {color: "#07914C", textDecoration: 'underline', textUnderlineOffset: '5px'} : {color: "#000"}}>About Us</NavLink>
                 </div>
-                <motion.button whileTap={{scaleX: 0}} className="applicantExit" onClick={() => navigate('/')}>Exit</motion.button>
+                <motion.button whileTap={{scaleX: 0}} className="applicantExit" onClick={() => navigate('/')}>Org Login</motion.button>
             </div>
             <Outlet />
         </div>

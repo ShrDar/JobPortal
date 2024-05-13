@@ -27,24 +27,6 @@
     border-radius: 15px;
     padding: 70px;
 }
-.login-bg {
-    /* position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #000;
-    background-image: url("./public/loginBg.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    width: 50svw;
-    height: 50svh;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    filter: blur(30px);
-    z-index: 0; */
-}
 .login {
     display: flex;
     flex-direction: column;
