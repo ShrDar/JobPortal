@@ -151,9 +151,12 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
                 <div className="applyTopDesign">
                     <img src={checkImg} alt=""  />
                 </div>
-                <h2>Upload Complete</h2>
+                <h2>Application Sent</h2>
                 <p>Your Details Have been successfully delivered to the hiring organization</p>
-                <button className="applyOkayBtn" onClick={() => setApplyCompleteStatus(false)}>Okay</button>
+                <button className="applyOkayBtn" onClick={() => {
+                    setApplyCompleteStatus(false)
+                    setIsOpened(false)
+                    }}>Okay</button>
             </div>
         )}
         

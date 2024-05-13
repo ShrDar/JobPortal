@@ -1,5 +1,5 @@
 import { collection, getDocs } from "firebase/firestore";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { db } from "../../config/firebase";
 import { Await, defer, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
 import calenderImg from '/calendar.png'
@@ -57,43 +57,17 @@ function ApplicantJobs() {
             return;
         }
         const jobs = jobList.filter((job) => {
-            if(fullTime) {
-                if(job.jobDurationType == "Full-Time") {
-                    return true;
-                }
-            }
-            if(partTime) {
-                if(job.jobDurationType == "Part-Time")
-                return true;
-            }
-            if(onSite) {
-                if(job.workLocation == "On-Site")
-                return true;
-            }
-            if(remote) {
-                if(job.workLocation == "Remote")
-                return true;
-            }
-            if(hybrid) {
-                if(job.workLocation == "Hybrid")
-                return true;
-            }
-            if(fresher) {
-                if(job.experience == "Fresher")
-                return true;
-            }
-            if(beginner) {
-                if(job.experience == "Beginner")
-                return true;
-            }
-            if(intermediate) {
-                if(job.experience == "Intermediate")
-                return true;
-            }
-            if(expert) {
-                if(job.experience == 'Expert')
-                return true
-            }
+            if(fullTime) return job.jobDurationType === 'Full-Time';
+            if(partTime) return job.jobDurationType === 'Part-Time';
+
+            if(onSite) return job.workLocation === 'On-Site';
+            if(hybrid) return job.workLocation === "Hybrid";
+            if(remote) return job.workLocation === 'Remote'
+
+            if(fresher) return job.experience === "Fresher";
+            if(beginner) return job.experience === "Beginner";
+            if(intermediate) return job.experience === "Intermediate";
+            if(expert) return job.experience === "Expert";
         })
         setJobListings(jobs)
         
@@ -116,6 +90,47 @@ function ApplicantJobs() {
             return false;
         }
     }
+
+    useEffect(() => {
+        if(!(fullTime || partTime || onSite || remote || hybrid || fresher || beginner || intermediate || expert)) {
+            setJobListings(jobList);
+            return;
+        }
+        const jobs = jobList.filter((job) => {
+            if(fullTime && partTime) return (job.jobDurationType === "Full-Time" || job.jobDurationType === "Part-Time");
+            if(onSite && remote) return (job.workLocation === "On-Site" || job.workLocation === "Remote");
+            if(remote && hybrid) return (job.workLocation === "Hybrid" || job.workLocation === "Remote");
+            if(onSite && hybrid) return (job.workLocation === "On-Site" || job.workLocation === "Hybrid");
+            if(fresher && beginner) return (job.experience === "Fresher" || job.experience === "Beginner");
+            if(fresher && intermediate) return (job.experience === "Intermediate" || job.experience === "Fresher");
+            if(fresher && expert) return (job.experience === "Fresher" || job.experience === "Expert");
+            if(expert && beginner) return (job.experience === "Expert" || job.experience === "Beginner");
+            if(expert && intermediate) return (job.experience === "Expert" || job.experience === "Intermediate");
+            if(intermediate && beginner) return (job.experience === "Intermediate" || job.experience === "Beginner");
+
+            if(fullTime && onSite) return (job.jobDurationType === "Full-Time" && job.workLocation === "On-Site");
+            if(fullTime && remote) return (job.jobDurationType === "Full-Time" && job.workLocation === "Remote");
+            if(fullTime && hybrid) return (job.jobDurationType === "Full-Time" && job.workLocation === "Hybrid");
+            if(fullTime && fresher) return (job.jobDurationType === "Full-Time" && job.experience === "Fresher");
+            if(fullTime && beginner) return (job.jobDurationType === "Full-Time" && job.experience === "Beginner");
+            if(fullTime && intermediate) return (job.jobDurationType === "Full-Time" && job.experience === "Intermediate");
+            if(fullTime && expert) return (job.jobDurationType === "Full-Time" && job.experience === "Expert");
+            
+
+            if(fullTime) return job.jobDurationType === 'Full-Time';
+            if(partTime) return job.jobDurationType === 'Part-Time';
+
+            if(onSite) return job.workLocation === 'On-Site';
+            if(hybrid) return job.workLocation === "Hybrid";
+            if(remote) return job.workLocation === 'Remote'
+
+            if(fresher) return job.experience === "Fresher";
+            if(beginner) return job.experience === "Beginner";
+            if(intermediate) return job.experience === "Intermediate";
+            if(expert) return job.experience === "Expert";
+        })
+        setJobListings(jobs)
+    }, [fullTime, partTime, onSite, remote, hybrid, fresher, beginner, intermediate, expert])
 
         
     return (
@@ -155,12 +170,12 @@ function ApplicantJobs() {
                     <h3 className="jobFilterBar-heading">Job Type</h3>
                     <div className="sortBy-checkBox">
                         <div className="checkBox-wrapper">
-                            <div className="checkBox">
-                                <input type="checkbox" onChange={(e) => setFullTime(e.target.checked)} className="jobDurationType" />
+                            <div className="checkBox" onClick={() => setFullTime(prevState => !prevState)}>
+                                <input type="checkbox" onChange={(e) => setFullTime(e.target.checked)} className="jobDurationType" checked={fullTime} />
                                 <label>Full-Time</label>
                             </div>
-                            <div className="checkBox">
-                                <input type="checkbox" onChange={(e) => setPartTime(e.target.checked)} className="jobDurationType" />
+                            <div className="checkBox" onClick={() => setPartTime(prevState => !prevState)}>
+                                <input type="checkbox" onChange={(e) => setPartTime(e.target.checked)} className="jobDurationType" checked={partTime} />
                                 <label>Part-Time</label>
                             </div>
                         </div>
@@ -170,19 +185,19 @@ function ApplicantJobs() {
                 <div className="jobFilterBar-names">
                     <h3 className="jobFilterBar-heading">Work Location</h3>
                     <div className="sortBy-checkBox">
-                        <div className="checkBox-wrapper">
-                            <div className="checkBox">
-                                <input type="checkbox" onChange={(e) => setOnSite(e.target.checked)} />
+                        <div className="checkBox-wrapper" >
+                            <div className="checkBox" onClick={() => setOnSite(prevState => !prevState)}>
+                                <input type="checkbox" onChange={(e) => setOnSite(e.target.checked)} checked={onSite} />
                                 <label>On-Site</label>
                             </div>
-                            <div className="checkBox">
-                                <input type="checkbox" onChange={(e) => setRemote(e.target.checked)} />
+                            <div className="checkBox" onClick={() => setRemote(prevState => !prevState)}>
+                                <input type="checkbox" onChange={(e) => setRemote(e.target.checked)} checked={remote} />
                                 <label>Remote</label>
                             </div>
                         </div>
                         <div className="checkBox-wrapper">
-                            <div className="checkBox">
-                                <input type="checkbox" onChange={(e) => setHybrid(e.target.checked)} />
+                            <div className="checkBox" onClick={() => setHybrid(prevState => !prevState)}>
+                                <input type="checkbox" onChange={(e) => setHybrid(e.target.checked)} checked={hybrid} />
                                 <label>Hybrid</label>
                             </div>
                         </div>
@@ -193,22 +208,22 @@ function ApplicantJobs() {
                     <h3 className="jobFilterBar-heading">Experience Level</h3>
                     <div className="sortBy-checkBox">
                         <div className="checkBox-wrapper">
-                            <div className="checkBox">
-                                <input type="checkbox" onChange={(e) => setFresher(e.target.checked)} />
+                            <div className="checkBox" onClick={() => setFresher(prevState => !prevState)}>
+                                <input type="checkbox" onChange={(e) => setFresher(e.target.checked)} checked={fresher} />
                                 <label>Fresher</label>
                             </div>
-                            <div className="checkBox">
-                                <input type="checkbox" onChange={(e) => setBeginner(e.target.checked)} />
+                            <div className="checkBox" onClick={() => setBeginner(prevState => !prevState)}>
+                                <input type="checkbox" onChange={(e) => setBeginner(e.target.checked)} checked={beginner} />
                                 <label>Beginner</label>
                             </div>
                         </div>
                         <div className="checkBox-wrapper">
-                            <div className="checkBox">
-                                <input type="checkbox" onChange={(e) => setIntermediate(e.target.checked)} />
+                            <div className="checkBox" onClick={() => setIntermediate(prevState => !prevState)}>
+                                <input type="checkbox" onChange={(e) => setIntermediate(e.target.checked)} checked={intermediate} />
                                 <label>Intermediate</label>
                             </div>
-                            <div className="checkBox">
-                                <input type="checkbox" onChange={(e) => setExpert(e.target.checked)} />
+                            <div className="checkBox" onClick={() => setExpert(prevState => !prevState)}>
+                                <input type="checkbox" onChange={(e) => setExpert(e.target.checked)} checked={expert} />
                                 <label>Expert</label>
                             </div>
                         </div>
