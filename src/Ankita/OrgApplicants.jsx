@@ -95,7 +95,7 @@ function OrgApplicants() {
     return (
         <>
             <div className="orgApplicantTitle">
-                <motion.h1 style={{fontSize: '25px', alignSelf: 'center'}} initial={{x: -500}} animate={{x: 0}} className='orgJobListingsTitle'>Job Applicants:</motion.h1>
+                <motion.h1 style={{fontSize: '25px', alignSelf: 'center'}} initial={{x: -500}} animate={{x: 0}} className='orgJobListingsTitle'>Job Applicants: {tempApplicants.length}</motion.h1>
                 <select name="" id="" onChange={(e) => handleApplicantView(e)}>
                     <option>All</option>
                     <option>Selected</option>
