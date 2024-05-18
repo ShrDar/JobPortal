@@ -43,7 +43,7 @@ function OrgRegistration() {
             setSignInStatus("idle") //setting the status to 'idle'
             return; //terminating the function
         } 
-        if(name.match(letters) || pass.match(letters) || address.match(letters)) {
+        if(name.match(letters) && pass.match(letters) && address.match(letters)) {
             
         } else {
             alert('Name, Password and Address should contain letters (Dont try to break my sh*t)')

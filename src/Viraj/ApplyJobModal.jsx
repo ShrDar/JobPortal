@@ -48,7 +48,7 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
         if(name.match(letters) && address.match(letters)) {
             // console.log('contains')
         } else {
-            alert('Name and Address need to contain letters (Only spaces entered)')
+            alert('Name and Address need to contain letters (Dont try to break my thing))')
             setApplyStatus('idle')
             return;
         }

@@ -29,7 +29,7 @@ function AddJobModal({ isAddModalOpen, setIsAddModalOpened, orgId }) {
         }
         const letters = /[a-zA-Z]/g;
         if(jobName.match(letters) && jobDescription.match(letters)) {
-            // console.log('contains')
+            
         } else {
             alert('Title and Description should contain letters (Dont try to break my sh*t)')
             return;
