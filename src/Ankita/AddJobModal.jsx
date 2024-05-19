@@ -6,12 +6,13 @@ import { db } from "../../config/firebase";
 import { motion } from "framer-motion";
 
 function AddJobModal({ isAddModalOpen, setIsAddModalOpened, orgId }) {
-    if(!isAddModalOpen) {
-        return;
+    if(!isAddModalOpen) { //checking if the modal's state is open or closed
+        return; //is the modal's state is false then the function gets terminated
     }
 
-    const date = new Date().toLocaleDateString('en-CA');
+    const date = new Date().toLocaleDateString('en-CA'); //used to find the current data of the system
 
+    //initializing states
     const [jobName, setJobName] = useState('');
     const [jobTime, setJobTime] = useState('Full-Time');
     const [jobSite, setJobSite] = useState('On-Site');
@@ -109,7 +110,7 @@ function AddJobModal({ isAddModalOpen, setIsAddModalOpened, orgId }) {
                     <input type="date" min={date} max={'2025-01-01'} onChange={(e) => setJobExpiryDate(e.target.value)} />
                 </div>
             </div>
-            <button className="addJobModalBtn" onClick={() => handleAddJob()}>Add</button>
+            <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="addJobModalBtn" onClick={() => handleAddJob()}>Add</motion.button>
         </motion.div>
         </>
         , document.getElementById('modal')

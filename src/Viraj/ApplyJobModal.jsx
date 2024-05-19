@@ -47,26 +47,26 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
         const letters = /[a-zA-Z]/g;
         if(name.match(letters) && address.match(letters)) {
             // console.log('contains')
-        } else {
-            alert('Name and Address need to contain letters (Dont try to break my thing))')
+        } else { //name contains characters other than the alphabets
+            alert('Name and Address need to contain letters (Dont try to break my thing))') //alert messages displayed
             setApplyStatus('idle')
             return;
         }
-        if(phone.length !== 10) {
-            alert("Phone Number Length -> 10");
+        if(phone.length !== 10) { //if the phone number length is not equal to 10 
+            alert("Phone Number Length -> 10"); //alert message displayed
             setApplyStatus("idle");
             return;
         }
-        if(email.includes(" ")) {
-            alert('Email do not contain spaces');
+        if(email.includes(" ")) { //if email contains any whitespace
+            alert('Email do not contain spaces'); //alert message is shown to the user
             setApplyStatus('idle');
             return;
         }
-        const regex = /^([a-z]||[A-Z]||[0-9])+[@]([a-z]||[A-Z])+[.]([a-z]||[A-Z]||[0-9])+[.]*([a-z]||[A-Z]||[0-9])*$/gm;
-        if(!regex.test(email)) {
-            alert("Invalid Email");
-            setApplyStatus('idle');
-            return;
+        const regex = /^([a-z]||[A-Z]||[0-9])+[@]([a-z]||[A-Z])+[.]([a-z]||[A-Z]||[0-9])+[.]*([a-z]||[A-Z]||[0-9])*$/gm; //regex pattern for email validation
+        if(!regex.test(email)) { //if the validation fails
+            alert("Invalid Email"); //shows alert message
+            setApplyStatus('idle'); //sets the state of the Send button to idle 
+            return; //termination of the function
         }
         const applicants = await findApplicants();
         
