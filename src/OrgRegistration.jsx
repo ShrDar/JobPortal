@@ -75,12 +75,10 @@ function OrgRegistration() {
         }
 
         let currentDate = new Date().toJSON().slice(0, 10); //getting the current date and slicing it to get essential information
-        console.log(currentDate);
 
         formData = {name, email, pass, phone, address, type, createdDate: currentDate, updatedDate: currentDate, isVisible: true}; //storing the values of the input fields in an object
         const url = await handleUpload(); //handleUpload function used to store the organization logo in the firestore storage
         formData = {...formData, imgUrl: url} //adding an attribute in the object
-        console.log(formData);
 
         //adding organization info in the database
 

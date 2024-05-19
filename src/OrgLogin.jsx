@@ -41,7 +41,6 @@ function OrgLogin() {
 
     useEffect(() => {
         const fromApplicant = localStorage.getItem('fromApplicant')
-        console.log(fromApplicant)
         if(fromApplicant === "false") {
             navigate('/applicantDashboard/applicantJobs')
         }
