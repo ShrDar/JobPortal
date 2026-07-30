@@ -134,13 +134,13 @@ function ApplicantJobs() {
 
         
     return (
-        <motion.div initial={{y: 600}} animate={{y: 0}} className="applicantJobs">
-            <div className="jobFilterBar">
-                <div className="jobFilterBar-title ">
-                    <p className="filter">Filter</p>
-                    <p className="reset" onClick={handleFilterReset}>Reset</p>
+        <div className="relative flex justify-start items-start gap-5 h-fit p-5  w-full font-['Karla',sans-serif]">
+            <div className="sticky top-[60px] flex flex-col justify-start items-start bg-white h-full w-[16%] p-5 rounded-[10px] gap-[30px]">
+                <div className="flex justify-between w-full items-center">
+                    <p className="text-[20px] text-[#070707] font-semibold">Filter</p>
+                    <p className="text-[12px] text-[#26A365] font-bold cursor-pointer transition duration-200" onClick={handleFilterReset}>Reset</p>
                 </div>
-                <div className="line"></div>
+                <div className="w-full border-[1px] border-[#dddddd] m-[-15px_0px]"></div>
                 {/* <div className="jobFilterBar-names">
                     <h3 className="jobFilterBar-heading">Sort By</h3>
                     <div className="sortBy-checkBox">
@@ -166,15 +166,15 @@ function ApplicantJobs() {
                         </div>
                     </div>
                 </div> */}
-                <div className="jobFilterBar-names">
-                    <h3 className="jobFilterBar-heading">Job Type</h3>
-                    <div className="sortBy-checkBox">
-                        <div className="checkBox-wrapper">
-                            <div className="checkBox" onClick={() => setFullTime(prevState => !prevState)}>
+                <div className="flex flex-col gap-[10px] w-full my-[10px]">
+                    <h3 className="text-[16px] font-medium text-[#025d14] mb-[8px]">Job Type</h3>
+                    <div className="flex flex-col gap-[8px]">
+                        <div className="flex w-full justify-between items-center">
+                            <div className="flex gap-[5px] text-[13px]" onClick={() => setFullTime(prevState => !prevState)}>
                                 <input type="checkbox" onChange={(e) => setFullTime(e.target.checked)} className="jobDurationType" checked={fullTime} />
                                 <label>Full-Time</label>
                             </div>
-                            <div className="checkBox" onClick={() => setPartTime(prevState => !prevState)}>
+                            <div className="flex gap-[5px] text-[13px]" onClick={() => setPartTime(prevState => !prevState)}>
                                 <input type="checkbox" onChange={(e) => setPartTime(e.target.checked)} className="jobDurationType" checked={partTime} />
                                 <label>Part-Time</label>
                             </div>
@@ -182,21 +182,21 @@ function ApplicantJobs() {
                     </div>
                 </div>
                 <div className="line"></div>
-                <div className="jobFilterBar-names">
-                    <h3 className="jobFilterBar-heading">Work Location</h3>
-                    <div className="sortBy-checkBox">
-                        <div className="checkBox-wrapper" >
-                            <div className="checkBox" onClick={() => setOnSite(prevState => !prevState)}>
+                <div className="flex flex-col gap-[10px] w-full my-[10px]">
+                    <h3 className="text-[16px] font-medium text-[#025d14] mb-[8px]">Work Location</h3>
+                    <div className="flex flex-col gap-[8px]">
+                        <div className="flex w-full justify-between items-center" >
+                            <div className="flex gap-[5px] text-[13px]" onClick={() => setOnSite(prevState => !prevState)}>
                                 <input type="checkbox" onChange={(e) => setOnSite(e.target.checked)} checked={onSite} />
                                 <label>On-Site</label>
                             </div>
-                            <div className="checkBox" onClick={() => setRemote(prevState => !prevState)}>
+                            <div className="flex gap-[5px] text-[13px]" onClick={() => setRemote(prevState => !prevState)}>
                                 <input type="checkbox" onChange={(e) => setRemote(e.target.checked)} checked={remote} />
                                 <label>Remote</label>
                             </div>
                         </div>
-                        <div className="checkBox-wrapper">
-                            <div className="checkBox" onClick={() => setHybrid(prevState => !prevState)}>
+                        <div className="flex w-full justify-between items-center">
+                            <div className="flex gap-[5px] text-[13px]" onClick={() => setHybrid(prevState => !prevState)}>
                                 <input type="checkbox" onChange={(e) => setHybrid(e.target.checked)} checked={hybrid} />
                                 <label>Hybrid</label>
                             </div>
@@ -204,25 +204,25 @@ function ApplicantJobs() {
                     </div>
                 </div>
                 <div className="line"></div>
-                <div className="jobFilterBar-names">
-                    <h3 className="jobFilterBar-heading">Experience Level</h3>
-                    <div className="sortBy-checkBox">
-                        <div className="checkBox-wrapper">
-                            <div className="checkBox" onClick={() => setFresher(prevState => !prevState)}>
+                <div className="flex flex-col gap-[10px] w-full my-[10px]">
+                    <h3 className="text-[16px] font-medium text-[#025d14] mb-[8px]">Experience Level</h3>
+                    <div className="flex flex-col gap-[8px]">
+                        <div className="flex w-full justify-between items-center">
+                            <div className="flex gap-[5px] text-[13px]" onClick={() => setFresher(prevState => !prevState)}>
                                 <input type="checkbox" onChange={(e) => setFresher(e.target.checked)} checked={fresher} />
                                 <label>Fresher</label>
                             </div>
-                            <div className="checkBox" onClick={() => setBeginner(prevState => !prevState)}>
+                            <div className="flex gap-[5px] text-[13px]" onClick={() => setBeginner(prevState => !prevState)}>
                                 <input type="checkbox" onChange={(e) => setBeginner(e.target.checked)} checked={beginner} />
                                 <label>Beginner</label>
                             </div>
                         </div>
-                        <div className="checkBox-wrapper">
-                            <div className="checkBox" onClick={() => setIntermediate(prevState => !prevState)}>
+                        <div className="flex w-full justify-between items-center">
+                            <div className="flex gap-[5px] text-[13px]" onClick={() => setIntermediate(prevState => !prevState)}>
                                 <input type="checkbox" onChange={(e) => setIntermediate(e.target.checked)} checked={intermediate} />
                                 <label>Intermediate</label>
                             </div>
-                            <div className="checkBox" onClick={() => setExpert(prevState => !prevState)}>
+                            <div className="flex gap-[5px] text-[13px]" onClick={() => setExpert(prevState => !prevState)}>
                                 <input type="checkbox" onChange={(e) => setExpert(e.target.checked)} checked={expert} />
                                 <label>Expert</label>
                             </div>
@@ -230,17 +230,19 @@ function ApplicantJobs() {
                     </div>
                 </div>
                 <div className="line"></div>
-                <button className="jobFilterBarApplyBtn" onClick={handleFilterApply}>Apply</button>
+                <button className="w-full bg-[#26A365] text-white p-[6px] rounded-[10px] my-[20px] transition duration-200 hover:drop-shadow-[1px_1px_5px_#26A365]" onClick={handleFilterApply}>Apply</button>
             </div>
-            <div className="jobSearchAndJobsWrapper">
-                <div className="applicantJobs-searchBarContainer">
-                    <h1 style={{fontSize: '20px', fontWeight: '700', color: '#025d14'}}>Find your dream job</h1>
-                    <p style={{fontSize: '13px', color: '#B8B8B8', marginTop: '-10px'}}>Explore the newest job opportunities to discover and apply for the best positions</p>
-                    <div className="applicantJobs-searchBar">
-                        <div className="jobSearchInputWrapper">
-                            <input className="jobSearchInput1" placeholder="Search Job Title here" onChange={(e) => setJobTitle(e.target.value)} value={jobTitle} />
-                            <input className="jobSearchInput2" placeholder="Search Organization here" onChange={(e) => setJobOrg(e.target.value)} value={jobOrg} />
-                            <button className="jobSearchInputBtn" >Search</button>
+            <div className="self-start w-[84%] flex flex-col gap-5">
+                <div className="w-full h-fit flex flex-col justify-center items-start self-start m-0 bg-white rounded-[10px] py-5 px-5 gap-2.5">
+                    <h1 className="text-[20px] font-bold text-[#025d14]" >Find your dream job</h1>
+                    <p className="text-xs text-[#B8B8B8] -mt-2">Explore the newest job opportunities to discover and apply for the best positions</p>
+                    <div className="applicantJobs-searchBar w-full">
+                        <div className="flex justify-start items-center w-full">
+                            <div className="flex w-[85%]">
+                                <input className="border border-[#6b6b6b] rounded-l-[5px] py-3 px-2 text-[14px] w-full" placeholder="Search Job Title here" onChange={(e) => setJobTitle(e.target.value)} value={jobTitle} />
+                                <input className="border border-[#6b6b6b] rounded-r-[5px] py-3 px-2 text-[14px] w-full" placeholder="Search Organization here" onChange={(e) => setJobOrg(e.target.value)} value={jobOrg} />
+                            </div>
+                            <button className="flex justify-center items-center w-[15%] bg-[#119856] text-white py-2 px-5 rounded-[10px] ml-[15px] transition-all duration-200" >Search</button>
                         </div>
                     </div>
                 </div>
@@ -254,15 +256,17 @@ function ApplicantJobs() {
                             const org = orgs.find(org => org.id === item.orgId);
                             return item.jobTitle.toLowerCase().includes(jobTitle.toLowerCase()) && org.name.toLowerCase().includes(jobOrg.toLowerCase());
                         }
-                    }).map(job => {
+                    }).map((job, index) => {
                         const org = orgs.find(org => org.id === job.orgId);
                         
                         return (
-                            <motion.div whileTap={{scale: 0.8}} style={!dateValidation(job.endDate) ? {border: '2px solid #6ce0a6'} : {border: '2px solid #faacb4'}} className="job" key={job.id} onClick={() => navigate(`/applicantDashboard/jobDetails/${job.id}`)}>
+                            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.1, delay: index * 0.04, ease: "easeOut", }} whileTap={{scale: 0.8}} style={!dateValidation(job.endDate) ? {border: '2px solid #6ce0a6'} : {border: '2px solid #faacb4'}} className="job" key={job.id} onClick={() => navigate(`/applicantDashboard/jobDetails/${job.id}`)}>
                                 <div className="job1">
                                     <img className="jobOrgLogo" src={org.imgUrl} alt="" />
                                     <div className="job1-1">
-                                        <h2>{job.jobTitle}</h2>
+                                        <h2>{job.jobTitle.length > 13
+                                            ? `${job.jobTitle.slice(0, 13)}...`
+                                            : job.jobTitle}</h2>
                                         <p>{org.name}</p>
                                     </div>
                                 </div>
@@ -289,7 +293,7 @@ function ApplicantJobs() {
                     })}
                 </div>
             </div>
-        </motion.div>
+        </div>
     )
 }
 

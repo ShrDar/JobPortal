@@ -20,7 +20,8 @@ function DeleteJobModal( {isDeleteJobModalOpen, setIsDeleteJobModalOpened, id} )
     }
     const dropIn = {
         hidden: {
-            y: '-100vh',
+            y: '-20%',
+            x: '-50%',
             opacity: 1,
         }, visible: {
             y: '-50%',
@@ -28,7 +29,7 @@ function DeleteJobModal( {isDeleteJobModalOpen, setIsDeleteJobModalOpened, id} )
             opacity: 1,
             transition: { duration: 0.1, type: 'spring', damping: 25, stiffness: 500}
         }, exit: {
-            y: '100vh',
+            y: '10vh',
             opacity: 0
         }
     }

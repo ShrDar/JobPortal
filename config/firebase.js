@@ -4,13 +4,13 @@ import {getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCFB31IxRsWFzTXbrYoBSl8mAI8M5nBe3I",
-  authDomain: "jobportal-1ce6b.firebaseapp.com",
-  projectId: "jobportal-1ce6b",
-  storageBucket: "jobportal-1ce6b.appspot.com",
-  messagingSenderId: "1033673434622",
-  appId: "1:1033673434622:web:c1ec49394d06a55e604caf",
-  measurementId: "G-Y7BNX7TM6J"
+  apiKey: "AIzaSyC5NsVg8e3JoqJo3Ktcz8J7tUREeXduXI4",
+  authDomain: "job-portal-37943.firebaseapp.com",
+  projectId: "job-portal-37943",
+  storageBucket: "job-portal-37943.firebasestorage.app",
+  messagingSenderId: "262407103082",
+  appId: "1:262407103082:web:5a4f66302d3a887099a013",
+  measurementId: "G-GMRPHNWN1T"
 };
 //const analytics = getAnalytics(app);
 

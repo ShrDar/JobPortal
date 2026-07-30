@@ -4,20 +4,20 @@ import { createBrowserRouter,
         Route, 
         RouterProvider} from "react-router-dom";
 import '../index.css'
-import { OrgDashboard, loader as orgLoader } from "./Ankita/OrgDashboard";
-import { ApplicantDashboard, loader as applicantDashLoader } from "./Viraj/ApplicantDashboard";
+import { OrgDashboard, loader as orgLoader } from "./components/OrgDashboard";
+import { ApplicantDashboard, loader as applicantDashLoader } from "./components/ApplicantDashboard";
 import { OrgLogin, action as orgLoginAction } from "./OrgLogin";
 import { OrgRegistration, loader as orgRegLoader } from "./OrgRegistration";
 import { NotFound } from "./NotFound";
 import { Error } from "./Error";
-import { ApplicantHome } from "./Viraj/ApplicantHome";
-import { ApplicantJobs, loader as applicantJobsLoader } from "./Viraj/ApplicantJobs";
-import { AboutUs } from "./Viraj/AboutUs";
-import { ApplicantJobDetails, loader as applicantJobDetailsLoader } from "./Viraj/ApplicantJobDetails";
-import { OrgHome } from "./Ankita/OrgHome";
-import { OrgJobListings, loader as orgJobListingsLoader } from "./Ankita/OrgJobListings";
-import { OrgApplicants } from "./Ankita/OrgApplicants";
-import { OrgProfile } from "./Ankita/OrgProfile";
+import { ApplicantHome } from "./components/ApplicantHome";
+import { ApplicantJobs, loader as applicantJobsLoader } from "./components/ApplicantJobs";
+import { AboutUs } from "./components/AboutUs";
+import { ApplicantJobDetails, loader as applicantJobDetailsLoader } from "./components/ApplicantJobDetails";
+import { OrgHome } from "./components/OrgHome";
+import { OrgJobListings, loader as orgJobListingsLoader } from "./components/OrgJobListings";
+import { OrgApplicants } from "./components/OrgApplicants";
+import { OrgProfile } from "./components/OrgProfile";
 
 //creating a router variable to use the createBrowserRouter and createRoutesFromElements function
 //createBrowserRouter creates Browser routes for client side routing and createRoutesFromElements creates routes from Route Components

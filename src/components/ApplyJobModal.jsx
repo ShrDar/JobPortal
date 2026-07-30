@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import crossImg from '../../public/cross.png'
+import crossImg from '/cross.png'
 import { useNavigate } from "react-router-dom";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { db, storage } from "../../config/firebase";

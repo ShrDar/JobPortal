@@ -39,60 +39,54 @@ function OrgLogin() {
 
     const [checkPass, setCheckPass] = useState(false); // useState hook is used to change the password field to text field if the user hits the eye icon
 
-    useEffect(() => {
-        const fromApplicant = localStorage.getItem('fromApplicant')
-        if(fromApplicant === "false") {
-            navigate('/applicantDashboard/applicantJobs')
-        }
-    }, [])
+    // useEffect(() => {
+    //     const fromApplicant = localStorage.getItem('fromApplicant')
+    //     if(fromApplicant === "false") {
+    //         navigate('/applicantDashboard/applicantJobs')
+    //     }
+    // }, [])
 
     return (
-        <div className="loginContainer">
-            <AnimatePresence> 
-                {/* AnimatePresence allows components to animate out when they're removed from the React tree. */}
-                {/* motion is a feature provided by the framer motion library which helps us in adding animations to our website */}
-                <motion.div className="loginContainer1" initial={{opacity: 0, x: -1000}} animate={{opacity: 1, x: 0}}>
-                    <motion.div className="login" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                        <div className="loginHeading">
-                            <h2 style={{fontWeight: "bold", fontSize: "24px"}}>Welcome Back Org</h2>
-                            {errorMessage && <h3 style={{fontSize: '14px', paddingTop: '8px', color: '#fc5f5f', fontWeight: '500'}}>{errorMessage}</h3>}
+        <div className="flex min-h-screen items-center justify-center overflow-hidden bg-[#285956] bg-[url('/loginBg.png')] bg-cover bg-center px-4 text-white">
+            <AnimatePresence>
+                <motion.div className="flex w-full max-w-4xl flex-col gap-8 rounded-2xl bg-black/60 p-6 backdrop-blur-sm lg:flex-row lg:items-center lg:gap-16 lg:p-16" initial={{opacity: 0, x: -100}} animate={{opacity: 1, x: 0}}>
+                    <motion.div className="flex w-full max-w-md flex-col gap-6 text-center lg:text-left" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                        <div className="space-y-2 px-1">
+                            <h2 className="text-2xl font-bold">Welcome Back Org</h2>
+                            {errorMessage && <h3 className="pt-2 text-sm font-medium text-[#fc5f5f]">{errorMessage}</h3>}
                         </div>
-                        {/* Form is a component which is a wrapper around HTML form tag which is used for client side routing and data mutations */}
-                        <Form className="loginForm" method="post">
-                            <div className="login-EP">
+                        <Form className="flex w-full flex-col gap-8" method="post">
+                            <div className="flex flex-col gap-2 text-left text-sm">
                                 <label>Email address</label>
-                                <input autoComplete='off' name="email" className="loginInput" type="email" />
+                                <input autoComplete='off' name="email" type="email" className="h-10 rounded-md bg-white px-3 text-black shadow-[0_0_8px_#2c7251] transition hover:shadow-[0_0_12px_#43B27F] focus:outline-none focus:ring-2 focus:ring-[#43B27F]" />
                             </div>
-                            <div className="login-EP">
+                            <div className="flex flex-col gap-2 text-left text-sm">
                                 <label>Password</label>
-                                <div className="login-EP-password">
-                                    <input style={{width: '100%'}} name="password" className="loginInput" type={checkPass ? "text" : "password"} autoComplete="hidden" />
-                                    <img style={{filter: checkPass ? 'grayscale(0) contrast(1.3) brightness(1.1)' : 'grayscale(1)'}} src={passEyeImg} alt="" className="showPass" onClick={() => setCheckPass(prevCheck => !prevCheck)} />
+                                <div className="flex items-center gap-3">
+                                    <input name="password" type={checkPass ? "text" : "password"} autoComplete="hidden" className="h-10 w-full rounded-md bg-white px-3 text-black shadow-[0_0_8px_#2c7251] transition hover:shadow-[0_0_12px_#43B27F] focus:outline-none focus:ring-2 focus:ring-[#43B27F]" />
+                                    <img src={passEyeImg} alt="Toggle password visibility" className="w-6 cursor-pointer transition hover:scale-110" style={{filter: checkPass ? 'grayscale(0) contrast(1.3) brightness(1.1)' : 'grayscale(1)'}} onClick={() => setCheckPass(prevCheck => !prevCheck)} />
                                 </div>
                             </div>
-                            <button 
-                                disabled={navigation.state === "submitting"} 
-                                className="signIn" >
-                                    {navigation.state === "submitting"? "Signing In": "Sign In"}
+                            <button disabled={navigation.state === "submitting"} className="w-full rounded-md bg-[#43B27F] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#285956] disabled:cursor-not-allowed disabled:opacity-70">
+                                {navigation.state === "submitting" ? "Signing In" : "Sign In"}
                             </button>
                         </Form>
-                        <motion.p whileTap={{scale: 1.1}} style={{margin: '10px', fontSize: '14px'}}>Don't have an account? <Link style={{color: "#FCB44D", fontWeight: '500'}} to={'registration'} className="login-createOne">Create one</Link></motion.p>
-                        
+                        <motion.p whileTap={{scale: 1.1}} className="m-2 text-sm">Don't have an account? <Link to={'registration'} className="font-medium text-[#FCB44D] transition hover:text-[#e2cdad]">Create one</Link></motion.p>
                     </motion.div>
-                    <div className="login1">
-                        <h2 style={{fontSize: '25px', fontWeight: '500', width: '200px'}}>What our Jobseekers Said.</h2>
-                        <p style={{fontSize: '20px', fontWeight: '500'}}>"<span style={{width: '300px', fontSize: "13px", fontWeight: "300"}}>Searching and finding your dream job is now easier than ever. Just browse a job in Stealth and apply to see the magic. "</span></p>
-                        <div className="login1-rocket" style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center', width: '100%'}}>   
-                            <p style={{fontSize: '18px', fontWeight: '500'}}>Anonymous<span style={{fontSize: '13px', fontWeight: '200'}}><br/>Works in Mars</span></p>
-                            <div className="rocketImg">
-                                <motion.img style={{width: '90px', marginRight: '0px', transition: '0.2s'}} src={rocketImg} alt="" initial={{y: 1000, scale: 2}} animate={{y: 0, scale: 1}} transition={{duration: 2, ease: 'backInOut'}} />
+                    <div className="flex w-full max-w-md flex-col gap-8 rounded-[10px_60px_10px_10px] border border-[#43B27F] bg-[#43B27F] p-6 text-left">
+                        <h2 className="w-[200px] text-[25px] font-medium">What our Jobseekers Said.</h2>
+                        <p className="text-xl font-medium">"<span className="text-[13px] font-light">Searching and finding your dream job is now easier than ever. Just browse a job in Stealth and apply to see the magic. "</span></p>
+                        <div className="flex w-full items-center justify-around">
+                            <p className="text-lg font-medium">Anonymous<span className="block text-[13px] font-extralight">Works in Mars</span></p>
+                            <div className="relative rounded-full bg-[#0F2221]">
+                                <motion.img src={rocketImg} alt="Rocket" className="w-[90px] transition hover:scale-110" />
                             </div>
                         </div>
-                        <motion.div className="login1-getJob cursor-pointer" onClick={() => navigate('/applicantDashboard/applicantJobs')} whileTap={{scale: 0.8}} >
-                            <div className="getJob0">
+                        <motion.div className="flex cursor-pointer items-center justify-around gap-3 rounded-[10px_60px_10px_10px] border-[3px] border-[#056337] bg-white p-3 text-black transition hover:scale-95" onClick={() => navigate('/applicantDashboard/applicantJobs')} whileTap={{scale: 0.8}}>
+                            <div className="flex h-[90px] w-[60%] items-center justify-center text-center text-[17px] font-black tracking-wide drop-shadow-[1px_10px_4px_#5c5c5c]">
                                 <p>Click Here To Find the Best Jobs</p>
                             </div>
-                            <img src={jobImg} alt="" className="getJobImg" />
+                            <img src={jobImg} alt="Job" className="h-10" />
                         </motion.div>
                     </div>
                 </motion.div>

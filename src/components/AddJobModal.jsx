@@ -107,7 +107,7 @@ function AddJobModal({ isAddModalOpen, setIsAddModalOpened, orgId }) {
                 </div>
                 <div className="jobDetail">
                     <p>Available Till</p>
-                    <input type="date" min={date} max={'2025-01-01'} onChange={(e) => setJobExpiryDate(e.target.value)} />
+                    <input type="date" min={date} max={'2027-01-01'} onChange={(e) => setJobExpiryDate(e.target.value)} />
                 </div>
             </div>
             <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="addJobModalBtn" onClick={() => handleAddJob()}>Add</motion.button>

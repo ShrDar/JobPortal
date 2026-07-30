@@ -45,11 +45,11 @@ function OrgDashboard() {
                                 navigate('orgProfile', {replace: true});
                                 setIsDropDownOpened(false)
                         }}>
-                            <img style={{filter: 'brightness(0) invert(1)', borderRadius: '50%'}} src={org.imgUrl} alt="" />
-                            <p>My Profile</p>
+                            <img style={{filter: 'brightness(0) invert(1)', borderRadius: '50%', width: "20px"}} src={org.imgUrl} alt="" />
+                            <p>Profile</p>
                         </div>
                         <div className="dropDownItem" onClick={() => navigate('/', {replace: true})}>
-                            <img src={logOutBtn} alt="" />
+                            <img style={{width: "20px"}} src={logOutBtn} alt="" />
                             <p>Log-Out</p>
                         </div>
                     </div>

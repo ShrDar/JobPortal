@@ -50,7 +50,7 @@ function ApplicantJobDetails() {
             <div className="jobDetails" style={!dateCheck ? {border: '2px solid #6ce0a6'} : {border: '2px solid #faacb4'}}>
                 <div className="jobTitle flex justify-between">
                     <div className="jobTitleWapper flex gap-2">
-                        <img src={org.imgUrl} style={{width: '50px', borderRadius: '10px'}} />
+                        <img src={org.imgUrl} className="w-[10vw] lg:w-[5vw] object-contain" />
                         <div className="jobTitle-1">    
                             <h1 style={{fontSize: '20px', fontWeight: '500'}}>{job.jobTitle}</h1>
                             <p>{org.name}</p>
