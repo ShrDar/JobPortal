@@ -1,7 +1,8 @@
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import React from "react";
 import { createPortal } from "react-dom";
 import { db } from "../../config/firebase";
+import { storage, BUCKET_ID } from "../../config/appwrite";
 import dustbin from '/delete.png'
 import { motion } from "framer-motion";
 
@@ -12,6 +13,18 @@ function DeleteApplicantModal( {isDeleteApplicantModalOpen, setIsDeleteApplicant
     const handleDeleteApplicant = async(id) => {
         try {
             const appRef = doc(db, "applicant", id);
+            const applicantDoc = await getDoc(appRef);
+            if (applicantDoc.exists()) {
+                const applicantData = applicantDoc.data();
+                const cvAppwriteId = applicantData.cv_appwrite_id;
+                if (cvAppwriteId) {
+                    try {
+                        await storage.deleteFile(BUCKET_ID, cvAppwriteId);
+                    } catch (err) {
+                        console.error("Failed to delete CV from Appwrite:", err);
+                    }
+                }
+            }
             await deleteDoc(appRef);
             setIsDeleteApplicantModalOpened(false);
         } catch (err) {

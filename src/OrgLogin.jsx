@@ -49,7 +49,7 @@ function OrgLogin() {
     return (
         <div className="flex min-h-screen items-center justify-center overflow-hidden bg-[#285956] bg-[url('/loginBg.png')] bg-cover bg-center px-4 text-white">
             <AnimatePresence>
-                <motion.div className="flex justify-center items-center w-[70%] lg:w-full max-w-4xl flex-col gap-8 rounded-2xl bg-black/60 p-6 backdrop-blur-sm lg:flex-row lg:items-center lg:gap-16 lg:p-16" initial={{opacity: 0, x: -100}} animate={{opacity: 1, x: 0}}>
+                <motion.div className="flex justify-center items-center w-[70%] lg:w-full max-w-4xl flex-col gap-8 rounded-2xl bg-black/60 p-6 backdrop-blur-sm lg:flex-row lg:items-center lg:gap-16 lg:p-16" initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1}}>
                     <motion.div className="flex w-full max-w-md flex-col gap-6 text-center lg:text-left" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                         <div className="space-y-2 px-1">
                             <h2 className="text-2xl font-bold">Welcome Back Org</h2>

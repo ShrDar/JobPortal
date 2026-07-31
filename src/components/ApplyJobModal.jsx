@@ -3,8 +3,9 @@ import { createPortal } from "react-dom";
 import crossImg from '/cross.png'
 import { useNavigate } from "react-router-dom";
 import { addDoc, collection, getDocs } from "firebase/firestore";
-import { db, storage } from "../../config/firebase";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { db } from "../../config/firebase";
+import { storage, BUCKET_ID } from "../../config/appwrite";
+import { ID } from "appwrite";
 import checkImg from "/check.png"
 import { motion } from "framer-motion";
 
@@ -88,8 +89,10 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
         let currentDate = new Date().toJSON().slice(0, 10);
         
         let formData = {name, email, address, phone, appliedDate: currentDate, jobListingId: job.id, applicantState: 'Pending'}
-        let cv_ref = await handleCvUpload();
-        formData = {...formData, cv_ref}
+        const cvUploadResult = await handleCvUpload();
+        if (cvUploadResult) {
+            formData = {...formData, cv_ref: cvUploadResult.url, cv_appwrite_id: cvUploadResult.fileId};
+        }
 
         try {
             const applicantRef = collection(db, 'applicant');
@@ -108,15 +111,24 @@ function ApplyJobModal({ isOpened, setIsOpened, job }) {
 
     const handleCvUpload = async() => {
         if(!cvRef) return;
-        const filesFolderRef = ref(storage, `applicantCv/${cvRef.name}`);
 
         try {
-            let file = await uploadBytes(filesFolderRef, cvRef)
-            let url = await getDownloadURL(file.ref);
-            return url;
+            const file = await storage.createFile({
+                bucketId: BUCKET_ID,
+                fileId: ID.unique(),
+                file: cvRef,
+            });
+
+            const url = storage.getFileView({
+                bucketId: BUCKET_ID,
+                fileId: file.$id,
+            }).toString();
+
+            return { url, fileId: file.$id };
         } catch(err) {
-            console.error(err);
-            alert("Failed to Send Data")
+            console.error("CV upload failed:", err);
+            alert("Failed to upload CV. Please try again.")
+            return null;
         }
     }
 
