@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData, defer, Outlet, NavLink, Link } from "react-router-dom";
+import { useLoaderData, Outlet, NavLink, Link } from "react-router-dom";
 import stealthLogo from "/stealthLogo.svg"
 import "./applicant.css"
 import { useNavigate } from 'react-router-dom'

@@ -148,7 +148,7 @@ function OrgProfile() {
 
     const handleChangeAll = async () => {
         if((orgInfo.name === orgName || orgInfo.email === orgEmail || orgAddress === orgInfo.address)) {
-            alert('Old Name or Email or Address Given');
+            alert('Same Name or Email or Address Given (Make Changes in All Fields before clicking Save)');
         } else {
             handleNameChange();
             handleEmailChange();
@@ -159,14 +159,14 @@ function OrgProfile() {
     return (
         <>
         {orgInfo ? (
-            <motion.div className="organizationProfile" initial={{x: 500}} animate={{x: 0}}>
-                <div className="organizationDetailsContainer">
+            <motion.div className="flex flex-col items-center justify-center my-5 w-full" initial={{x: 500}} animate={{x: 0}}>
+                <div className="flex w-[80%] lg:w-[45%] flex-col items-center justify-start gap-[30px] bg-white rounded-[20px] py-[20px] pb-[50px] drop-shadow-[1px_1px_1px_#b6b6b6]">
                     <h1 style={{fontSize: '20px', fontWeight: '800', letterSpacing: '2px'}}>{orgInfo.name}</h1>
-                    <div className="organizationLogoContainer">
-                        <img src={orgInfo.imgUrl} alt="" />
+                    <div className="bg-[#d3d3d3] rounded-[20px] overflow-hidden p-2 w-[20%]">
+                        <img className="rounded-[10px] aspect-square object-cover drop-shadow-[1px_1px_1px_#848484]" src={orgInfo.imgUrl} alt="" />
                     </div>
                     <div className="organizationInfo">
-                        <p className="" style={{justifySelf: 'center', alignSelf: 'center'}}>Member Since {orgInfo.createdDate}</p>
+                        <p className="" style={{justifySelf: 'center', alignSelf: 'center'}}>Member Since - <span className="font-extrabold">{orgInfo.createdDate}</span></p>
                     </div>
                     <div className="organizationInfo">
                         <p>Name - {orgInfo.name}</p>
@@ -208,7 +208,7 @@ function OrgProfile() {
                             </div>
                         </div>
                     </div>
-                    <button className="changeAllBtn" onClick={() => handleChangeAll()}>Change All</button>
+                    <button className="changeAllBtn" onClick={() => handleChangeAll()}>Save All</button>
                     
                 </div>
             </motion.div>

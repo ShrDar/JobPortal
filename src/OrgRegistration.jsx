@@ -178,7 +178,7 @@ function OrgRegistration() {
                         <p className="w-fit cursor-pointer text-xs font-bold text-[#b1b1b1] transition hover:text-white" onClick={() => navigate('/', {replace: true})}>Back to Sign In</p>
                     </div>
                 </div>
-                <div className="flex w-full flex-col items-center justify-center gap-10 bg-[#43B27F] p-8 text-center lg:w-[35%] lg:rounded-[10px_60px_10px_10px] lg:m-5">
+                <div className="hidden lg:flex w-full flex-col items-center justify-center gap-10 bg-[#43B27F] p-8 text-center lg:w-[35%] lg:rounded-[10px_60px_10px_10px] lg:m-5">
                     <p className="w-[150px] text-xl">Help People Get their Dream Job</p>
                     <img src={earthImg} alt="Earth" className="w-[150px] transition hover:scale-110" />
                     <p className="w-[200px] leading-9"><span className="text-xl font-medium">Globally,</span><br/>Millions of People are Actively Searching for Job Right Now !</p>

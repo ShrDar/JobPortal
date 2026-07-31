@@ -263,6 +263,8 @@ input[type=checkbox]:hover {
     padding: 4px 8px;
     border-radius: 4px;
 }
+
+/* Used for Reducing Redundant job type styles */
 .jobDuration {
     background-color: #D9EEFF;
     color: #168BFD;
@@ -275,6 +277,7 @@ input[type=checkbox]:hover {
     background-color: #FFF0D4;
     color: #FE9822;
 }
+
 .job3 p{
     font-size: 13px;
 }

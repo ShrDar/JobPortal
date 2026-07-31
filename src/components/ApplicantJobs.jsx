@@ -5,6 +5,7 @@ import { useLoaderData, useNavigate, useNavigation } from "react-router-dom";
 import calenderImg from '/calendar.png'
 import teamImg from '/team.png'
 import { motion, AnimatePresence } from "framer-motion";
+import { Icon } from '@iconify/react';
 
 export async function loader() {
     const applicantJobCollectionRef = collection(db, 'jobListings')
@@ -229,9 +230,7 @@ function ApplicantJobs() {
                 className="fixed bottom-6 left-6 z-40 lg:hidden flex items-center justify-center w-14 h-14 bg-[#119856] text-white rounded-full shadow-lg hover:bg-[#025d14] focus:outline-none transition-colors duration-200"
                 aria-label="Toggle Filters"
             >
-                <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                    <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" />
-                </svg>
+                <Icon icon="mdi:filter" className="w-6 h-6" />
                 {Object.values(selectedFilters).some(arr => arr.length > 0) && (
                     <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white"></span>
                 )}
@@ -260,7 +259,7 @@ function ApplicantJobs() {
                         return (
                             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.1, delay: index * 0.04, ease: "easeOut", }} whileTap={{scale: 0.8}} style={!dateValidation(job.endDate) ? {border: '2px solid #6ce0a6'} : {border: '2px solid #faacb4'}} className="job" key={job.id} onClick={() => navigate(`/applicantDashboard/jobDetails/${job.id}`)}>
                                 <div className="job1">
-                                    <img className="jobOrgLogo" src={org.imgUrl} alt="" />
+                                    <img className="aspect-square object-cover rounded-full w-[15%] border-2 border-[#8d8d8d]" src={org.imgUrl} alt="" />
                                     <div className="job1-1">
                                         <h2>{job.jobTitle?.length > 13
                                             ? `${job.jobTitle.slice(0, 13)}...`

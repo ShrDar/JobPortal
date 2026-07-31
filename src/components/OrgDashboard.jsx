@@ -39,17 +39,17 @@ function OrgDashboard() {
                     <NavLink to={'orgApplicants'} replace={true} style={({isActive}) => isActive ? {color: "#07914C", textDecoration: 'underline', textUnderlineOffset: '5px'} : {color: "#000"}}>Applicants</NavLink>
                 </div>
                 <div className="orgProfile" onMouseEnter={() => setIsDropDownOpened(true)} onClick={() => setIsDropDownOpened(prevState => !prevState)}  >
-                    <img style={{borderRadius: '50%'}} src={org.imgUrl} alt="" />
+                    <img className="rounded-full aspect-square object-cover w-[40px]" src={org.imgUrl} alt="" />
                     <div className="dropDown" style={isDropDownOpen ? {opacity: 1} : {opacity: 0, transform:'translateX(500px)'}} onMouseLeave={() => setIsDropDownOpened(false)}>
-                        <div className="dropDownItem" onClick={() => {
+                        <div className="flex w-full h-[70px] hover:bg-[#17ae65] items-center justify-center gap-3 p-3 cursor-default text-center transition-all duration-200 z-[100]" onClick={() => {
                                 navigate('orgProfile', {replace: true});
                                 setIsDropDownOpened(false)
                         }}>
-                            <img style={{filter: 'brightness(0) invert(1)', borderRadius: '50%', width: "20px"}} src={org.imgUrl} alt="" />
+                            <img className="aspect-square object-cover rounded-full w-[25%] p-1 bg-white" src={org.imgUrl} alt="" />
                             <p>Profile</p>
                         </div>
-                        <div className="dropDownItem" onClick={() => navigate('/', {replace: true})}>
-                            <img style={{width: "20px"}} src={logOutBtn} alt="" />
+                        <div className="flex w-full h-[70px] hover:bg-[#17ae65] items-center justify-center gap-3 p-3 cursor-default text-center transition-all duration-200 z-[100]" onClick={() => navigate('/', {replace: true})}>
+                            <img className="brightness-0 invert w-[15%]" src={logOutBtn} alt="" />
                             <p>Log-Out</p>
                         </div>
                     </div>

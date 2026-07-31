@@ -46,26 +46,26 @@ function ApplicantJobDetails() {
     const dateCheck = dateValidation(job.endDate);
 
     return (
-        <motion.div initial={{y: -500}} animate={{y: 0}} className="applicantJobDetails" >
-            <div className="jobDetails" style={!dateCheck ? {border: '2px solid #6ce0a6'} : {border: '2px solid #faacb4'}}>
-                <div className="jobTitle flex justify-between">
-                    <div className="jobTitleWapper flex gap-2">
+        <motion.div initial={{y: -500}} animate={{y: 0}} className="flex justify-center items-center w-full" >
+            <div className="flex flex-col gap-[18px] bg-white w-[90%] xl:w-[33%] mt-[30px] rounded-[20px] p-5" style={!dateCheck ? {border: '2px solid #6ce0a6'} : {border: '2px solid #faacb4'}}>
+                <div className="flex align-center justify-between">
+                    <div className="flex gap-2">
                         <img src={org.imgUrl} className="w-[10vw] lg:w-[5vw] object-contain" />
-                        <div className="jobTitle-1">    
+                        <div className="flex flex-col">    
                             <h1 style={{fontSize: '20px', fontWeight: '500'}}>{job.jobTitle}</h1>
                             <p>{org.name}</p>
                         </div>
                     </div>
                     <motion.img whileTap={{scale: [2, 1]}} className="cross" style={{alignSelf: 'flex-start'}} src={backImg} onClick={() => navigate('/applicantDashboard/applicantJobs')} />
                 </div>
-                <div className="jobTypes job2">
-                    <p className="jobDuration">{job.jobDurationType}</p>
-                    <p className="jobWorkLocation">{job.workLocation}</p>
-                    <p className="jobExperience">{job.experience}</p>
+                <div className="flex gap-2 text-xs">
+                    <p className="jobDuration font-bold rounded-md px-2 py-1">{job.jobDurationType}</p>
+                    <p className="jobWorkLocation font-bold rounded-md px-2 py-1">{job.workLocation}</p>
+                    <p className="jobExperience font-bold rounded-md px-2 py-1">{job.experience}</p>
                 </div>
-                <div className="jobDescription" style={{textAlign: "justify"}}>
-                    <p style={{marginBottom: '8px'}}>Description:</p>
-                    <p className="description" style={{fontSize: '12px', color: '#4b4b4b'}}>{job.description}</p>
+                <div className="text-justify">
+                    <p className="mb-2" >Description:</p>
+                    <p className="description text-xs text-[#4b4b4b]" >{job.description}</p>
                 </div>
                 <div className="jobVacancies flex gap-3">
                     <img src={teamImg} alt="" style={{width: '25px'}} />

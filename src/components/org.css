@@ -60,11 +60,7 @@
     height: fit-content;
     z-index: 100;
 }
-.orgProfile img {
-    width: 40px;
-    filter: drop-shadow(1px 1px 1px #777777);
-    cursor: pointer;
-}
+
 .dropDown {
     display: flex;
     gap: 10px;
@@ -96,10 +92,6 @@
 }
 .dropDownItem:hover {
     background-color: #17ae65;
-}
-.dropDownItem img {
-    width: 20px;
-    filter: invert(1);
 }
 
 
@@ -557,10 +549,7 @@
     border-radius: 30px;
     overflow: hidden;
 }
-.organizationLogoContainer img{
-    width: 90px;
-    filter: drop-shadow(1px 1px 1px #848484);
-} 
+
 .organizationDetailsContainer {
     display: flex;
     flex-direction: column;
