@@ -31,7 +31,7 @@ function OrgDashboard() {
                 <Link to={""}>
                     <div className="orgNavLogo">
                         <img className="stealthLogo" src={stealthLogo} alt="" />
-                        <h2>Talent Link</h2>
+                        <h2>Stealth</h2>
                     </div>
                 </Link>
                 <div className="orgLinks">

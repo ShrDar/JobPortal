@@ -15,15 +15,15 @@ function ApplicantDashboard() {
     const data = useLoaderData();
     localStorage.setItem('fromApplicant', true);
     return (
-        <div className="applicantDashboard">
-            <div className="applicant-navBar">
+        <div className="relative flex flex-col h-screen max-w-full bg-[#EDEDED] text-black font-['Karla',sans-serif]">
+            <div className="relative flex h-[10%] w-full items-center justify-between bg-white p-[15px] drop-shadow-[1px_1px_1px_#d1d1d1] transition-all duration-200r">
                 <Link to={''}>
-                    <div className="applicantNavLogo">
+                    <div className="flex items-center justify-around text-[25px] font-bold text-[#09924D]">
                         <img className="stealthLogo" src={stealthLogo} />
-                        <h3>Talent Link</h3>
+                        <h3>Stealth</h3>
                     </div>
                 </Link>
-                <div className="applicantLinks">
+                <div className="absolute inset-x-0 flex self-center justify-self-center gap-[50px] transition-all duration-200">
                     
                     <NavLink to={'applicantJobs'} style={({isActive}) => isActive ? {color: "#07914C", textDecoration: 'underline', textUnderlineOffset: '5px'} : {color: "#000"}}>Jobs</NavLink>
                     <NavLink to={'aboutUs'} style={({isActive}) => isActive ? {color: "#07914C", textDecoration: 'underline', textUnderlineOffset: '5px'} : {color: "#000"}}>About Us</NavLink>
