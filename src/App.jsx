@@ -4,6 +4,7 @@ import { createBrowserRouter,
         Route, 
         RouterProvider} from "react-router-dom";
 import '../index.css'
+import { Toaster } from "./components/ui/sonner";
 import { OrgDashboard, loader as orgLoader } from "./components/OrgDashboard";
 import { ApplicantDashboard, loader as applicantDashLoader } from "./components/ApplicantDashboard";
 import { OrgLogin, action as orgLoginAction } from "./OrgLogin";
@@ -57,7 +58,10 @@ const router = createBrowserRouter(createRoutesFromElements(
 function App() {
     //This is the App component or a function that returns JSX element. JSX is an object which is transformed in to HTML DOM elements by React library
     return (
-        <RouterProvider router = {router} />
+        <>
+            <RouterProvider router = {router} />
+            <Toaster richColors />
+        </>
     )
     //RouteProvider is a in-built react-router-dom component use for rendering the App
 }

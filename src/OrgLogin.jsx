@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import React, { useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
 import jobImg from '/job.png'
 import rocketImg from '/rocket.png'
 import passEyeImg from '/eyes.png'
-import marsImg from '/mars.png'
-import { motion, transform } from 'framer-motion'
+import { motion } from 'framer-motion'
+import { toast } from 'sonner'
 import { AnimatePresence } from 'framer-motion'
 import { Link, 
     useNavigate, 
     Form, 
-    redirect, 
+    redirect,
     useActionData,
     useNavigation } from "react-router-dom";
-import { db } from "../config/firebase";
-import { getInfo } from "../fetchCred.jsx";
+import { db, auth } from "../config/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export async function action({ request }) {
     //action function is an inbuilt react-router function which gets initiated immediately after a form is submitted
@@ -21,30 +21,106 @@ export async function action({ request }) {
     const loginData = await request.formData(); //loginData variable is storing the formData
     const email = loginData.get("email"); //email variable storing the value of the email input field
     const password = loginData.get("password"); //password variable storing the value of the password input field
-    try {
-        const logStatus = await getInfo(email, password);  //using getInfo function from another js file to check if any matching user/organization is found in the database
-        return redirect(`/orgDashboard/${logStatus.id}/orgJobListings`); //routing the user to another url using the id of the organization
 
-    }catch(err) { //if there are no matching organizations found error is catched
-        return err.message; 
+    // Input validation
+    if (!email || !password) {
+        const errorMessage = 'Please enter both email and password.';
+        toast.error(errorMessage, {
+            style: {
+                background: '#FF7979',
+                color: '#FFFFFF',
+                border: '1px solid #FF7979',
+                borderRadius: '10px'
+            }
+        });
+        return errorMessage;
     }
 
+    // Basic email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        const errorMessage = 'Please enter a valid email address.';
+        toast.error(errorMessage, {
+            style: {
+                background: '#FF7979',
+                color: '#FFFFFF',
+                border: '1px solid #FF7979',
+                borderRadius: '10px'
+            }
+        });
+        return errorMessage;
+    }
+
+    // Password length validation
+    if (password.length < 6) {
+        const errorMessage = 'Password must be at least 6 characters long.';
+        toast.error(errorMessage, {
+            style: {
+                background: '#FF7979',
+                color: '#FFFFFF',
+                border: '1px solid #FF7979',
+                borderRadius: '10px'
+            }
+        });
+        return errorMessage;
+    }
+    
+    try {
+        // Use Firebase Auth for login (Google recommended approach)
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        
+        // Get the organization data from Firestore using the Firebase UID as document ID
+        const orgDocRef = doc(db, "organization", user.uid);
+        const orgDoc = await getDoc(orgDocRef);
+        
+        if (orgDoc.exists()) {
+            const orgData = orgDoc.data();
+            return redirect(`/orgDashboard/${user.uid}/orgJobListings`); //routing the user to another url using the Firebase UID
+        } else {
+            // User exists in Firebase Auth but no organization data found
+            throw { message: 'Organization data not found. Please contact support.' };
+        }
+
+    } catch(err) { //if there are no matching organizations found error is catched
+        console.error('Login error:', err);
+        
+        // Handle specific Firebase authentication errors
+        let errorMessage = 'Invalida Email or Password';
+        if (err.code === 'auth/user-not-found') {
+            errorMessage = 'No user found with this email address.';
+        } else if (err.code === 'auth/wrong-password') {
+            errorMessage = 'Incorrect password. Please try again.';
+        } else if (err.code === 'auth/invalid-email') {
+            errorMessage = 'Invalid email address format.';
+        } else if (err.code === 'auth/user-disabled') {
+            errorMessage = 'This account has been disabled.';
+        } else if (err.code === 'auth/too-many-requests') {
+            errorMessage = 'Too many failed attempts. Please try again later.';
+        } else if (err.code === 'auth/network-request-failed') {
+            errorMessage = 'Network error. Please check your internet connection.';
+        }
+        
+        // Show error toast notification
+        toast.error(errorMessage, {
+            style: {
+                background: '#FF7979',
+                color: '#FFFFFF',
+                border: '1px solid #FF7979',
+                borderRadius: '10px'
+            }
+        });
+        
+        return errorMessage;
+    }
 }
 
 function OrgLogin() {
 
-    const errorMessage = useActionData(); //errorMessage variable stores the data returned from the action function
     const navigation = useNavigation(); //navigation variable is used for gaining formData and other information but in our app it is not currently used
     const navigate = useNavigate(); //navigate variable is used for utilizing the useNavigate() function which is used to route users to another route
 
     const [checkPass, setCheckPass] = useState(false); // useState hook is used to change the password field to text field if the user hits the eye icon
-
-    // useEffect(() => {
-    //     const fromApplicant = localStorage.getItem('fromApplicant')
-    //     if(fromApplicant === "false") {
-    //         navigate('/applicantDashboard/applicantJobs')
-    //     }
-    // }, [])
 
     return (
         <div className="flex min-h-screen items-center justify-center overflow-hidden bg-[#285956] bg-[url('/loginBg.png')] bg-cover bg-center px-4 text-white">
@@ -53,7 +129,6 @@ function OrgLogin() {
                     <motion.div className="flex w-full max-w-md flex-col gap-6 text-center lg:text-left" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                         <div className="space-y-2 px-1">
                             <h2 className="text-2xl font-bold">Welcome Back Org</h2>
-                            {errorMessage && <h3 className="pt-2 text-sm font-medium text-[#fc5f5f]">{errorMessage}</h3>}
                         </div>
                         <Form className="flex w-full flex-col gap-8" method="post">
                             <div className="flex flex-col gap-2 text-left text-sm">
@@ -67,8 +142,8 @@ function OrgLogin() {
                                     <img src={passEyeImg} alt="Toggle password visibility" className="w-6 cursor-pointer transition hover:scale-110" style={{filter: checkPass ? 'grayscale(0) contrast(1.3) brightness(1.1)' : 'grayscale(1)'}} onClick={() => setCheckPass(prevCheck => !prevCheck)} />
                                 </div>
                             </div>
-                            <button disabled={navigation.state === "submitting"} className="w-full rounded-md bg-[#43B27F] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#285956] disabled:cursor-not-allowed disabled:opacity-70">
-                                {navigation.state === "submitting" ? "Signing In" : "Sign In"}
+                            <button disabled={navigation.state === "submitting"} className="w-full cursor-pointer rounded-md bg-[#43B27F] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#285956] disabled:cursor-not-allowed disabled:opacity-70">
+                                {navigation.state === "submitting" ? "Signing In..." : "Sign In"}
                             </button>
                         </Form>
                         <motion.p whileTap={{scale: 1.1}} className="m-2 text-sm">Don't have an account? <Link to={'registration'} className="font-medium text-[#FCB44D] transition hover:text-[#e2cdad]">Create one</Link></motion.p>
