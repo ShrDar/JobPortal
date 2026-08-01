@@ -1,24 +1,43 @@
 import React, { useState } from "react";
-import { db } from "../../config/firebase";
+import { db, auth } from "../../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { NavLink, useLoaderData, useNavigate } from 'react-router-dom'
+import { onAuthStateChanged } from "firebase/auth";
+import { NavLink, useLoaderData, useNavigate, redirect, Link, Outlet } from 'react-router-dom'
 import stealthLogo from '/stealthLogo.svg'
-import { Link, Outlet } from "react-router-dom";
 import logOutBtn from '/logout.png'
 import './org.css'
-import { useScroll } from "framer-motion";
+
+const getCurrentUser = () => {
+    return new Promise((resolve) => {
+        const unsub = onAuthStateChanged(auth, (user) => {
+            unsub();
+            resolve(user);
+        }, () => {
+            unsub();
+            resolve(null);
+        });
+    });
+}
 
 export async function loader( {params} ) {
     const orgId = params.orgId;
-    const orgRef = doc(db, "organization", orgId);
+
+    const user = await getCurrentUser();
+    if (!user || user.uid !== orgId) {
+        return redirect('/');
+    }
+
+    const orgRef = doc(db, "organizationPublic", orgId);
     try {
         const data = await getDoc(orgRef);
-        const org = data.data();
-        return org;
+        if (!data.exists()) {
+            return redirect('/');
+        }
+        return data.data();
     } catch(err) {
         console.error(err);
+        return redirect('/');
     }
-    return 'OrgDash loader';
 }
 
 function OrgDashboard() {

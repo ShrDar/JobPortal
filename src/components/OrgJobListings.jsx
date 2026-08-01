@@ -51,6 +51,7 @@ function OrgJobListings() {
     const [cVacancies, setcVacancies] = useState('');
     const [cJobExpiryDate, setcJobExpiryDate] = useState('');
     const [cJobDescription, setcJobDescription] = useState('');
+    const [cJobLocation, setcJobLocation] = useState('');
     const [cJobId, setcJobId] = useState('');
 
     const [jobTitle, setJobTitle] = useState('');
@@ -115,6 +116,7 @@ function OrgJobListings() {
                                 setcVacancies(job.NofVacancy);
                                 setcJobExpiryDate(job.endDate);
                                 setcJobDescription(job.description);
+                                setcJobLocation(job.location);
                                 setcJobId(job.id);
                                 }}>
                                 <p>Edit</p>
@@ -134,7 +136,7 @@ function OrgJobListings() {
             {jobListings.length === 0 && <h1 className='noData'>No Jobs Added Yet...</h1>}
             <AddJobModal isAddModalOpen={isAddModalOpen} setIsAddModalOpened={setIsAddModalOpened} orgId={orgId.orgId} />
             <EditJobModal isEditModalOpen={isEditModalOpen} setIsEditModalOpened={setIsEditModalOpened}
-                name={cJobName} time={cJobTime} site={cJobSite} level={cJobLevel} vacancy={cVacancies} expiryDate={cJobExpiryDate} description={cJobDescription} id={cJobId}
+                name={cJobName} time={cJobTime} site={cJobSite} level={cJobLevel} vacancy={cVacancies} expiryDate={cJobExpiryDate} description={cJobDescription} location={cJobLocation} id={cJobId}
             />
             <DeleteJobModal isDeleteJobModalOpen={isDeleteJobModalOpen} setIsDeleteJobModalOpened={setIsDeleteJobModalOpened} id={cJobId} />
         </motion.div>

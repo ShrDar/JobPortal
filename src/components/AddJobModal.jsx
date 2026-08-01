@@ -22,6 +22,7 @@ function AddJobModal({ isAddModalOpen, setIsAddModalOpened, orgId }) {
     const [jobEffectiveDate, setJobEffectiveDate] = useState('');
     const [jobExpiryDate, setJobExpiryDate] = useState('');
     const [jobDescription, setJobDescription] = useState('');
+    const [jobLocation, setJobLocation] = useState('');
 
     const handleAddJob = async() => {
         if(jobName == "" || jobDescription == "" || jobVacancies == "" || jobExpiryDate == "") {
@@ -37,7 +38,7 @@ function AddJobModal({ isAddModalOpen, setIsAddModalOpened, orgId }) {
         }
         try {
             const jobListRef = collection(db, 'jobListings');
-            const newJob = {jobTitle: jobName, jobDurationType: jobTime, workLocation: jobSite, experience: jobLevel, NofVacancy: jobVacancies, description: jobDescription, effectiveDate: date, endDate: jobExpiryDate, createdDate: date, updatedDate: date, orgId: orgId}
+            const newJob = {jobTitle: jobName, jobDurationType: jobTime, workLocation: jobSite, experience: jobLevel, NofVacancy: jobVacancies, description: jobDescription, effectiveDate: date, endDate: jobExpiryDate, createdDate: date, updatedDate: date, orgId: orgId, location: jobLocation}
             //console.log(newJob);
             await addDoc(jobListRef, newJob);
             setIsAddModalOpened(false)
@@ -70,8 +71,8 @@ function AddJobModal({ isAddModalOpen, setIsAddModalOpened, orgId }) {
             <div className="jobDetails1">
 
                 <div className="jobDetail">
-                <p>Title</p>
-                        <input className="detailText" type="text" onChange={(e) => {setJobName(e.target.value)}} value={jobName} maxLength={50} />
+                    <p>Title</p>
+                    <input className="detailText" type="text" onChange={(e) => {setJobName(e.target.value)}} value={jobName} maxLength={50} />
                 </div>
                 <div className="jobDetail">
                 <p>Description</p>
@@ -104,6 +105,10 @@ function AddJobModal({ isAddModalOpen, setIsAddModalOpened, orgId }) {
                 <div className="jobDetail">
                     <p>Vacancies</p>
                     <input type="number" min={1} className="detailText" onChange={(e) => setJobVacancies(e.target.value)} value={jobVacancies}/>
+                </div>
+                <div className="jobDetail">
+                    <p>Location</p>
+                    <input className="detailText" type="text" onChange={(e) => setJobLocation(e.target.value)} value={jobLocation} maxLength={100} />
                 </div>
                 <div className="jobDetail">
                     <p>Available Till</p>

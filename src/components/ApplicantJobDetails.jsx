@@ -16,7 +16,7 @@ export async function loader({ params }) {
     try {
         const data = await getDoc(jobRef);
         const job = {...data.data(), id: jobId};
-        const orgRef = doc(db, "organization", job.orgId);
+        const orgRef = doc(db, "organizationPublic", job.orgId);
         const data1 = await getDoc(orgRef);
         const org = data1.data();
         return {job, org}
@@ -46,11 +46,11 @@ function ApplicantJobDetails() {
     const dateCheck = dateValidation(job.endDate);
 
     return (
-        <motion.div initial={{y: -500}} animate={{y: 0}} className="flex justify-center items-center w-full" >
-            <div className="flex flex-col gap-[18px] bg-white w-[90%] xl:w-[33%] mt-[30px] rounded-[20px] p-5" style={!dateCheck ? {border: '2px solid #6ce0a6'} : {border: '2px solid #faacb4'}}>
+        <motion.div initial={{y: -500}} animate={{y: 0}} className="flex justify-center items-start w-full mt-[10vh] xl:mt-[5%]" >
+            <div className="flex flex-col gap-[18px] bg-white w-[90%] xl:w-[32%]  rounded-[20px] p-5" style={!dateCheck ? {border: '2px solid #6ce0a6'} : {border: '2px solid #faacb4'}}>
                 <div className="flex align-center justify-between">
-                    <div className="flex gap-2">
-                        <img src={org.imgUrl} className="w-[10vw] lg:w-[5vw] object-contain" />
+                    <div className="flex gap-5">
+                        <img src={org.imgUrl} className="w-[10vw] lg:w-[4vw] object-cover rounded-full aspect-square" />
                         <div className="flex flex-col">    
                             <h1 style={{fontSize: '20px', fontWeight: '500'}}>{job.jobTitle}</h1>
                             <p>{org.name}</p>
@@ -75,15 +75,15 @@ function ApplicantJobDetails() {
                     <img src={calenderImg} style={{width: '20px'}} />
                     <p style={dateCheck ? {textDecoration: 'line-through', fontSize: '14px'} : {fontSize: '14px'}}>Apply Before: {job.endDate} </p>
                 </div>
-                <div className="jobMail flex gap-3" style={dateCheck?{display: 'none'}:{}}>
+                {/* <div className="jobMail flex gap-3" style={dateCheck?{display: 'none'}:{}}>
                     <img src={mailImg} style={{width: '20px', filter: 'drop-shadow(1px 1px 1px #878787)'}} />
-                    <p style={{fontSize: '14px', letterSpacing: '1px'}}>Mail: {org.email} </p>
-                </div>
+                    <p style={{fontSize: '14px', letterSpacing: '1px'}}>Company Type: {org.type} </p>
+                </div> */}
                 <div className="jobOfficeLocation flex gap-3">
                     <img src={earthImg} style={{width: '20px'}} />
-                    <p>Location: 📍 {org.address}</p>
+                    <p>Location: 📍 {job.location}</p>
                 </div>
-                <button style={dateCheck ? {background: '#FF7979', pointerEvents: 'none', cursor: 'not-allowed'} : {}} className="applicantApplyBtn" onClick={() => setIsModalOpen(true)}>{dateCheck ? "Closed" : "Apply"}</button>
+                <button style={dateCheck ? {background: '#FF7979', pointerEvents: 'none', cursor: 'not-allowed'} : {}} className={`bg-[#26A365] text-white p-2.5 rounded-lg my-2.5 transition-all duration-200 hover:drop-shadow-[1px_1px_5px_#26A365] cursor-pointer ${dateCheck ? "bg-[#FF7979] pointer-events-none cursor-not-allowed" : ""}`} onClick={() => setIsModalOpen(true)}>{dateCheck ? "Closed" : "Apply"}</button>
                 <ApplyJobModal isOpened={isModalOpen} setIsOpened={setIsModalOpen} job={job}></ApplyJobModal>
             </div>
         </motion.div>

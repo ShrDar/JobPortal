@@ -41,13 +41,12 @@ function OrgRegistration() {
     const [passwordStrength, setPasswordStrength] = useState(0); //track password strength
     const [errors, setErrors] = useState({}); //store validation errors
     const [isSubmitting, setIsSubmitting] = useState(false); //better state management for submission
-    const [type, setType] = useState(orgTypes?.[0]?.typeId || ''); //used to store the value of type input field
+    const [type, setType] = useState(orgTypes?.[0]?.type || ''); //used to store the value of type input field
     
     // Memoize validation regex for performance
     const emailRegex = React.useMemo(() => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, []);
     const lettersRegex = React.useMemo(() => /[a-zA-Z]/g, []);
     const [imgUpload, setImgUpload] = useState(null); //used to get the image file
-    let formData;
 
     const letters = /[a-zA-Z]/g; //used for regex to validate if the there are any input fields with only whitespaces
 
@@ -160,7 +159,6 @@ function OrgRegistration() {
             return;
         }
         
-        // Create organization data object - EXCLUDING password for security (stored only in Firebase Auth)
         const orgData = {
             name,
             email,
@@ -178,15 +176,25 @@ function OrgRegistration() {
             const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
             const user = userCredential.user;
             
-            // Add additional user data to Firestore using Firebase UID as document ID (Google recommended approach)
-            const orgDocRef = doc(collection(db, "organization"), user.uid);
-            const finalOrgData = {
-                ...orgData,
-                emailVerified: user.emailVerified
-                // userId field removed since the document ID is now the Firebase UID
+            // Create data for organizationPublic collection (only name, imageUrl, type)
+            const publicOrgData = {
+                name,
+                imgUrl: url,
+                type,
             };
             
-            await setDoc(orgDocRef, finalOrgData);
+            // Create data for organizationPrivate collection (all information)
+            const privateOrgData = {
+                ...orgData,
+                emailVerified: user.emailVerified,
+            };
+            
+            // Add data to both collections using Firebase UID as document ID
+            const publicOrgDocRef = doc(collection(db, "organizationPublic"), user.uid);
+            const privateOrgDocRef = doc(collection(db, "organizationPrivate"), user.uid);
+            
+            await setDoc(publicOrgDocRef, publicOrgData);
+            await setDoc(privateOrgDocRef, privateOrgData);
             
             // Send email verification (recommended by Google)
             if (auth.currentUser) {
@@ -423,7 +431,7 @@ function OrgRegistration() {
                                     setErrors(newErrors);
                                 }
                             }} className={`h-10 rounded-md border ${errors.type ? 'border-red-500' : 'border-[#bfbfbf]'} bg-white px-3 text-black transition hover:shadow-[0_0_10px_#43B27F] focus:outline-none focus:ring-2 focus:ring-[#43B27F]`}>
-                                {orgTypes.map((type) => <option key={type.typeId} value={type.typeId}>{type.type}</option>)}
+                                {orgTypes.map((type) => <option key={type.typeId} value={type.type}>{type.type}</option>)}
                             </select>
                         </div>
                         <div className="flex flex-col gap-2 text-sm font-medium md:col-span-2">

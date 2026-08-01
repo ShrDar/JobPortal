@@ -10,7 +10,6 @@ import { Link,
     useNavigate, 
     Form, 
     redirect,
-    useActionData,
     useNavigation } from "react-router-dom";
 import { db, auth } from "../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -71,7 +70,7 @@ export async function action({ request }) {
         const user = userCredential.user;
         
         // Get the organization data from Firestore using the Firebase UID as document ID
-        const orgDocRef = doc(db, "organization", user.uid);
+        const orgDocRef = doc(db, "organizationPublic", user.uid);
         const orgDoc = await getDoc(orgDocRef);
         
         if (orgDoc.exists()) {
@@ -83,25 +82,15 @@ export async function action({ request }) {
         }
 
     } catch(err) { //if there are no matching organizations found error is catched
-        console.error('Login error:', err);
-        
-        // Handle specific Firebase authentication errors
-        let errorMessage = 'Invalida Email or Password';
-        if (err.code === 'auth/user-not-found') {
-            errorMessage = 'No user found with this email address.';
-        } else if (err.code === 'auth/wrong-password') {
-            errorMessage = 'Incorrect password. Please try again.';
-        } else if (err.code === 'auth/invalid-email') {
-            errorMessage = 'Invalid email address format.';
-        } else if (err.code === 'auth/user-disabled') {
-            errorMessage = 'This account has been disabled.';
-        } else if (err.code === 'auth/too-many-requests') {
+        console.error('Login error:', err?.code || err);
+
+        let errorMessage = 'Invalid email or password.';
+        if (err?.code === 'auth/too-many-requests') {
             errorMessage = 'Too many failed attempts. Please try again later.';
-        } else if (err.code === 'auth/network-request-failed') {
+        } else if (err?.code === 'auth/network-request-failed') {
             errorMessage = 'Network error. Please check your internet connection.';
         }
-        
-        // Show error toast notification
+
         toast.error(errorMessage, {
             style: {
                 background: '#FF7979',
@@ -110,7 +99,7 @@ export async function action({ request }) {
                 borderRadius: '10px'
             }
         });
-        
+
         return errorMessage;
     }
 }

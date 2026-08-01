@@ -9,7 +9,7 @@ import { Icon } from '@iconify/react';
 
 export async function loader() {
     const applicantJobCollectionRef = collection(db, 'jobListings')
-    const orgCollectionRef = collection(db, 'organization')
+    const orgCollectionRef = collection(db, 'organizationPublic')
     try {
 
         const data = await getDocs(applicantJobCollectionRef);

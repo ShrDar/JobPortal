@@ -13,7 +13,7 @@ function OrgProfile() {
 
     useEffect(() => {
         try {
-            const orgRef = doc(db, "organization", orgId);
+            const orgRef = doc(db, "organizationPrivate", orgId);
             const unsub = onSnapshot(orgRef, (doc) => {
                 setOrgInfo(doc.data())
                 setOrgName(doc.data().name)

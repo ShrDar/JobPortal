@@ -12,7 +12,6 @@ export async function loader() { //name of loader function doesn't matter
 
 function ApplicantDashboard() {
     const navigate = useNavigate();
-    const data = useLoaderData();
     localStorage.setItem('fromApplicant', true);
     return (
         <div className="relative flex flex-col h-screen max-w-full bg-[#EDEDED] text-black font-['Karla',sans-serif]">

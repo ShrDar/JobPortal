@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { db } from "../../config/firebase";
 import { motion } from "framer-motion";
 
-function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site, level, vacancy, expiryDate, description, id }) {
+function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site, level, vacancy, expiryDate, description, location, id }) {
     if(!isEditModalOpen) {
         return;
     }
@@ -19,6 +19,7 @@ function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site,
     const [jobAddDate, setJobAddDate] = useState('');
     const [jobExpiryDate, setJobExpiryDate] = useState(expiryDate)
     const [jobDescription, setJobDescription] = useState(description);
+    const [jobLocation, setJobLocation] = useState(location);
 
     const handleEdit = async() => {
         if(jobName == "" || jobDescription == "" || jobVacancies == "" || jobExpiryDate == "") {
@@ -34,7 +35,7 @@ function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site,
 
         try {
             const jobRef = doc(db, 'jobListings', id)
-            const updatedJob = {NofVacancy: jobVacancies, description: jobDescription, endDate: jobExpiryDate, experience: jobLevel, jobDurationType: jobTime, jobTitle: jobName, updatedDate: date, workLocation: jobSite }
+            const updatedJob = {NofVacancy: jobVacancies, description: jobDescription, endDate: jobExpiryDate, experience: jobLevel, jobDurationType: jobTime, jobTitle: jobName, updatedDate: date, workLocation: jobSite, location: jobLocation }
             console.log(updatedJob)
             await updateDoc(jobRef, updatedJob)
             setIsEditModalOpened(false);
@@ -87,6 +88,10 @@ function EditJobModal({ isEditModalOpen, setIsEditModalOpened, name, time, site,
                             <option>Remote</option>
                             <option>Hybrid</option>
                     </select>
+                </div>
+                <div className="jobDetail">
+                    <p>Location</p>
+                    <input type="text" className="detailText" onChange={(e) => setJobLocation(e.target.value)} value={jobLocation} />
                 </div>
                 <div className="jobDetail">
                     <p>Job Level</p>
